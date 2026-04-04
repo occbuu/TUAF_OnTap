@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ôn Tập - Mô Phôi Động Vật</title>
+<style>
+:root {
+  --blue:      #2563eb;
+  --blue-dark: #1e40af;
+  --radius:    10px;
+  --shadow:    0 1px 4px rgba(0,0,0,.1), 0 4px 12px rgba(0,0,0,.08);
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { height: 100%; }
+body {
+  font-family: 'Segoe UI', system-ui, sans-serif;
+  background: #f1f5f9; display: flex; flex-direction: column;
+}
+
+/* ── HEADER ── */
+.page-header {
+  background: linear-gradient(135deg, #7c3aed, #a855f7);
+  color: #fff; padding: 14px 20px;
+  display: flex; align-items: center; gap: 14px;
+  flex-shrink: 0;
+}
+.back-btn {
+  background: rgba(255,255,255,.2); border: 1px solid rgba(255,255,255,.35);
+  color: #fff; padding: 6px 14px; border-radius: 6px;
+  text-decoration: none; font-size: .88em; font-weight: 600;
+  white-space: nowrap; transition: background .15s;
+}
+.back-btn:hover { background: rgba(255,255,255,.3); }
+.header-text h1 { font-size: clamp(1em, 3.5vw, 1.4em); font-weight: 700; }
+.header-text p  { font-size: .82em; opacity: .85; margin-top: 2px; }
+
+/* ── TOOLBAR ── */
+.toolbar {
+  background: #fff; border-bottom: 1px solid #e5e7eb;
+  padding: 8px 16px;
+  display: flex; align-items: center; gap: 10px;
+  flex-shrink: 0; flex-wrap: wrap;
+}
+.toolbar-note { font-size: .82em; color: #6b7280; margin-right: auto; }
+.btn {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 7px 14px; border-radius: 7px; border: none;
+  font-size: .88em; font-weight: 600; cursor: pointer;
+  text-decoration: none; transition: background .15s;
+}
+.btn-primary {
+  background: var(--blue); color: #fff;
+}
+.btn-primary:hover { background: var(--blue-dark); }
+.btn-outline {
+  background: #f3f4f6; color: #374151;
+  border: 1.5px solid #e5e7eb;
+}
+.btn-outline:hover { background: #e5e7eb; }
+
+/* ── PDF VIEWER ── */
+.viewer-wrap {
+  flex: 1; display: flex; flex-direction: column;
+  padding: 12px 16px 16px; min-height: 0;
+}
+.viewer-frame {
+  flex: 1; border: none; border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  background: #fff;
+}
+
+/* ── FALLBACK (hiện khi iframe không support) ── */
+.fallback {
+  display: none;
+  flex: 1; align-items: center; justify-content: center;
+  flex-direction: column; gap: 16px; text-align: center;
+  padding: 40px 20px;
+}
+.fallback .icon { font-size: 3em; }
+.fallback p { color: #6b7280; font-size: .95em; max-width: 360px; }
+
+/* ── MOBILE ── */
+@media (max-width: 600px) {
+  .page-header { padding: 12px 14px; gap: 10px; }
+  .toolbar { padding: 7px 12px; gap: 8px; }
+  .viewer-wrap { padding: 8px 10px 12px; }
+  .toolbar-note { display: none; }
+}
+</style>
+</head>
+<body>
+
+<div class="page-header">
+  <a href="Index.html" class="back-btn">&#8592; Trang chủ</a>
+  <div class="header-text">
+    <h1>Mô Phôi Động Vật</h1>
+    <p>Tài liệu ôn tập &mdash; OnTap_MoPhoi.pdf</p>
+  </div>
+</div>
+
+<div class="toolbar">
+  <span class="toolbar-note">&#128215; Nếu PDF không hiển thị, hãy dùng nút bên phải.</span>
+  <a href="OnTap_MoPhoi.pdf" target="_blank" class="btn btn-outline">
+    &#128065; Mở tab mới
+  </a>
+  <a href="OnTap_MoPhoi.pdf" download class="btn btn-primary">
+    &#11015; Tải xuống
+  </a>
+</div>
+
+<div class="viewer-wrap" id="viewerWrap">
+  <iframe
+    id="pdfFrame"
+    class="viewer-frame"
+    src="OnTap_MoPhoi.pdf"
+    title="Mô Phôi Động Vật PDF">
+  </iframe>
+
+  <div class="fallback" id="fallback">
+    <div class="icon">&#128215;</div>
+    <p>Trình duyệt của bạn không hỗ trợ xem PDF trực tiếp.<br>
+    Vui lòng dùng nút <strong>Mở tab mới</strong> hoặc <strong>Tải xuống</strong> ở trên.</p>
+    <a href="OnTap_MoPhoi.pdf" target="_blank" class="btn btn-primary">
+      &#128065; Mở PDF
+    </a>
+  </div>
+</div>
+
+<script>
+// Nếu iframe không load được PDF thì hiện fallback
+var frame = document.getElementById('pdfFrame');
+var fallback = document.getElementById('fallback');
+var wrap = document.getElementById('viewerWrap');
+
+frame.addEventListener('error', function () {
+  frame.style.display = 'none';
+  fallback.style.display = 'flex';
+});
+
+// Timeout fallback cho mobile
+setTimeout(function () {
+  try {
+    var doc = frame.contentDocument || frame.contentWindow.document;
+    if (!doc || doc.readyState === 'loading') {
+      // vẫn đang load, OK
+    }
+  } catch (e) {
+    // cross-origin error = PDF đang hiển thị bình thường trong browser PDF viewer
+  }
+}, 3000);
+
+// Trên iOS Safari / một số mobile: iframe PDF thường không work
+var ua = navigator.userAgent;
+var isIOS = /iPad|iPhone|iPod/.test(ua);
+if (isIOS) {
+  frame.style.display = 'none';
+  fallback.style.display = 'flex';
+}
+</script>
+</body>
+</html>

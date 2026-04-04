@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ôn Tập Thú Y &mdash; Trang Chủ</title>
+<style>
+:root {
+  --radius: 14px;
+  --shadow: 0 2px 6px rgba(0,0,0,.07), 0 8px 24px rgba(0,0,0,.08);
+  --shadow-hover: 0 4px 12px rgba(0,0,0,.12), 0 12px 32px rgba(0,0,0,.12);
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+  background: #f1f5f9; color: #111827;
+  min-height: 100vh;
+}
+
+/* ── HEADER ── */
+.page-header {
+  background: linear-gradient(135deg, #0f172a 0%, #1e3a5f 60%, #1e40af 100%);
+  color: #fff; text-align: center;
+  padding: 40px 20px 36px;
+}
+.page-header .icon { font-size: 2.8em; margin-bottom: 10px; }
+.page-header h1 {
+  font-size: clamp(1.4em, 5vw, 2.2em);
+  font-weight: 800; letter-spacing: -.5px;
+  margin-bottom: 8px;
+}
+.page-header p { opacity: .8; font-size: .95em; }
+
+/* ── CONTAINER ── */
+.container {
+  max-width: 900px; margin: 0 auto;
+  padding: 32px 16px 60px;
+}
+.section-title {
+  font-size: .8em; font-weight: 700; letter-spacing: 1.2px;
+  text-transform: uppercase; color: #6b7280;
+  margin-bottom: 16px; padding-left: 4px;
+}
+
+/* ── GRID ── */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 16px;
+}
+
+/* ── CARD ── */
+.card {
+  background: #fff; border-radius: var(--radius);
+  box-shadow: var(--shadow); overflow: hidden;
+  display: flex; flex-direction: column;
+  text-decoration: none; color: inherit;
+  transition: box-shadow .2s, transform .2s;
+  border: 1.5px solid transparent;
+}
+.card:hover {
+  box-shadow: var(--shadow-hover);
+  transform: translateY(-3px);
+  border-color: var(--card-color, #2563eb);
+}
+
+.card-top {
+  height: 7px;
+  background: var(--card-color, #2563eb);
+}
+
+.card-body { padding: 20px 20px 16px; flex: 1; }
+.card-icon { font-size: 2em; margin-bottom: 10px; }
+.card-num {
+  font-size: .72em; font-weight: 700; letter-spacing: .8px;
+  text-transform: uppercase; color: #9ca3af; margin-bottom: 4px;
+}
+.card-title {
+  font-size: 1.05em; font-weight: 700;
+  color: #1e293b; line-height: 1.4; margin-bottom: 6px;
+}
+.card-desc {
+  font-size: .83em; color: #6b7280; line-height: 1.5;
+}
+
+.card-footer {
+  padding: 12px 20px;
+  border-top: 1px solid #f3f4f6;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.card-tag {
+  font-size: .75em; font-weight: 600;
+  background: #f3f4f6; color: #6b7280;
+  border-radius: 20px; padding: 3px 10px;
+}
+.card-arrow {
+  font-size: 1em; color: #9ca3af;
+  transition: transform .2s, color .2s;
+}
+.card:hover .card-arrow {
+  transform: translateX(4px);
+  color: var(--card-color, #2563eb);
+}
+
+/* ── PDF BADGE ── */
+.card-tag.pdf {
+  background: #fef2f2; color: #b91c1c;
+}
+
+/* ── FOOTER ── */
+.page-footer {
+  text-align: center; padding: 24px 16px;
+  font-size: .82em; color: #9ca3af;
+  border-top: 1px solid #e5e7eb;
+}
+
+/* ── MOBILE ── */
+@media (max-width: 480px) {
+  .container { padding: 20px 12px 50px; }
+  .grid { grid-template-columns: 1fr; gap: 12px; }
+  .page-header { padding: 28px 16px 24px; }
+}
+</style>
+</head>
+<body>
+
+<div class="page-header">
+  <div class="icon">&#127979;</div>
+  <h1>Tài Liệu Ôn Tập Thú Y</h1>
+  <p>Chọn môn học để bắt đầu ôn tập</p>
+</div>
+
+<div class="container">
+  <div class="section-title">Danh sách môn học</div>
+
+  <div class="grid">
+
+    <!-- Môn 1 -->
+    <a class="card" href="OnTap_DayDu.html" style="--card-color:#2563eb">
+      <div class="card-top"></div>
+      <div class="card-body">
+        <div class="card-icon">&#128138;</div>
+        <div class="card-num">Môn 01</div>
+        <div class="card-title">Kỹ Thuật Bào Chế Sinh Dược Học</div>
+        <div class="card-desc">Câu hỏi trắc nghiệm tổng hợp từ LT1 – LT12, có đáp án và giải thích.</div>
+      </div>
+      <div class="card-footer">
+        <span class="card-tag">382 câu &bull; Trắc nghiệm</span>
+        <span class="card-arrow">&#8594;</span>
+      </div>
+    </a>
+
+    <!-- Môn 2 -->
+    <a class="card" href="OnTap_A.html" style="--card-color:#16a34a">
+      <div class="card-top"></div>
+      <div class="card-body">
+        <div class="card-icon">&#128299;</div>
+        <div class="card-num">Môn 02</div>
+        <div class="card-title">Bệnh truyền nhiễm Thú y</div>
+        <div class="card-desc">Câu hỏi trắc nghiệm tổng hợp, có đáp án và giải thích.</div>
+      </div>
+      <div class="card-footer">
+        <span class="card-tag">Trắc nghiệm</span>
+        <span class="card-arrow">&#8594;</span>
+      </div>
+    </a>
+
+    <!-- Môn 3 -->
+    <a class="card" href="OnTap_B.html" style="--card-color:#d97706">
+      <div class="card-top"></div>
+      <div class="card-body">
+        <div class="card-icon">&#128300;</div>
+        <div class="card-num">Môn 03</div>
+        <div class="card-title">Pháp luật đại cương</div>
+        <div class="card-desc">Câu hỏi trắc nghiệm tổng hợp, có đáp án và giải thích.</div>
+      </div>
+      <div class="card-footer">
+        <span class="card-tag">Trắc nghiệm</span>
+        <span class="card-arrow">&#8594;</span>
+      </div>
+    </a>
+
+    <!-- Môn 4 -->
+    <a class="card" href="OnTap_C.html" style="--card-color:#dc2626">
+      <div class="card-top"></div>
+      <div class="card-body">
+        <div class="card-icon">&#9877;</div>
+        <div class="card-num">Môn 04</div>
+        <div class="card-title">Đổi mới sáng tạo và khởi nghiệp</div>
+        <div class="card-desc">Câu hỏi trắc nghiệm tổng hợp, có đáp án và giải thích.</div>
+      </div>
+      <div class="card-footer">
+        <span class="card-tag">Trắc nghiệm</span>
+        <span class="card-arrow">&#8594;</span>
+      </div>
+    </a>
+
+    <!-- Môn 5 -->
+    <a class="card" href="OnTap_MoPhoi.html" style="--card-color:#7c3aed">
+      <div class="card-top"></div>
+      <div class="card-body">
+        <div class="card-icon">&#128302;</div>
+        <div class="card-num">Môn 05</div>
+        <div class="card-title">Mô Phôi Động Vật</div>
+        <div class="card-desc">Tài liệu ôn tập dạng PDF — xem trực tiếp trong trình duyệt.</div>
+      </div>
+      <div class="card-footer">
+        <span class="card-tag pdf">&#128215; PDF</span>
+        <span class="card-arrow">&#8594;</span>
+      </div>
+    </a>
+
+  </div>
+</div>
+
+<div class="page-footer">
+  Tài liệu ôn tập &mdash; Thú Y &mdash; Cập nhật 2026
+</div>
+
+</body>
+</html>
