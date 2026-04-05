@@ -393,7 +393,7 @@ body {
 <body>
 
 <div class="page-header">
-  <a href="Index.html" class="back-btn">&#8592; Trang ch&#7911;</a>
+  <a href="index.html" class="back-btn">&#8592; Trang ch&#7911;</a>
   <h1>Ôn Tập __SUBJECT__</h1>
   <p>Câu hỏi trắc nghiệm có đáp án &mdash; Nguồn: __SOURCES__</p>
 </div>
