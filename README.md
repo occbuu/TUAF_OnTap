@@ -134,3 +134,10 @@ JavaScript render và search trực tiếp trên JSON này — không cần back
 | Lần 1 | LT1 – LT5 | 78 câu |
 | Lần 2 | + LT6 – LT9 | 116 câu |
 | Lần 3 | Update LT3–LT9, thêm LT10 | 375 câu |
+
+
+
+Lưu ý:
+ - D : Độc chất học thú y
+ - E : Dinh dưỡng động vật
+ - F : Giải phẫu động vật
