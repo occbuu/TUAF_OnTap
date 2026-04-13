@@ -141,3 +141,8 @@ Lưu ý:
  - D : Độc chất học thú y
  - E : Dinh dưỡng động vật
  - F : Giải phẫu động vật
+
+Lệnh chạy:
+ python -X utf8 combine_quiz.py LT_F01.html LT_F02.html LT_F03.html LT_F04.html
+
+python -X utf8 combine_quiz.py -s "Bệnh truyền nhiễm Thú y" LT_A01.html LT_A02.html  
