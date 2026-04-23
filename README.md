@@ -143,6 +143,10 @@ Lưu ý:
  - F : Giải phẫu động vật
 
 Lệnh chạy:
- python -X utf8 combine_quiz.py LT_F01.html LT_F02.html LT_F03.html LT_F04.html
+python -X utf8 combine_quiz.py LT_F01.html LT_F02.html LT_F03.html LT_F04.html
+
+python -X utf8 combine_quiz.py LT_E01.html LT_E02.html
+
+python -X utf8 combine_quiz.py LT_D01.html LT_D02.html
 
 python -X utf8 combine_quiz.py -s "Bệnh truyền nhiễm Thú y" LT_A01.html LT_A02.html  
