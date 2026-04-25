@@ -4364,7 +4364,7 @@
             feedbackHtml =
               '<div class="feedback-section">' +
               (q.explanation
-                ? "<p><strong>Vì: </strong>" + DOMPurify.sanitize(q.explanation) + "</p>"
+                ? "<p><strong>Vì: </strong>" + esc(q.explanation) + "</p>"
                 : "") +
               (q.reference
                 ? "<p><strong>Tham khảo: </strong>" + esc(q.reference) + "</p>"
