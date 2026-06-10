@@ -150,3 +150,9 @@ python -X utf8 combine_quiz.py LT_E01.html LT_E02.html
 python -X utf8 combine_quiz.py LT_D01.html LT_D02.html
 
 python -X utf8 combine_quiz.py -s "Bệnh truyền nhiễm Thú y" LT_A01.html LT_A02.html  
+
+python -X utf8 combine_quiz.py -s "Ký sinh trùng Thú y" LT_G01.html LT_G02.html LT_G03.html 
+
+python -X utf8 combine_quiz.py LT_G01.html LT_G02.html 
+
+python -X utf8 combine_quiz.py -s "Kiểm nghiệm dược phẩm" LT_H01.html LT_H02.html
