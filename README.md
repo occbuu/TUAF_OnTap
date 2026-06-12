@@ -158,3 +158,5 @@ python -X utf8 combine_quiz.py -s "Ký sinh trùng Thú y" LT_G01.html LT_G02.ht
 python -X utf8 combine_quiz.py LT_G01.html LT_G02.html 
 
 python -X utf8 combine_quiz.py -s "Kiểm nghiệm dược phẩm" LT_H01.html LT_H02.html
+
+python -X utf8 combine_quiz.py LT_H01.html LT_H02.html
