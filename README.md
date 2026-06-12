@@ -141,6 +141,8 @@ Lưu ý:
  - D : Độc chất học thú y
  - E : Dinh dưỡng động vật
  - F : Giải phẫu động vật
+ - G : Ký sinh trùng Thú y
+ - H : Kiểm nghiệm dược phẩm
 
 Lệnh chạy:
 python -X utf8 combine_quiz.py LT_F01.html LT_F02.html LT_F03.html LT_F04.html
