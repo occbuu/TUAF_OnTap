@@ -29,6 +29,59 @@ SCRIPT_DIR      = Path(__file__).parent
 DEFAULT_SUBJECT = "Kỹ Thuật Bào Chế Sinh Dược Học"
 DEFAULT_OUTPUT  = "OnTap_DayDu.html"
 
+_JS_STRING_ESCAPES = {
+    "n": "\n", "t": "\t", "r": "\r", "b": "\b", "f": "\f",
+    "\\": "\\", '"': '"', "'": "'", "0": "\0",
+}
+
+
+def _normalize_js_strings(text: str) -> str:
+    """Rewrite mọi chuỗi (single/double-quote, kiểu JS) thành chuỗi JSON
+    double-quote hợp lệ. Cần vì trình soạn thảo (VD: format-on-save) có
+    thể format lại khối QUESTIONS thành object-literal JS."""
+    out = []
+    i, n = 0, len(text)
+    while i < n:
+        c = text[i]
+        if c == '"' or c == "'":
+            quote = c
+            i += 1
+            chars = []
+            while i < n and text[i] != quote:
+                if text[i] == "\\" and i + 1 < n:
+                    nxt = text[i + 1]
+                    if nxt == "u" and i + 6 <= n:
+                        chars.append(chr(int(text[i + 2:i + 6], 16)))
+                        i += 6
+                    elif nxt in _JS_STRING_ESCAPES:
+                        chars.append(_JS_STRING_ESCAPES[nxt])
+                        i += 2
+                    else:
+                        chars.append(nxt)
+                        i += 2
+                else:
+                    chars.append(text[i])
+                    i += 1
+            i += 1  # bỏ qua dấu ngoặc kép đóng
+            out.append(json.dumps("".join(chars), ensure_ascii=False))
+        else:
+            out.append(c)
+            i += 1
+    return "".join(out)
+
+
+def _repair_js_object_to_json(text: str) -> str:
+    """Chuyển object-literal kiểu JS (key không quote, dấu phẩy cuối,
+    single-quote) thành JSON hợp lệ để json.loads() đọc được."""
+    text = _normalize_js_strings(text)
+    parts = re.split(r'("(?:\\.|[^"\\])*")', text)
+    for idx in range(0, len(parts), 2):  # chỉ số chẵn = ngoài chuỗi
+        seg = parts[idx]
+        seg = re.sub(r"([{,]\s*)([A-Za-z_$][\w$]*)(\s*:)", r'\1"\2":', seg)
+        seg = re.sub(r",(\s*[}\]])", r"\1", seg)
+        parts[idx] = seg
+    return "".join(parts)
+
 
 # ══════════════════════════════════════════════
 # 1. HELPERS
@@ -142,10 +195,22 @@ def read_existing_output(filepath: Path):
                 last_id = max(last_id, int(mid.group(1)))
         return [], existing_texts, last_id
 
+    raw = m.group(1)
     try:
-        data = json.loads(m.group(1))
+        data = json.loads(raw)
     except json.JSONDecodeError:
-        return [], set(), 0
+        # Khối QUESTIONS có thể đã bị trình soạn thảo format lại thành
+        # object-literal JS (key không quote, dấu phẩy cuối...). Thử
+        # "sửa" nó về JSON hợp lệ trước khi bỏ cuộc.
+        try:
+            data = json.loads(_repair_js_object_to_json(raw))
+        except json.JSONDecodeError as e:
+            print(f"\n[LỖI] Không đọc được dữ liệu câu hỏi đã có trong {filepath.name}!")
+            print(f"       {e}")
+            print("       Để tránh mất dữ liệu, script sẽ DỪNG LẠI thay vì ghi đè.")
+            print("       Hãy kiểm tra/khôi phục file này trước khi chạy lại "
+                  "(vd: file có thể đã bị trình soạn thảo format lại).")
+            sys.exit(1)
 
     existing_texts = {normalize(q["text"]) for q in data}
     last_id = max((q["id"] for q in data), default=0)
