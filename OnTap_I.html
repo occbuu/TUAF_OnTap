@@ -1,0 +1,2268 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ôn Tập - Bệnh nội khoa Thú y (123 câu)</title>
+    <style>
+      :root {
+        --blue: #2563eb;
+        --blue-dark: #1e40af;
+        --blue-bg: #eff6ff;
+        --green: #16a34a;
+        --green-bg: #f0fdf4;
+        --green-bd: #86efac;
+        --yellow-bg: #fefce8;
+        --yellow-bd: #fde047;
+        --gray: #6b7280;
+        --gray-lt: #f3f4f6;
+        --border: #e5e7eb;
+        --text: #111827;
+        --radius: 12px;
+        --shadow: 0 1px 4px rgba(0, 0, 0, 0.08), 0 4px 12px rgba(0, 0, 0, 0.06);
+      }
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        font-family:
+          "Segoe UI",
+          system-ui,
+          -apple-system,
+          sans-serif;
+        background: #f1f5f9;
+        color: var(--text);
+        line-height: 1.65;
+        font-size: 15px;
+      }
+
+      /* ── HEADER ── */
+      .page-header {
+        background: linear-gradient(
+          135deg,
+          var(--blue-dark) 0%,
+          var(--blue) 100%
+        );
+        color: #fff;
+        padding: 28px 20px 22px;
+        text-align: center;
+        position: relative;
+      }
+      .page-header h1 {
+        font-size: clamp(1.1em, 4vw, 1.7em);
+        font-weight: 700;
+        margin-bottom: 5px;
+      }
+      .page-header p {
+        opacity: 0.85;
+        font-size: 0.88em;
+      }
+      .back-btn {
+        position: absolute;
+        left: 14px;
+        top: 50%;
+        transform: translateY(-50%);
+        background: rgba(255, 255, 255, 0.18);
+        border: 1.5px solid rgba(255, 255, 255, 0.35);
+        color: #fff;
+        padding: 6px 13px;
+        border-radius: 7px;
+        text-decoration: none;
+        font-size: 0.82em;
+        font-weight: 600;
+        white-space: nowrap;
+        transition: background 0.15s;
+        line-height: 1.4;
+      }
+      .back-btn:hover {
+        background: rgba(255, 255, 255, 0.3);
+      }
+      @media (max-width: 480px) {
+        .back-btn {
+          position: static;
+          transform: none;
+          display: inline-block;
+          margin-bottom: 10px;
+          font-size: 0.8em;
+        }
+        .page-header {
+          padding-top: 16px;
+        }
+      }
+
+      /* ── SEARCH BAR ── */
+      .search-wrap {
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        background: #fff;
+        border-bottom: 1px solid var(--border);
+        padding: 10px 16px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+      }
+      .search-inner {
+        max-width: 860px;
+        margin: 0 auto;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+      .search-box {
+        flex: 1;
+        position: relative;
+      }
+      .search-box input {
+        width: 100%;
+        padding: 9px 36px 9px 38px;
+        border: 1.5px solid var(--border);
+        border-radius: 8px;
+        font-size: 0.95em;
+        outline: none;
+        background: var(--gray-lt);
+        transition:
+          border-color 0.15s,
+          background 0.15s;
+        -webkit-appearance: none;
+      }
+      .search-box input:focus {
+        border-color: var(--blue);
+        background: #fff;
+      }
+      .search-icon {
+        position: absolute;
+        left: 11px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: var(--gray);
+        pointer-events: none;
+        font-size: 1em;
+      }
+      .search-clear {
+        position: absolute;
+        right: 9px;
+        top: 50%;
+        transform: translateY(-50%);
+        background: none;
+        border: none;
+        cursor: pointer;
+        color: var(--gray);
+        font-size: 1.1em;
+        padding: 2px 4px;
+        display: none;
+        line-height: 1;
+        border-radius: 50%;
+      }
+      .search-clear:hover {
+        color: #111;
+        background: var(--gray-lt);
+      }
+      .search-count {
+        white-space: nowrap;
+        font-size: 0.88em;
+        color: var(--gray);
+        min-width: 90px;
+        text-align: right;
+      }
+      .search-count strong {
+        color: var(--blue-dark);
+      }
+
+      /* ── CONTAINER ── */
+      .container {
+        max-width: 860px;
+        margin: 18px auto;
+        padding: 0 14px 80px;
+      }
+
+      /* ── QUESTION CARD ── */
+      .question-block {
+        background: #fff;
+        border-radius: var(--radius);
+        box-shadow: var(--shadow);
+        margin-bottom: 16px;
+        border-left: 4px solid var(--blue);
+        overflow: hidden;
+        transition: box-shadow 0.15s;
+      }
+      .question-block:hover {
+        box-shadow:
+          0 2px 8px rgba(0, 0, 0, 0.12),
+          0 6px 20px rgba(0, 0, 0, 0.08);
+      }
+
+      .question-header {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        background: var(--blue-bg);
+        padding: 8px 14px;
+        border-bottom: 1px solid #dbeafe;
+      }
+      .q-badge {
+        background: var(--blue);
+        color: #fff;
+        border-radius: 20px;
+        padding: 1px 9px;
+        font-size: 0.78em;
+        font-weight: 700;
+        letter-spacing: 0.3px;
+      }
+
+      .question-text {
+        padding: 14px 16px 8px;
+        font-size: 1em;
+        font-weight: 500;
+        color: #1e293b;
+      }
+      .question-text mark {
+        background: #fef08a;
+        color: inherit;
+        border-radius: 3px;
+        padding: 0 2px;
+      }
+
+      /* ── ANSWERS ── */
+      .answers {
+        padding: 4px 16px 12px;
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+      }
+      .answer-item {
+        display: flex;
+        align-items: flex-start;
+        gap: 10px;
+        padding: 8px 12px;
+        border-radius: 8px;
+        border: 1.5px solid var(--border);
+        background: var(--gray-lt);
+      }
+      .answer-item.correct {
+        background: var(--green-bg);
+        border-color: var(--green-bd);
+        font-weight: 600;
+      }
+      .answer-letter {
+        font-weight: 700;
+        font-size: 0.9em;
+        width: 22px;
+        flex-shrink: 0;
+        padding-top: 1px;
+        color: var(--gray);
+      }
+      .answer-item.correct .answer-letter {
+        color: var(--green);
+      }
+      .answer-text {
+        flex: 1;
+        color: #374151;
+        font-size: 0.95em;
+      }
+      .answer-item.correct .answer-text {
+        color: #14532d;
+      }
+      .answer-text mark {
+        background: #bbf7d0;
+        color: inherit;
+        border-radius: 3px;
+        padding: 0 2px;
+      }
+      .check-mark {
+        flex-shrink: 0;
+        margin-left: auto;
+        padding-left: 6px;
+        color: var(--green);
+        font-weight: 700;
+      }
+
+      /* ── FEEDBACK ── */
+      .feedback-section {
+        background: var(--yellow-bg);
+        border-top: 1.5px solid var(--yellow-bd);
+        padding: 10px 16px;
+        font-size: 0.875em;
+        color: #44403c;
+      }
+      .feedback-section p {
+        margin: 3px 0;
+      }
+      .feedback-section strong {
+        color: #1c1917;
+      }
+
+      /* ── EMPTY STATE ── */
+      #noResults {
+        display: none;
+        text-align: center;
+        padding: 60px 20px;
+        color: var(--gray);
+      }
+      #noResults .nr-icon {
+        font-size: 2.5em;
+        margin-bottom: 12px;
+      }
+      #noResults p {
+        font-size: 0.95em;
+      }
+
+      /* ── SCROLL TOP ── */
+      #scrollTopBtn {
+        position: fixed;
+        bottom: 20px;
+        right: 16px;
+        width: 44px;
+        height: 44px;
+        border-radius: 50%;
+        background: var(--blue);
+        color: #fff;
+        border: none;
+        font-size: 1.3em;
+        cursor: pointer;
+        display: none;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 3px 10px rgba(37, 99, 235, 0.4);
+        transition:
+          background 0.15s,
+          transform 0.15s;
+        z-index: 200;
+        text-decoration: none;
+        line-height: 44px;
+        text-align: center;
+      }
+      #scrollTopBtn:hover {
+        background: var(--blue-dark);
+        transform: translateY(-2px);
+      }
+
+      /* ── MOBILE ── */
+      @media (max-width: 600px) {
+        body {
+          font-size: 14px;
+        }
+        .page-header {
+          padding: 18px 14px 14px;
+        }
+        .container {
+          margin: 12px auto;
+          padding: 0 10px 80px;
+        }
+        .question-text {
+          padding: 12px 12px 6px;
+        }
+        .answers {
+          padding: 4px 12px 10px;
+          gap: 5px;
+        }
+        .answer-item {
+          padding: 7px 10px;
+        }
+        .feedback-section {
+          padding: 9px 12px;
+        }
+        .search-count {
+          display: none;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="page-header">
+      <a href="index.html" class="back-btn">&#8592; Trang ch&#7911;</a>
+      <h1>Ôn Tập Bệnh nội khoa Thú y</h1>
+      <p>
+        Câu hỏi trắc nghiệm có đáp án &mdash;
+      </p>
+    </div>
+
+    <div class="search-wrap">
+      <div class="search-inner">
+        <div class="search-box">
+          <span class="search-icon">&#128269;</span>
+          <input
+            type="search"
+            id="searchInput"
+            placeholder="Tìm câu hỏi hoặc đáp án..."
+            autocomplete="off"
+          />
+          <button class="search-clear" id="searchClear" title="Xóa">
+            &#10005;
+          </button>
+        </div>
+        <div class="search-count" id="searchCount">
+          <strong>123</strong> / 123 câu
+        </div>
+      </div>
+    </div>
+
+    <div class="container" id="questionContainer">
+      <div id="noResults">
+        <div class="nr-icon">&#128269;</div>
+        <p>Không tìm thấy câu hỏi phù hợp.</p>
+      </div>
+    </div>
+
+    <a href="#" id="scrollTopBtn" title="Lên đầu trang">&#8679;</a>
+
+    <script>
+      const QUESTIONS = [
+        {
+          id: 1,
+          text: "Phương pháp điều trị tổ chức liệu pháp sử dụng để điều trị bệnh nào sau đây",
+          answers: [
+            "A. Suy dinh dưỡng, thiếu máu",
+            "B. Viêm vú",
+            "C. Viêm phổi",
+            "D. Viêm tử cung",
+          ],
+          correct: 0,
+          explanation:
+            "Đáp án đúng là: Suy dinh dưỡng, thiếu máu Vì: Có thể dùng phương pháp tổ chức liệu pháp để trị các bệnh như: loét dạ dày, vết thương điều trị lâu ngày, chống còi cọc, suy dinh dưỡng, thiếu máu. Tham khảo:",
+          reference: "mục 4.1.1",
+        },
+        {
+          id: 2,
+          text: "Có thể sử dụng dòng điện một chiều để điều trị bệnh trong trường hợp nào sau đây?",
+          answers: [
+            "A. Viêm da",
+            "B. Các trường hợp viêm mãn tính",
+            "C. Viêm màng phổi",
+            "D. Các trường hợp viêm hóa mủ",
+          ],
+          correct: 2,
+          explanation:
+            "Đáp án đúng là: Viêm màng phổi Vì: Không dùng dòng điện một chiều trong trường hợp viêm mãn tính, viêm hoá mủ, viêm da. Tham khảo:",
+          reference: "mục 4.2.2",
+        },
+        {
+          id: 3,
+          text: "Phải theo dõi chặt chẽ tác dụng của thuốc trong quá trình điều trị để:",
+          answers: [
+            "A. Để xem thuốc có tác dụng hay không",
+            "B. Để xem con triệu chứng bất thường hay không",
+            "C. Để xem con vật có xảy ra tai biến không",
+            "D. Để xem thuốc có bị tương kỵ hay không",
+          ],
+          correct: 0,
+          explanation:
+            "Đáp án đúng là: Để xem thuốc có tác dụng hay không Vì: Ta theo dõi tác dụng của thuốc để biết thuốc có tác dụng hay không Tham khảo:",
+          reference: "mục 2.6.1",
+        },
+        {
+          id: 4,
+          text: "Phương pháp huyết liệu pháp sử dụng để điều trị bệnh nào sau đây",
+          answers: [
+            "A. Nghẽn dạ lá sách",
+            "B. Chướng hơi dạ cỏ",
+            "C. Lợn con phân trắng",
+            "D. Bội thực dạ cỏ",
+          ],
+          correct: 2,
+          explanation:
+            "Đáp án đúng là: Lợn con phân trắng Vì: Có thể dùng phương pháp huyết liệu pháp để phòng và trị các bệnh như: ỉa chảy, viêm phổi, lợn con phân trắng. Tham khảo:",
+          reference: "mục 4.1.4",
+        },
+        {
+          id: 5,
+          text: "Nguyên tắc cơ bản của điều trị học là",
+          answers: [
+            "A. Biết bệnh, biết con bệnh, biết thuốc",
+            "B. Sinh lý, chủ động tích cực, tổng hợp, theo từng cơ thể, kế hoạch điều trị và theo dõi trong điều trị",
+            "C. Theo dõi tác dụng của thuốc, khả năng tương kỵ của thuốc và các tai biến có thể xảy ra.",
+            "D. Điều trị theo nguyên nhân, cơ chế và triệu chứng của bệnh",
+          ],
+          correct: 1,
+          explanation:
+            "Đáp án đúng là: Sinh lý, chủ động tích cực, tổng hợp, theo từng cơ thể, kế hoạch điều trị và theo dõi trong điều trị Vì: Để điều trị bệnh nội khoa cho vật nuôi cần tuân thủ những nguyên lý như sau: Sinh lý, chủ động tích cực, tổng hợp, theo từng cơ thể, kế hoạch điều trị và theo dõi trong điều trị Tham khảo:",
+          reference: "mục 2",
+        },
+        {
+          id: 6,
+          text: "Việc sử dụng hình thức xoa bóp trong điều trị bệnh cho vật nuôi không được sử dụng khi con vật bị sốt là do:",
+          answers: [
+            "A. Làm sản sinh ra histamin hay những chất gần giống histamin",
+            "B. Làm tăng quá trình thải nhiệt, tăng quá trình trao đổi chất, đẩy mạnh quá trình oxy hoá",
+            "C. Làm tăng cường kích thích cơ năng tiêu hoá, gia súc ăn nhiều",
+            "D. Làm kích thích đầu mút thần kinh cục bộ truyền lên đại não",
+          ],
+          correct: 1,
+          explanation:
+            "Đáp án đúng là: Làm tăng quá trình thải nhiệt, tăng quá trình trao đổi chất, đẩy mạnh quá trình oxy hoá Vì: Do khi xoa bóp sẽ làm tăng quá trình thải nhiệt và trao đổi chất, nên sẽ làm sốt tăng lên Tham khảo:",
+          reference: "mục 4.2.3",
+        },
+        {
+          id: 7,
+          text: "Trong quá trình điều trị viêm bàng quang cho chó, việc cân nhắc có nên sử dụng thuốc lợi tiểu để điều trị khi chó bị viêm tắc hay viêm không tắc là điều trị theo nguyên tắc nào?",
+          answers: [
+            "A. Nguyên tắc sinh lý",
+            "B. Nguyên tắc chủ động tích cực",
+            "C. Nguyên tắc tổng hợp",
+            "D. Nguyên tắc điều trị theo từng cơ thể",
+          ],
+          correct: 3,
+          explanation:
+            "Đáp án đúng là: Nguyên tắc điều trị theo từng cơ thể Vì: Do tình trạng bệnh của từng con vật cũng như phản ứng của từng cơ thể là khác nhau, nên trong quá trình điều trị phải cân nhắc lựa chọn phương án điều trị cho thích hợp Tham khảo:",
+          reference: "mục 2.4",
+        },
+        {
+          id: 8,
+          text: "Phương pháp nào sau đâu không phải là điều trị mang tính chất bổ sung",
+          answers: [
+            "A. Bổ sung các nguyên tố vi lượng trong bệnh thiếu các nguyên tố vi lượng.",
+            "B. Bổ sung Fe trong bệnh thiếu máu ở lợn con",
+            "C. Bổ sung nước khi gia súc bị tiêu chảy",
+            "D. Bổ sung Ca, P trong bệnh còi xương, mềm xương.",
+          ],
+          correct: 2,
+          explanation:
+            "Đáp án đúng là: Bổ sung nước khi gia súc bị tiêu chảy Vì: Việc bổ sung nước khi gia súc bị tiêu chảy là điều trị theo triệu chứng Tham khảo:",
+          reference: "mục 3.3",
+        },
+        {
+          id: 9,
+          text: "Điều trị học trong điều trị bệnh nội khoa chủ yếu dùng các biện pháp nào sau đây:",
+          answers: [
+            "A. Dùng thuốc, hóa chất",
+            "B. Dùng lý liệu pháp, dùng thuốc, hóa chất, hộ lý.",
+            "C. Dùng lý liệu pháp",
+            "D. Hộ lý",
+          ],
+          correct: 1,
+          explanation:
+            "Đáp án đúng là: Dùng lý liệu pháp, dùng thuốc, hóa chất, hộ lý. Vì: Trong điều trị học có thể dùng các biện pháp để điều trị bệnh nội khoa như: Dùng thuốc, dùng hóa chất, dùng lý liệu pháp, hộ lý Tham khảo:",
+          reference: "mục 1",
+        },
+        {
+          id: 10,
+          text: "Phương pháp điều trị nào sau đây không phải là điều trị bằng kích thích phi đặc hiệu",
+          answers: [
+            "A. Protein liệu pháp",
+            "B. Lý liệu pháp",
+            "C. Huyết liệu pháp",
+            "D. Protein thủy phân",
+          ],
+          correct: 1,
+          explanation:
+            "Đáp án đúng là: Lý liệu pháp Vì: Lý liệu pháp là điều trị bằng yếu tố vật lý Tham khảo:",
+          reference: "mục 4",
+        },
+        {
+          id: 11,
+          text: "Có …. huyết liệu pháp để điều trị bệnh cho vật nuôi:",
+          answers: ["A. 3 loại", "B. 2 loại", "C. 4 loại", "D. 5 loại"],
+          correct: 0,
+          explanation:
+            "Đáp án đúng là: 3 loại Vì: Có 3 loại huyết liệu pháp là máu cùng loài, máu khác loài và máu tự thân Tham khảo:",
+          reference: "mục 4.2.4",
+        },
+        {
+          id: 12,
+          text: "Trong quá trình điều trị bội thực dạ cỏ cho bò, việc cần kiểm tra kỹ xem con vật có đang mang thai hay không khi sử dụng thuốc pilocarpin là điều trị tuân theo nguyên tắc nào?",
+          answers: [
+            "A. Nguyên tắc điều trị theo từng cơ thể",
+            "B. Nguyên tắc tổng hợp",
+            "C. Nguyên tắc chủ động tích cực",
+            "D. Nguyên tắc sinh lý",
+          ],
+          correct: 0,
+          explanation:
+            "Đáp án đúng là: Nguyên tắc điều trị theo từng cơ thể Vì: Do tình trạng bệnh của từng con vật cũng như phản ứng của từng cơ thể là khác nhau, nên trong quá trình điều trị phải cân nhắc lựa chọn phương án điều trị cho thích hợp Tham khảo:",
+          reference: "mục 2.4",
+        },
+        {
+          id: 13,
+          text: "Đèn tử ngoại không có tác dụng nào sau đây:",
+          answers: [
+            "A. Dùng điều trị các vết thương nằm sâu trong cơ thể",
+            "B. Làm biến đổi elgosterol thành vitamin D 2",
+            "C. Làm biến đổi 7 hydrocolesterol thành vitamin D 3",
+            "D. Làm phân huỷ protit",
+          ],
+          correct: 0,
+          explanation:
+            "Đáp án đúng là: Dùng điều trị các vết thương nằm sâu trong cơ thể Vì: Để điều trị các vết thương nằm sâu trong cơ thể phải sử dụng đèn hồng ngoại Tham khảo:",
+          reference: "mục 4",
+        },
+        {
+          id: 14,
+          text: "Phương pháp protein thủy phân sử dụng để điều trị bệnh nào sau đây",
+          answers: [
+            "A. Viêm phổi",
+            "B. Viêm vú",
+            "C. Viêm tử cung",
+            "D. Suy dinh dưỡng",
+          ],
+          correct: 3,
+          explanation:
+            "Đáp án đúng là: Suy dinh dưỡng Vì: Có thể dùng phương pháp Pr thủy phân để phòng và trị các bệnh như: suy dinh dưỡng, chống thiếu máu, phòng bệnh lợn con ỉa phân trắng. Tham khảo:",
+          reference: "mục 4.1.2",
+        },
+        {
+          id: 15,
+          text: "Khi gia súc bị ỉa chảy, mất nước chưa rõ nguyên nhân việc cung cấp nước, kết hợp tiêm các thuốc trợ lực cho gia súc là điều trị theo hướng nào sau đây?",
+          answers: [
+            "A. Điều trị theo cơ chế sinh bệnh",
+            "B. Điều trị theo triệu chứng",
+            "C. Điều trị mang tính chất bổ sung",
+            "D. Điều trị theo nguyên nhân",
+          ],
+          correct: 1,
+          explanation:
+            "Đáp án đúng là: Điều trị theo triệu chứng Vì: Khi điều trị bệnh nếu chưa xác định rõ nguyên nhân của bệnh thì để hạn chế mức độ tiến triển của bệnh, chúng ta phải điều trị theo triệu chứng Tham khảo:",
+          reference: "mục 3.3",
+        },
+        {
+          id: 16,
+          text: "Không dùng dung dịch nào sau đây để rửa mũi, họng cho vật nuôi?",
+          answers: [
+            "A. Nước muối sinh lý",
+            "B. Axit tanic 0,5%",
+            "C. Glucose 5%",
+            "D. Bicacbonat natri 3%",
+          ],
+          correct: 2,
+          explanation:
+            "Đáp án đúng là: Glucose 5% Vì: Có thể dùng các dung dịch như: nước muối sinh lý, bicacbonat natri 3% hoặc axit tanic 0,5% để rửa mũi họng cho vật nuôi. Tham khảo:",
+          reference: "mục 4.2.4",
+        },
+        {
+          id: 17,
+          text: "Bệnh chướng hơi dạ cỏ cấp tính có thể dẫn đến ngạt thở mà chết. Do vậy, trong điều trị cần phải theo dõi sự tiến triển của quá trình lên men sinh hơi trong dạ cỏ, từ đó nhanh chóng thoát hơi dạ cỏ cho gia súc bệnh.",
+          answers: [
+            "A. Nguyên tắc điều trị theo từng cơ thể",
+            "B. Nguyên tắc tổng hợp",
+            "C. Nguyên tắc chủ động tích cực",
+            "D. Nguyên tắc sinh lý",
+          ],
+          correct: 2,
+          explanation:
+            "Đáp án đúng là: Nguyên tắc chủ động tích cực Vì: Vì nguyên tắc tổng hợp là nguyên tắc điều trị cần can thiệp sớm và tìm biện pháp tốt nhất để điều trị Tham khảo:",
+          reference: "mục 2.2",
+        },
+        {
+          id: 18,
+          text: "Khi sử dụng nước tắm toàn thân cho gia súc không nên sử dụng nước sau:",
+          answers: [
+            "A. Nhiệt độ từ 25 – 30 0 C",
+            "B. Nhiệt độ dưới 18 - 20 0 C",
+            "C. Nhiệt độ từ 36 – 40 0 C",
+            "D. Nhiệt độ từ 20 – 25 0 C",
+          ],
+          correct: 1,
+          explanation:
+            "Đáp án đúng là: Nhiệt độ dưới 18 - 20 0 C Vì: Khi tắm cho gia súc không nên dùng nư ớc lạnh dưới 18 - 20 0 C Tham khảo:",
+          reference: "mục 4.2.4",
+        },
+        {
+          id: 19,
+          text: "Việc điều trị nhằm cắt đứt một hay nhiều giai đoạn gây bệnh để đối phó với sự tiến triển của bệnh theo các hướng khác nhau là:",
+          answers: [
+            "A. Điều trị theo triệu chứng",
+            "B. Điều trị theo cơ chế sinh bệnh",
+            "C. Điều trị theo nguyên nhân",
+            "D. Điều trị mang tính chất bổ sung",
+          ],
+          correct: 1,
+          explanation:
+            "Đáp án đúng là: Điều trị theo cơ chế sinh bệnh Vì: Vì khi tiến hành điều trị theo cơ chế sinh bệnh chính là nhằm cắt đứt một hay nhiều giai đoạn gây bệnh để đối phó với sự tiến triển của bệnh theo các hướng khác nhau. Tham khảo:",
+          reference: "mục 3.2",
+        },
+        {
+          id: 20,
+          text: "Phân loại điều trị học",
+          answers: [
+            "A. Chẩn đoán bệnh",
+            "B. Con bệnh, loại bệnh",
+            "C. Nguyên nhân, triệu chứng, cơ chế và bổ sung",
+            "D. Nguyên nhân, triệu chứng, cơ chế sinh bệnh",
+          ],
+          correct: 2,
+          explanation:
+            "Đáp án đúng là: Nguyên nhân, triệu chứng, cơ chế và bổ sung Vì: Có thể phân loại điều trị học theo 4 cách là: điều trị theo nguyên nhân, theo triệu chứng, theo cơ chế sinh bệnh và điều trị mang tính chất bổ sung Tham khảo:",
+          reference: "mục 3",
+        },
+        {
+          id: 21,
+          text: "Nước sử dụng trong điều trị bệnh nội khoa được chia thành:",
+          answers: ["A. 4 loại", "B. 2 loại", "C. 3 loại", "D. 5 loại"],
+          correct: 0,
+          explanation:
+            "Đáp án đúng là: 4 loại Vì: Người ta chia nước thành các mức sau đây: Nước lạnh (nhiệt độ dưới 20 0 C), nước mát (nhiệt độ từ 20 - 33 0 C), nước ấm (nhiệt độ từ 36 - 40 0 C), nước nóng (nhiệt độ trên 40 0 C). Tham khảo:",
+          reference: "mục 4.2.4",
+        },
+        {
+          id: 22,
+          text: "Trường hợp gia súc bị trúng độc sắn (HCN), có thể can thiệp bằng cách tiêm xanh methylen 1% là điều trị theo hướng loại nào?",
+          answers: [
+            "A. Điều trị mang tính chất bổ sung",
+            "B. Điều trị theo cơ chế sinh bệnh",
+            "C. Điều trị theo triệu chứng",
+            "D. Điều trị theo nguyên nhân",
+          ],
+          correct: 3,
+          explanation:
+            "Đáp án đúng là: Điều trị theo nguyên nhân Vì: Khi xác định chính xác được con vật bị trúng độc sắn, việc tiêm xanh methylen 1% sẽ tạo phản ứng kết hợp giữa tiêm xanh methylen 1% và HCN giúp giải độc. Tham khảo:",
+          reference: "mục 3.1",
+        },
+        {
+          id: 23,
+          text: "Xoa bóp trong điều trị bệnh nội khoa chia ra thành:",
+          answers: ["A. 2 loại", "B. 4 loại", "C. 3 loại", "D. 5 loại"],
+          correct: 0,
+          explanation:
+            "Đáp án đúng là: 2 loại Vì: Xoa bóp chia ra thành 2 loại là xoa bóp toàn thân và xoa bóp cục bộ Tham khảo:",
+          reference: "mục 4.2.3",
+        },
+        {
+          id: 24,
+          text: "Phương pháp protein liệu pháp sử dụng để điều trị bệnh nào sau đây",
+          answers: [
+            "A. Chướng hơi dạ cỏ",
+            "B. Viêm phổi",
+            "C. Bội thực dạ cỏ",
+            "D. Nghẽn dạ lá sách",
+          ],
+          correct: 1,
+          explanation:
+            "Đáp án đúng là: Viêm phổi Vì: Có thể dùng phương pháp Pr liệu pháp để phòng và trị các bệnh như: viêm vú, viêm tử cung, áp xe, viêm phế quản, viêm phổi. Tham khảo:",
+          reference: "mục 4.1.2",
+        },
+        {
+          id: 25,
+          text: "Trong điều trị bội thực dạ cỏ cho cho trâu, bò, việc sử dụng pilocarphin hoặc NaCl10% kết hợp phẫu thuật ngoại khoa để lấy bớt chất chứa trong dạ cỏ ra là điều trị theo nguyên tắc nào?",
+          answers: [
+            "A. Nguyên tắc sinh lý",
+            "B. Nguyên tắc chủ động tích cực",
+            "C. Nguyên tắc điều trị theo từng cơ thể",
+            "D. Nguyên tắc tổng hợp",
+          ],
+          correct: 3,
+          explanation:
+            "Đáp án đúng là: Nguyên tắc tổng hợp Vì: Vì nguyên tắc tổng hợp là nguyên tắc sử dụng đồng thời các biện pháp tác động lên con vật. Tham khảo:",
+          reference: "mục 2.3",
+        },
+        {
+          id: 26,
+          text: "Bổ sung nước và chất điện giải cho gia súc mắc bệnh viêm ruột, ta dùng:",
+          answers: [
+            "A. Nước muối đẳng trương, đường đẳng trương",
+            "B. Nước muối  đẳng trương, đường ưu trương",
+            "C. Nước muối ưu trương, đường ưu trương",
+            "D. Nước muối ưu trương, đường đẳng trương",
+          ],
+          correct: 0,
+          explanation:
+            "Đáp án đúng là: Nước muối đẳng trương, đường đẳng trương Vì: Trong trường hợp mất nước và chất điện giải cần dùng Nước Muối đẳng trương, đường đẳng trương Tham khảo:",
+          reference: "mục 2.1",
+        },
+        {
+          id: 27,
+          text: "Khi con vật bị sốc tiêu huyết trong quá trình truyền máu cần:",
+          answers: ["A. cafein", "B. atropin", "C. adrenalin 1%", "D. morphin"],
+          correct: 0,
+          explanation:
+            "Đáp án đúng là: cafein Vì: Khi con vật khó thở, toàn thân đỏ lên, run rẩy, mạch yếu, huyết áp thấp do sốc tiêu huyết. Trường hợp này ta cần tiêm ngay một trong các loại thuốc sau: cafein Tham khảo:",
+          reference: "mục 1.6",
+        },
+        {
+          id: 28,
+          text: "Không thể dùng chất sau làm chất chống đông máu:",
+          answers: [
+            "A. Sunfatnatri 4%",
+            "B. Natricitrat 4%",
+            "C. Codein photphat",
+            "D. Canxiclorua 15%",
+          ],
+          correct: 2,
+          explanation:
+            "Đáp án đúng là: Codein photphat Vì: Không thể dùng Codein photphat làm chất chống đông máu mà nó có tác dụng giảm ho Tham khảo:",
+          reference: "mục 1.3",
+        },
+        {
+          id: 29,
+          text: "Trường hợp nào sau đây không được truyền máu:",
+          answers: [
+            "A. Gia sú bị trúng độc",
+            "B. Suy dinh dưỡng",
+            "C. Sau phẫu thuật bị mất máu nhiều",
+            "D. Gia súc bị ký sinh trùng",
+          ],
+          correct: 1,
+          explanation:
+            "Đáp án đúng là: Suy dinh dưỡng Vì: Chỉ truyền máu trong trường hợp mất máu cấp tính hoặc bệnh ký sinh trùng đường máu Tham khảo:",
+          reference: "mục 1.5",
+        },
+        {
+          id: 30,
+          text: "Đâu là nguyên nhân gây phù phổi cấp khi truyền dịch cho gia súc",
+          answers: [
+            "A. Do truyền dịch quá nhanh với số lượng nhiều ở những vật bị bệnh tim",
+            "B. Do dịch truyền thoát ra ngoài",
+            "C. Do cục máu đông",
+            "D. Do tĩnh mạch bị vỡ",
+          ],
+          correct: 0,
+          explanation:
+            "Đáp án đúng là: Do truyền dịch quá nhanh với số lượng nhiều ở những vật bị bệnh tim Vì: Khi truyền dịch quá nhanh với số lượng nhiều ở những vật bị bệnh tim sẽ gây phù phổi Tham khảo:",
+          reference: "mục 2.4",
+        },
+        {
+          id: 31,
+          text: "Dung dịch muối ưu trương có nồng độ",
+          answers: ["A. 0,1%", "B. 0,9%", "C. 0,09%", "D. 10%"],
+          correct: 3,
+          explanation:
+            "Đáp án đúng là: 10% Vì: vì dung dịch muối NaCl 10% là dung dịch ưu trương Tham khảo:",
+          reference: "mục 2.1",
+        },
+        {
+          id: 32,
+          text: "Liều lượng máu sử dụng khi truyền cho đại gia súc để kiểm tra tính tương kỵ của hai nhóm máu là",
+          answers: [
+            "A. 100 ml",
+            "B. 40 – 60 ml",
+            "C. 20 – 40 ml",
+            "D. 10 – 20 ml",
+          ],
+          correct: 0,
+          explanation:
+            "Đáp án đúng là: 100 ml Vì: Dùng 100 ml tiêm trực tiếp vào vật nhận máu để xem vật có biểu hiện gì khác thường không Tham khảo:",
+          reference: "mục 1.3",
+        },
+        {
+          id: 33,
+          text: "Để tăng cường giải độc cho trâu, bò khi bị trúng độc sắn, thường sử dụng dung dịch nào sau đây:",
+          answers: [
+            "A. NaCl 0,9%",
+            "B. Glocose 20%",
+            "C. NaCl 10%",
+            "D. Glocose 5%",
+          ],
+          correct: 1,
+          explanation:
+            "Đáp án đúng là: Glocose 20% Vì: Vì dung dịch đường ưu trương có tác dụng tăng cường giải độc cho cơ thể khi gia súc bị trúng độc, tăng cường tiết niệu và giảm phù. Tham khảo:",
+          reference: "mục 2.1",
+        },
+        {
+          id: 34,
+          text: "Liều lượng máu sử dụng khi truyền cho tiểu gia súc để kiểm tra tính tương kỵ của hai nhóm máu là",
+          answers: [
+            "A. 40 – 60 ml",
+            "B. 10 – 20 ml",
+            "C. 100 ml",
+            "D. 20 – 40 ml",
+          ],
+          correct: 1,
+          explanation:
+            "Đáp án đúng là: 10 – 20 ml Vì: Dùng 10 – 20 ml tiêm trực tiếp vào vật nhận máu để xem vật có biểu hiện gì khác thường không Tham khảo:",
+          reference: "mục 1.3",
+        },
+        {
+          id: 35,
+          text: "Dùng dung dịch đường ưu trương sử dụng để điều trị bệnh nào sau đây?",
+          answers: [
+            "A. Khi cơ thể bị suy nhược và mất nhiều nước",
+            "B. Nhằm tăng cường tuần hoàn cục bộ và phá vỡ tiểu cầu",
+            "C. Khi cơ thể bị mất máu cấp tính",
+            "D. Nhằm tăng cường giải độc cho cơ thể khi gia súc bị trúng độc, tăng cường tiết niệu và giảm phù",
+          ],
+          correct: 3,
+          explanation:
+            "Đáp án đúng là: Nhằm tăng cường giải độc cho cơ thể khi gia súc bị trúng độc, tăng cường tiết niệu và giảm phù Vì: Nhằm tăng cường giải độc cho cơ thể khi gia súc bị trúng độc, tăng cường tiết niệu và giảm phù sẽ sử dụng đường ưu trương Tham khảo:",
+          reference: "mục 2.4",
+        },
+        {
+          id: 36,
+          text: "Có thể dùng chất sau đây làm chất chống đông máu:",
+          answers: [
+            "A. Penicillin",
+            "B. Natricitrat",
+            "C. Codein photphat",
+            "D. Codein photphat, Natricitrat, Penicillin",
+          ],
+          correct: 1,
+          explanation:
+            "Đáp án đúng là: Natricitrat Vì: Có thể dùng Natricitrat để làm chất chống đông máu Tham khảo:",
+          reference: "mục 1.3",
+        },
+        {
+          id: 37,
+          text: "Đâu không phải là nguyên nhân dẫn đến dịch truyền không chảy:",
+          answers: [
+            "A. Dịch truyền treo quá thấp",
+            "B. Tắc kim do cục máu đông",
+            "C. Kim chưa vào sâu trong lòng mạch",
+            "D. Mặt vát của kim áp sát vào thành mạch",
+          ],
+          correct: 2,
+          explanation:
+            "Đáp án đúng là: Kim chưa vào sâu trong lòng mạch Vì: Vì khi kim chưa vào sâu lòng mạch mà truyền sẽ dẫn đến hiện tượng phồng chỗ truyền Tham khảo:",
+          reference: "mục 2.4",
+        },
+        {
+          id: 38,
+          text: "Dùng dung dịch sau để truyền cho gia súc mắc bệnh cảm nóng",
+          answers: [
+            "A. Nước muối ưu trương, đường đẳng trương",
+            "B. Nước muối ưu trương, đường ưu trương",
+            "C. Nước muối  đẳng trương, đường ưu trương",
+            "D. Nước muối đẳng trương, đường đẳng trương",
+          ],
+          correct: 3,
+          explanation:
+            "Đáp án đúng là: Nước muối đẳng trương, đường đẳng trương Vì: Trong trường hợp gia súc bị cảm nắng cần dùng Nước Muối đẳng trương, đường đẳng trương Tham khảo:",
+          reference: "mục 2.1",
+        },
+        {
+          id: 39,
+          text: "Nhược điểm của phương pháp truyền máu không sử dụng chất chống đông là:",
+          answers: [
+            "A. Khả năng vô trùng thấp",
+            "B. Dễ bị phù phổi",
+            "C. Dễ bị sốc",
+            "D. Máu hay bị đông vón",
+          ],
+          correct: 3,
+          explanation:
+            "Đáp án đúng là: Máu hay bị đông vón Vì: Nhược điểm lớn của phương pháp này là máu hay bị đông vón, vì vậy thường xẩy ra tai biến Tham khảo:",
+          reference: "mục 1.5",
+        },
+        {
+          id: 40,
+          text: "Ý nghĩa của việc truyền máu là:",
+          answers: [
+            "A. Bổ sung lượng máu đã mất, cầm máu, tạo huyết, chống nhiễm trùng",
+            "B. Cầm máu, tạo huyết, chống nhiễm trùng",
+            "C. Cầm máu, tạo huyết",
+            "D. Bổ sung lượng máu đã mất",
+          ],
+          correct: 0,
+          explanation:
+            "Đáp án đúng là: Bổ sung lượng máu đã mất, cầm máu, tạo huyết, chống nhiễm trùng Vì: Truyền máu giúp Bổ sung lượng máu đã mất, cầm máu, tạo huyết, chống nhiễm trùng Tham khảo:",
+          reference: "mục 1.2",
+        },
+        {
+          id: 41,
+          text: "Nhóm máu nào sau đây có thể truyền cho nhau:",
+          answers: [
+            "A. Nhóm A cho O",
+            "B. Nhóm O cho A",
+            "C. Nhóm B cho O",
+            "D. Nhóm AB cho O",
+          ],
+          correct: 1,
+          explanation:
+            "Đáp án đúng là: Nhóm O cho A Vì: Vì nhóm O có thể truyền cho tất cả các nhóm máu khác Tham khảo:",
+          reference: "mục 1.3",
+        },
+        {
+          id: 42,
+          text: "Dung dịch muối đẳng trương có nồng độ",
+          answers: ["A. 10%", "B. 0,09%", "C. 0,9%", "D. 5%"],
+          correct: 2,
+          explanation:
+            "Đáp án đúng là: 0,9% Vì: vì dung dịch muối NaCl 0,9% là dung dịch đẳng trương Tham khảo:",
+          reference: "mục 2.1",
+        },
+        {
+          id: 43,
+          text: "Trước khi truyền máu cần",
+          answers: [
+            "A. Hấp tiệt trùng",
+            "B. Tiệt trùng",
+            "C. Lọc máu",
+            "D. Lọc máu và hấp tiệt trùng",
+          ],
+          correct: 2,
+          explanation:
+            "Đáp án đúng là: Lọc máu Vì: trước khi truyền máu cần lọc máu để đảm bảo không có cục máu đông Tham khảo:",
+          reference: "mục 1.5",
+        },
+        {
+          id: 44,
+          text: "Khi truyền dịch nếu dịch thoát ra ngoài vì kim ra ngoài thành mạch hoặc kim chưa vào sâu trong lòng mạch thì sẽ dẫn đến hiện tượng nào sau đây?",
+          answers: [
+            "A. Phù phổi cấp",
+            "B. Tắc mạch do bọt khí",
+            "C. Dịch truyền không chảy",
+            "D. Phồng chỗ truyền",
+          ],
+          correct: 3,
+          explanation:
+            "Đáp án đúng là: Phồng chỗ truyền Vì: Phồng chỗ truyền Tham khảo:",
+          reference: "mục 2.4",
+        },
+        {
+          id: 45,
+          text: "Truyền máu cho những gia súc",
+          answers: [
+            "A. Gia súc bị suy tim",
+            "B. Thiếu máu mãn tính",
+            "C. Mất máu cấp tính",
+            "D. Gia súc suy thận",
+          ],
+          correct: 2,
+          explanation:
+            "Đáp án đúng là: Mất máu cấp tính Vì: Ta chỉ truyền máu trong trường hợp gia súc bị mất máu cấp tính. Tham khảo:",
+          reference: "mục 1.5",
+        },
+        {
+          id: 46,
+          text: "Tốc độ truyền máu cho gia súc yếu là:",
+          answers: [
+            "A. 15 - 20 phút/ 1 lít máu",
+            "B. 25 - 30 phút/ lít máu",
+            "C. 10 - 20 phút/ 1 lít máu",
+            "D. 15 - 25 phút/ 1 lít máu",
+          ],
+          correct: 1,
+          explanation:
+            "Đáp án đúng là: 25 - 30 phút/ lít máu Vì: khi gia súc yếu cần truyền với tốc độ khoảng 25 - 30 phút/ lít máu Tham khảo:",
+          reference: "mục 1.5",
+        },
+        {
+          id: 47,
+          text: "Khi trâu, bò bị liệt dạ cỏ, nghẽn dạ lá sách ta dùng dung dịch sau để truyền",
+          answers: [
+            "A. Đường ưu trương",
+            "B. Đường đẳng trương",
+            "C. Muối đẳng trương",
+            "D. Nước muối ưu trương",
+          ],
+          correct: 2,
+          explanation:
+            "Đáp án đúng là: Muối đẳng trương Vì: Khi trâu, bò bị liệt dạ cỏ, nghẽn dạ lá sách ta dùng dung dịch Muối đẳng trương để làm tăng cường tuần hoàn cục bộ, tăng cường nhu động của dạ cỏ hoặc dạ lá sách Tham khảo:",
+          reference: "mục 2.1",
+        },
+        {
+          id: 48,
+          text: "Dung dịch nào dưới đây gọi là dung dịch glucoza đẳng trương:",
+          answers: [
+            "A. Glucoza  5%",
+            "B. Glucoza 10 %",
+            "C. Glucoza 10 – 40%",
+            "D. Glucoza 10 - 20 %",
+          ],
+          correct: 0,
+          explanation:
+            "Đáp án đúng là: Glucoza 5% Vì: vì dung dịch Glucoza 5% là dung dịch đẳng trương Tham khảo:",
+          reference: "mục 2.1",
+        },
+        {
+          id: 49,
+          text: "Bệnh viêm ngoại tâm mạc, tùy theo tính chất viêm và dịch viêm sẽ có các trường hợp:",
+          answers: [
+            "A. Viêm hóa mủ",
+            "B. Viêm dạng tổ ong",
+            "C. Viêm dính, viêm tích nước",
+            "D. Viêm màng giả",
+          ],
+          correct: 2,
+          explanation:
+            "Đáp án đúng là: Viêm dính, viêm tích nước Vì: Khi bị viêm ngoại tâm mạc dịch rỉ viêm tạo ra chưa fibrin gây viêm dính màng ngoài tim với thành ngực hoặc do dịch rỉ viêm tạo ra nhiều cơ thể không hấp thu tích lại trong màng bao tim",
+          reference: "mục 2.1",
+        },
+        {
+          id: 50,
+          text: "Bệnh viêm ngoại tâm mạc, theo nguyên nhân gây bệnh chia ra:",
+          answers: [
+            "A. Viêm ngoại tâm mạc do ngoại vật và không do ngoại vật",
+            "B. Viêm ngoại tâm mạc do tích nước, viêm dính, do ngoại vật, không do ngoại vật",
+            "C. Viêm ngoại tâm mạc do viêm dính và tích nước",
+            "D. Viêm ngoại tâm mạc do vi khuẩn, vi rút và ngoại vật",
+          ],
+          correct: 0,
+          explanation:
+            "Đáp án đúng là: Viêm ngoại tâm mạc do ngoại vật và không do ngoại vật Vì: Viêm ngoại tâm mạc có thể do ngoại vật và không do ngoại vật",
+          reference: "mục 2.2",
+        },
+        {
+          id: 51,
+          text: "Chẩn đoán bệnh viêm ngoại tâm mạc cần phân biệt với bệnh",
+          answers: [
+            "A. Phù bao tim, tim to, tim giãn",
+            "B. Phù bao tim",
+            "C. Tim to",
+            "D. Tim giãn",
+          ],
+          correct: 0,
+          explanation:
+            "Đáp án đúng là: Phù bao tim, tim to, tim giãn Vì: cần chẩn đoán phân biệt bệnh viêm ngoại tâm mạc với phù bao tim, tim to, tim giãn.",
+          reference: "mục 2.6",
+        },
+        {
+          id: 52,
+          text: "Xét nghiệm máu trong bệnh viêm ngoại tâm mạc thấy",
+          answers: [
+            "A. Bạch cầu tăng, độ dự trữ kiềm trong máu giảm",
+            "B. Bạch cầu giảm, độ dự trữ kiềm trong máu tăng",
+            "C. Bạch cầu giảm, độ dự trữ kiềm trong máu giảm",
+            "D. Bạch cầu tăng, độ dự trữ kiềm trong máu tăng",
+          ],
+          correct: 0,
+          explanation:
+            "Đáp án đúng là: Bạch cầu tăng, độ dự trữ kiềm trong máu giảm Vì: Xét nghiệm máu thấy: số lượng bạch cầu tăng cao, độ dự trữ kiềm trong máu giảm.",
+          reference: "mục 2.4",
+        },
+        {
+          id: 53,
+          text: "Trong bệnh viêm nội tậm mạc, nếu độc tính của vi khuẩn kém, quá trình viêm ở van tim, thường làm",
+          answers: [
+            "A. Hở van tim",
+            "B. Loét van tim",
+            "C. Hẹp Van tim",
+            "D. Không ảnh hưởng đến van tim",
+          ],
+          correct: 2,
+          explanation:
+            "Đáp án đúng là: Hẹp van tim Vì: trước khi truyền máu cần lọc máu để đảm bảo không có cục máu đông",
+          reference: "mục 1.5",
+        },
+        {
+          id: 54,
+          text: "Thời kỳ cuối của bệnh viêm ngoại tâm mạc thường:",
+          answers: [
+            "A. Kéo dài 2 – 3 ngày",
+            "B. Kéo dài 7 – 10 ngày.",
+            "C. Kéo dài 1 – 2 ngày",
+            "D. Kéo dài 3 – 5 ngày",
+          ],
+          correct: 1,
+          explanation:
+            "Đáp án đúng là: Kéo dài 7 – 10 ngày Vì: Thời kỳ cuối của bệnh (kéo dài 7 - 10 ngày, sau đó con vật chết)",
+          reference: "mục 2.4",
+        },
+        {
+          id: 55,
+          text: "Bệnh viêm cơ tim cấp tính, sau  3 - 4 ngày mắc bệnh nghe tim thấy?",
+          answers: [
+            "A. Tim đập yếu",
+            "B. Tim đập nhanh",
+            "C. Nhịp tim không thay đổi nhiều",
+            "D. Không nghe được nhịp đập của tim",
+          ],
+          correct: 0,
+          explanation:
+            "Đáp án đúng là: Tim đập yếu Vì: 3 - 4 ngày sau tim bắt đầu đập yếu dần",
+          reference: "mục 3.5",
+        },
+        {
+          id: 56,
+          text: "Gia súc mắc bệnh viêm nội tâm mạc cấp tính, nếu nhồi huyết ở não, gia súc có biểu hiện:",
+          answers: [
+            "A. Bại liệt",
+            "B. Phù",
+            "C. Chết đột ngột",
+            "D. Báng nước",
+          ],
+          correct: 0,
+          explanation:
+            "Đáp án đúng là: Bại liệt Vì: Nếu nhồi huyết não: gia súc có hiện tượng bại liệt",
+          reference: "mục 1.5",
+        },
+        {
+          id: 57,
+          text: "Để điều trị bệnh viêm cơ tim cấp tính trong khâu hộ lý ở giai đoạn đầu ta cần làm:",
+          answers: [
+            "A. Lấy nước nóng trườm vào vùng tim.",
+            "B. Lấy cỏ khô trà sát vùng tim.",
+            "C. Lấy cám rang trườm vào vùng tim.",
+            "D. Lấy nước lạnh trườm vào vùng tim",
+          ],
+          correct: 3,
+          explanation:
+            "Đáp án đúng là: Lấy nước lạnh trườm vào vùng tim Vì: Khi trườm lạnh làm cho giảm sung huyết cục bộ, giảm sưng, giảm đau và giảm viêm",
+          reference: "mục 3.7",
+        },
+        {
+          id: 58,
+          text: "Điều trị bệnh viêm cơ tim cấp tính ta dùng một số loại thuốc sau",
+          answers: [
+            "A. Atropinsunphat",
+            "B. Long não nước",
+            "C. Caffein natri Benzoat, diuritin, Penicillin",
+            "D. Penicillin",
+          ],
+          correct: 2,
+          explanation:
+            "Đáp án đúng là: Caffein natri Benzoat, diuritin, Penicillin Vì: Dùng Caffein natri Benzoat, diuritin, Penicillin để điều trị viêm cơ tim cấp tính",
+          reference: "mục 3.7",
+        },
+        {
+          id: 59,
+          text: "Nguyên tắc điều trị Bệnh viêm nội tâm mạc cấp tính là:",
+          answers: [
+            "A. Dùng kháng sinh liều cao, tăng cường trợ tim cho gia súc.",
+            "B. Tăng cường trợ tim, sức, lực cho cơ thể, theo dõi điều trị các biến chứng",
+            "C. Dùng kháng sinh liều cao, theo dõi chức năng của thận, phát hiện và điều trị sớm các biến chứng",
+            "D. Dùng thuốc trợ tim, tăng cường cơ năng giải độc của gan, điều trị sớm các biến chứng",
+          ],
+          correct: 2,
+          explanation:
+            "Đáp án đúng là: Dùng kháng sinh liều cao, theo dõi chức năng của thận, phát hiện và điều trị sớm các biến chứng Vì: Nguyên tắc điều trị là: - Dùng kháng sinh liều cao và điều trị kéo dài 4 - 6 tuần. - Theo dõi chức năng thận khi dùng kháng sinh gây độc cho thận. - Phát hiện và điều trị sớm các biến chứng.",
+          reference: "mục 1.7",
+        },
+        {
+          id: 60,
+          text: "Triệu chứng giai đoạn đầu bệnh viêm cơ tim thấy",
+          answers: [
+            "A. Sốt, kém ăn, bỏ ăn Tĩnh mạch cổ căng phồng",
+            "B. Tĩnh mạch cổ căng phồng",
+            "C. Phù ở tổ chức dưới da",
+            "D. Sốt, kém ăn, bỏ ăn",
+          ],
+          correct: 3,
+          explanation:
+            "Đáp án đúng là: Sốt, kém ăn, bỏ ăn Vì: Giai đoạn đầu con vật có triệu chứng sốt, ăn kém, thậm chí có con bỏ ăn.",
+          reference: "mục 3.5",
+        },
+        {
+          id: 61,
+          text: "Bệnh ký sinh trùng có thể kế phát sang bệnh viêm nội tâm mạc cấp tính là:",
+          answers: ["A. Care", "B. Đầu đen", "C. Pavo", "D. Tiên mao trùng"],
+          correct: 3,
+          explanation:
+            "Đáp án đúng là: Tiên mao trùng Vì: Bệnh tiên mao trùng là bệnh do đơn bào ký sinh trong máu, theo máu đến tim và gây viêm nội tâm mạc",
+          reference: "mục 1.2",
+        },
+        {
+          id: 62,
+          text: "Xét nghiệm nước tiểu trong bệnh viêm ngoại tâm mạc thấy",
+          answers: [
+            "A. Tất cả phương án đều đúng",
+            "B. Albumin niệu, trụ niệu",
+            "C. Protein, indican.",
+            "D. Hồng cầu, bạch cầu",
+          ],
+          correct: 2,
+          explanation:
+            "Đáp án đúng là: Protein, indican. Vì: Kiểm tra nước tiểu có protein và indican.",
+          reference: "mục 2.4",
+        },
+        {
+          id: 63,
+          text: "Thời kỳ đầu của bệnh viêm ngoại tâm mạc có biểu hiện:",
+          answers: [
+            "A. Nhu động dạ dày ruột giảm, táo bón",
+            "B. Các phương án đã nêu đều đúng",
+            "C. Phù vùng đầu, tĩnh mạch cổ phồng to",
+            "D. Nghe tim có âm bơi",
+          ],
+          correct: 0,
+          explanation:
+            "Đáp án đúng là: Nhu động dạ dày ruột giảm, táo bón Vì: Trong giai đoạn đầu của bệnh viêm ngoại tâm mạc, con vật thường nhu động dạ dày ruột giảm, táo bón",
+          reference: "mục 2.4",
+        },
+        {
+          id: 64,
+          text: "Viêm ngoại tâm mạc không do ngoại vật thường gặp ở các đối tượng gia súc",
+          answers: [
+            "A. Gia súc guốc chẵn",
+            "B. Gia súc trưởng thành",
+            "C. Loài nhai lại",
+            "D. Tất cả các đối tượng gia súc",
+          ],
+          correct: 3,
+          explanation:
+            "Đáp án đúng là: Tất cả các đối tượng gia súc Vì: Bệnh viêm ngoại tâm mạc không do ngoại vật có thể xảy ra ở tất cả các loài gia gúc",
+          reference: "mục 2.1",
+        },
+        {
+          id: 65,
+          text: "Thuốc dùng lợi tiểu điều trị bệnh viêm cơ tim cấp tính cần là:",
+          answers: [
+            "A. Dùng cách quãng",
+            "B. Dùng lâu dài",
+            "C. Dùng liên tục",
+            "D. Dùng liên tục, lâu dài",
+          ],
+          correct: 0,
+          explanation:
+            "Đáp án đúng là: Dùng cách quãng Vì: Không nên dùng thuốc lợi tiểu liên tục, lâu dài vì thuốc làm mất kháng thể trong cơ thể, nên dùng cách quãng.",
+          reference: "mục 3.7",
+        },
+        {
+          id: 66,
+          text: "Gia súc bị viêm cơ tim cấp tính thì",
+          answers: [
+            "A. Urobilirubin, Hemobilirubin,  Ure trong máu và nước tiểu giảm",
+            "B. Urobilirubin, Hemobilirubin,  Ure trong máu và nước tiểu tăng",
+            "C. Urobilirubin trong nước tiểu giảm, Hemobilirubin, Ure trong máu tăng",
+            "D. Urobilirubin trong nước tiểu tăng, Hemobilirubin, Ure trong máu tăng.",
+          ],
+          correct: 3,
+          explanation:
+            "Đáp án đúng là: Urobilirubin trong nước tiểu tăng, Hemobilirubin, Ure trong máu tăng. Vì: Do tim yếu, tuần hoàn bị trở ngại sinh ra hiện tượng ứ huyết ở gan, ruột, dẫn đến hàm lượng urobilirubin trong nước tiểu tăng và hàm lượng hemobilirubin trong huyết thanh tăng. do lượng máu vào thận ít làm khả năng siêu lọc của thận giảm, urê tích lại làm hàm lượng urê trong máu tăng cao.",
+          reference: "mục 3.3",
+        },
+        {
+          id: 67,
+          text: "Thời kỳ cuối của bệnh viêm ngoại tâm mạc có biểu hiện",
+          answers: [
+            "A. Chướng hơi dạ cỏ mãn tính, táo bón, đau vùng bụng",
+            "B. Nhu động dạ dày ruột giảm, táo bón.",
+            "C. Phù vùng đầu, tĩnh mạch cổ căng phồng, nghe có âm bơi hoặc âm cọ sát.",
+            "D. Tất cả đáp án đều đúng",
+          ],
+          correct: 2,
+          explanation:
+            "Đáp án đúng là: Phù vùng đầu, tĩnh mạch cổ căng phồng, nghe có âm bơi hoặc âm cọ sát. Vì: Triệu chứng thường thể hiện rõ: ở thời kỳ cuối của bệnh viêm ngoại tâm mạc là phù ở vùng đầu, tĩnh mạch cổ nổi to, vật bỏ ăn, thở khó. Nghe vùng tim thấy âm bơi, âm cọ màng bao tim.",
+          reference: "mục 2.4",
+        },
+        {
+          id: 68,
+          text: "Viêm ngoại tâm mạc do ngoại vật thường gặp ở các đối tượng gia súc:",
+          answers: [
+            "A. Loài nhai lại",
+            "B. Gia súc guốc chẵn",
+            "C. Tất cả các đối tượng gia súc",
+            "D. Gia súc trưởng thành",
+          ],
+          correct: 0,
+          explanation:
+            "Đáp án đúng là: Loài nhai lại Vì: Vì chỉ ở loài nhai lại có bệnh viêm dạ tổ ong do ngoại vật gây kế phát sang viêm ngoại tâm mạc",
+          reference: "mục 1.3",
+        },
+        {
+          id: 69,
+          text: "Bệnh tích ở giai đoạn đầu của viêm cơ tim cấp tính là:",
+          answers: [
+            "A. Cơ tim trắng bệch",
+            "B. Cơ tim không thay đổi màu sắc",
+            "C. Cơ tim có ổ mủ to bằng hạt đậu",
+            "D. Cơ tim có từng vệt xuất huyết hoặc từng điểm xuất huyết",
+          ],
+          correct: 3,
+          explanation:
+            "Đáp án đúng là: Cơ tim có từng vệt xuất huyết hoặc từng điểm xuất huyết Vì: Giai đoạn cơ tim thoái hoá: màu của tim trắng bệch, giống màu đất sét hoặc có màu xám. Đôi khi thấy có cả ổ mủ to bằng hạt đậu.",
+          reference: "mục 3.4",
+        },
+        {
+          id: 70,
+          text: "Gia súc mắc bệnh viêm nội tâm mạc cấp tính, nếu nhồi huyết ở tim, gia súc có biểu hiện:",
+          answers: [
+            "A. Phù",
+            "B. Bại liệt",
+            "C. Báng nước",
+            "D. Chết đột ngột",
+          ],
+          correct: 3,
+          explanation:
+            "Đáp án đúng là: Chết đột ngột Vì: Nếu nhồi huyết ở tim: gia súc có hiện tượng chết đột ngột.",
+          reference: "mục 1.5",
+        },
+        {
+          id: 71,
+          text: "Bệnh viêm nội tâm mạc cấp tính là tình trạng viêm màng trong tim có hiện tượng:",
+          answers: [
+            "A. Loét sùi",
+            "B. Thoái hóa",
+            "C. Hoại tử",
+            "D. Tất cả đáp án đều đúng",
+          ],
+          correct: 0,
+          explanation:
+            "Đáp án đúng là: Loét sùi Vì: Tùy theo độc lực vi khuẩn gây bệnh có thể xảy ra hiện tượng viêm loét hoặc viêm sùi",
+          reference: "mục 1.1",
+        },
+        {
+          id: 72,
+          text: "Thời kỳ đầu của bệnh viêm ngoại tâm mạc con vật có biểu hiện?",
+          answers: [
+            "A. Sốt cao",
+            "B. Sốt nhẹ",
+            "C. Lúc sốt, lúc không",
+            "D. Không sốt",
+          ],
+          correct: 0,
+          explanation:
+            "Đáp án đúng là: Sốt cao. Vì: Thời kỳ đầu con vật sốt cao từ 41 – 42 0 C",
+          reference: "mục 2.4",
+        },
+        {
+          id: 73,
+          text: "Trong bệnh viêm nội tâm mạc cấp tính, nếu viêm ở van nhĩ thất trái, gia súc có biểu hiện:",
+          answers: [
+            "A. Phù phổi",
+            "B. Bại liệt",
+            "C. Chết đột ngột",
+            "D. Báng nước",
+          ],
+          correct: 0,
+          explanation:
+            "Đáp án đúng là: Phù phổi Vì: Nếu viêm ở thể sùi van nhĩ thất trái, làm trở ngại tuần hoàn nhĩ thất trái, gây ứ huyết phổi, gia súc có triệu chứng phù phổi",
+          reference: "mục 1.5",
+        },
+        {
+          id: 74,
+          text: "Gia súc hay mắc bệnh viêm thanh quản cata cấp là",
+          answers: [
+            "A. Tất cả các loại gia súc",
+            "B. Dê, cừu",
+            "C. Trâu, bò, lợn",
+            "D. Trâu, Ngựa, chó",
+          ],
+          correct: 3,
+          explanation:
+            "Đáp án đúng là: Trâu, Ngựa, chó Vì: Trâu, Ngựa, chó Tham khảo:",
+          reference: "mục 1.1",
+        },
+        {
+          id: 75,
+          text: "Trong bệnh phế quản phế viêm, khi chiếu X - Quang phổi thấy",
+          answers: [
+            "A. Rốn phổi đậm",
+            "B. Có vùng mờ khắp thùy phổi",
+            "C. Có vùng mở rải rác trên mặt phổi",
+            "D. Không có gì đặc biệt",
+          ],
+          correct: 2,
+          explanation:
+            "Đáp án đúng là: Có vùng mở rải rác trên mặt phổi Vì: Có vùng mở rải rác trên mặt phổi Tham khảo:",
+          reference: "mục 3.4",
+        },
+        {
+          id: 76,
+          text: "Gia súc bị viêm phế quản lớn thể cata cấp tính thì nước mũi chảy ra lúc đầu....... sau.......... thường ……",
+          answers: [
+            "A. Trong à đặc dần à có màu rỉ sắt",
+            "B. Trong à đặc dần à có màu vàng",
+            "C. Trong à đặc dần à có màu hồng",
+            "D. Trong à đặc dần à có màu xanh",
+          ],
+          correct: 3,
+          explanation:
+            "Đáp án đúng là: Trong à đặc dần à có màu xanh Vì: Khi bị viêm phế quản lớn Nước mũi chảy nhiều: Lúc đầu nước mũi trong, sau đặc dần và có màu vàng, thường dính vào hai bên lỗ mũi. Tham khảo:",
+          reference: "mục 2.4",
+        },
+        {
+          id: 77,
+          text: "Trong bệnh viêm thanh quản trường hợp thanh quản sưng to, gia súc có hiện tượng ngạt thở phải",
+          answers: [
+            "A. Dùng thuốc giãn phế quản",
+            "B. Dùng thuốc giảm ho, long đờm",
+            "C. Mở khí quản",
+            "D. Tất cả phương án đều đúng",
+          ],
+          correct: 2,
+          explanation:
+            "Đáp án đúng là: Mở khí quản Vì: Trường hợp thanh quản sưng to, gia súc có hiện tượng ngạt thở phải dùng thủ thuật ngoại khoa (mở khí quản) Tham khảo:",
+          reference: "mục 1.7",
+        },
+        {
+          id: 78,
+          text: "Gia súc bị viêm phế quản lớn thể cata cấp tính thường biểu hiện:",
+          answers: [
+            "A. Tần số hô hấp tăng cao",
+            "B. Sốt cao",
+            "C. Tất cả phương án đều đúng",
+            "D. Nước mũi chảy nhiều",
+          ],
+          correct: 3,
+          explanation:
+            "Đáp án đúng là: Nước mũi chảy nhiều Vì: Khi bị viêm phế quản lớn Nước mũi chảy nhiều: Lúc đầu nước mũi trong, sau đặc dần và có màu vàng, thường dính vào hai bên lỗ mũi. Tham khảo:",
+          reference: "mục 2.4",
+        },
+        {
+          id: 79,
+          text: "Chẩn đoán bệnh viêm phế quản cata cấp tính cần phân biệt với các bệnh",
+          answers: [
+            "A. Viêm màng phổi",
+            "B. Phù phổi",
+            "C. Viêm thanh quản",
+            "D. Viêm phổi hoại thư hóa mủ",
+          ],
+          correct: 1,
+          explanation:
+            "Đáp án đúng là: Phù phổi Vì: Do có những triệu chứng lâm sàng giống và khác nhau Tham khảo:",
+          reference: "mục 2.6",
+        },
+        {
+          id: 80,
+          text: "Gia súc mắc bệnh viêm phế quản nhỏ, kiểm tra nước mũi thấy:",
+          answers: [
+            "A. Nước mũi chảy ít",
+            "B. Nước mũi không có hoặc ít",
+            "C. Nước mũi chảy nhiều",
+            "D. Nước mũi không có",
+          ],
+          correct: 1,
+          explanation:
+            "Đáp án đúng là: Nước mũi không có hoặc ít Vì: Nước mũi không có hoặc ít. Tham khảo:",
+          reference: "mục 2.4",
+        },
+        {
+          id: 81,
+          text: "Nguyên nhân nguyên phát của bệnh viêm phế quản thể cata cấp tính là do",
+          answers: [
+            "A. Do ấu trùng giun đũa",
+            "B. Tất cả phương án đều đúng",
+            "C. Do thiếu vitamin A",
+            "D. Do mắc bệnh viêm họng",
+          ],
+          correct: 2,
+          explanation:
+            "Đáp án đúng là: Do thiếu vitamin A Vì: Do các nguyên nhân khác là nguyên nhân kế phát Tham khảo:",
+          reference: "mục 2.2",
+        },
+        {
+          id: 82,
+          text: "Trong bệnh phế quản phế viêm gia súc không sốt  trong thời gian:",
+          answers: [
+            "A. Tất cả đáp án đều đúng",
+            "B. Dịch viêm đọng lại",
+            "C. Dịch Viêm lan truyền",
+            "D. Bệnh tiến triển",
+          ],
+          correct: 2,
+          explanation:
+            "Đáp án đúng là: Dịch Viêm lan truyền Vì: Quá trình hô hấp của gia súc làm cho dịch viêm ở phế quản và phế nang bị viêm lan sang phế quản và phế nang chưa bị viêm bên cạnh. Trong thời gian dịch viêm lan truyền thì cơ thể không sốt. Nhưng khi dịch viêm đọng lại gây viêm thì cơ thể lại sốt. Tham khảo:",
+          reference: "mục 3.3",
+        },
+        {
+          id: 83,
+          text: "Gia súc mắc bệnh viêm phế quản cata cấp tính, tùy theo vị trí viêm mà có tên gọi:",
+          answers: [
+            "A. Viêm màng giả, viêm hóa mủ",
+            "B. Viêm phế quản lớn, viêm phế quản nhỏ",
+            "C. Viêm dính, viêm tích nước",
+            "D. Viêm hoại thư, viêm hóa mủ",
+          ],
+          correct: 1,
+          explanation:
+            "Đáp án đúng là: Viêm phế quản lớn, viêm phế quản nhỏ Vì: Viêm phế quản lớn, viêm phế quản nhỏ Tham khảo:",
+          reference: "mục 2.4",
+        },
+        {
+          id: 84,
+          text: "Gia súc mắc bệnh viêm phế quản cata cấp tính thì:",
+          answers: [
+            "A. Sốt không theo quy luật",
+            "B. Số lên xuống theo hình sin",
+            "C. Không sốt",
+            "D. Sốt liên miên",
+          ],
+          correct: 0,
+          explanation:
+            "Đáp án đúng là: Sốt không theo quy luật Vì: Con vật không sốt hoặc sốt nhẹ (nhiệt độ cao hơn bình thường 0,5 0 C). Nếu sốt, trong một ngày lên xuống không theo quy luật. Tham khảo:",
+          reference: "mục 2.4",
+        },
+        {
+          id: 85,
+          text: "Gia súc mắc bệnh viêm phế quản lớn, kiểm tra nước mũi thấy",
+          answers: [
+            "A. Nước mũi chảy nhiều",
+            "B. Nước mũi không có hoặc ít",
+            "C. Nước mũi không có",
+            "D. Nước mũi chảy ít",
+          ],
+          correct: 0,
+          explanation:
+            "Đáp án đúng là: Nước mũi chảy nhiều Vì: Nước mũi chảy nhiều: Lúc đầu nước mũi trong, sau đặc dần và có màu vàng, thường dính vào hai bên lỗ mũi. Tham khảo:",
+          reference: "mục 2.4",
+        },
+        {
+          id: 86,
+          text: "Bệnh phế quản phế viêm còn có tên gọi khác là:",
+          answers: [
+            "A. Viêm phổi",
+            "B. Viêm phổi đốm",
+            "C. Viêm phổi hoại thư",
+            "D. Viêm phế quản nhỏ",
+          ],
+          correct: 1,
+          explanation:
+            "Đáp án đúng là: Viêm phổi đốm Vì: Bệnh phế quản phế viêm còn gọi là bệnh viêm phế quản phổi hay viêm phổi đốm Tham khảo:",
+          reference: "mục 3.1",
+        },
+        {
+          id: 87,
+          text: "Thuốc giảm ho long đờm dùng trong bệnh viêm thanh quản cata cấp có thể là:",
+          answers: [
+            "A. Novocain",
+            "B. Tất cả phương án đều đúng",
+            "C. Pilicarpin",
+            "D. Chloruamon",
+          ],
+          correct: 3,
+          explanation:
+            "Đáp án đúng là: Chloruamon Vì: vì chỉ có thuốc Chloruamon trong các đáp án là có tác dụng giảm ho, long đờm Tham khảo:",
+          reference: "mục 1.7",
+        },
+        {
+          id: 88,
+          text: "Nguyên nhân kế phát của bệnh viêm phế quản thể cata cấp tính là do",
+          answers: [
+            "A. Gia súc thiếu dinh dưỡng, thiếu vitamin A",
+            "B. Do gia súc bị nhiễm lạnh",
+            "C. Do mắc bệnh tụ huyết trùng",
+            "D. Tất cả phương án đều đúng",
+          ],
+          correct: 2,
+          explanation:
+            "Đáp án đúng là: Do mắc bệnh tụ huyết trùng Vì: Do kế phát từ một số bệnh: cúm, viêm hạch truyền nhiễm, lao, tụ huyết trùng... Tham khảo:",
+          reference: "mục 2.2",
+        },
+        {
+          id: 89,
+          text: "Gia súc bị bệnh viêm thanh quản Cata cấp thì hạch lâm ba dưới hàm:",
+          answers: ["A. Sưng nhỏ", "B. Teo lại", "C. Không sưng", "D. Sưng to"],
+          correct: 3,
+          explanation:
+            "Đáp án đúng là: Sưng to Vì: Kiểm tra hạch lâm ba dưới hàm thấy hạch sưng to. Tham khảo:",
+          reference: "mục 1.4",
+        },
+        {
+          id: 90,
+          text: "Khi chó bị phế quản phế viêm, sử dụng thuốc nào để làm giảm ho và long đờm:",
+          answers: [
+            "A. Bicacbonat",
+            "B. Tecpin- codein",
+            "C. Canxi clorua",
+            "D. Chlorua amon",
+          ],
+          correct: 1,
+          explanation:
+            "Đáp án đúng là: Tecpin- codein Vì: để giảm ho và long đờm trên chó, sử dụng thuốc Codein photphat hay Tecpin- codein Tham khảo:",
+          reference: "mục 3.7",
+        },
+        {
+          id: 91,
+          text: "Gia súc bị bệnh viêm thanh quản Cata cấp cần chẩn đoán phân biệt với bệnh:",
+          answers: [
+            "A. Bệnh viêm phổi  thuỳ",
+            "B. Viêm họng",
+            "C. Sung huyết phù phổi",
+            "D. Viêm phổi hoại thư",
+          ],
+          correct: 1,
+          explanation:
+            "Đáp án đúng là: Viêm họng Vì: Vì 2 bệnh này có những triệu chứng giống nhau Tham khảo:",
+          reference: "mục 1.6",
+        },
+        {
+          id: 92,
+          text: "Nguyên nhân kế phát trong bệnh phế quản phế viêm là:",
+          answers: [
+            "A. Do tổn thương cơ giới và ấu trùng giun đũa di hành.",
+            "B. Do viêm tử cung, viêm dạ dày, do giun phổi",
+            "C. Do phổi bị kích thích bởi hơi nóng, hơi độc và bụi",
+            "D. Tất cả phương án đều đúng",
+          ],
+          correct: 1,
+          explanation:
+            "Đáp án đúng là: Do viêm tử cung, viêm dạ dày, do giun phổi Vì: Các nguyên nhân còn lại là nguyên nhân nguyên phát Tham khảo:",
+          reference: "mục 3.2",
+        },
+        {
+          id: 93,
+          text: "Nguyên nhân nguyên phát trong bệnh phế quản phế viêm là:",
+          answers: [
+            "A. Do tổn thương cơ giới và ấu trùng giun đũa di hành.",
+            "B. Do phổi bị kích thích bởi hơi nóng, hơi độc và bụi",
+            "C. Do viêm tử cung, viêm dạ dày, do chăm sóc nuôi dưỡng kém",
+            "D. Tất cả phương án đều đúng",
+          ],
+          correct: 1,
+          explanation:
+            "Đáp án đúng là: Do phổi bị kích thích bởi hơi nóng, hơi độc và bụi Vì: Các nguyên nhân còn lại là nguyên nhân kế phát Tham khảo:",
+          reference: "mục 3.2",
+        },
+        {
+          id: 94,
+          text: "Trong bệnh phế quản phế viêm gia súc sốt trong thời gian",
+          answers: [
+            "A. Bệnh tiến triển",
+            "B. Dịch viêm đọng lại",
+            "C. Tất cả đáp án đều đúng",
+            "D. Dịch viêm lan truyền",
+          ],
+          correct: 1,
+          explanation:
+            "Đáp án đúng là: Dịch viêm đọng lại Vì: Quá trình hô hấp của gia súc làm cho dịch viêm ở phế quản và phế nang bị viêm lan sang phế quản và phế nang chưa bị viêm bên cạnh. Trong thời gian dịch viêm lan truyền thì cơ thể không sốt. Nhưng khi dịch viêm đọng lại gây viêm thì cơ thể lại sốt. Tham khảo:",
+          reference: "mục 3.3",
+        },
+        {
+          id: 95,
+          text: "Gia súc mắc bệnh viêm phế quản lớn, thể viêm phế quản thì",
+          answers: [
+            "A. Nước mũi triệu chứng chủ yếu",
+            "B. Hô hấp là triệu chứng chủ yếu",
+            "C. Ho là triệu chứng chủ yếu",
+            "D. Sốt là triệu chứng chủ yếu",
+          ],
+          correct: 2,
+          explanation:
+            "Đáp án đúng là: Ho là triệu chứng chủ yếu Vì: Ho là triệu chứng chủ yếu Tham khảo:",
+          reference: "mục 2.4",
+        },
+        {
+          id: 96,
+          text: "Bệnh viêm phế quản cata cấp tính có thể kế phát từ bệnh:",
+          answers: [
+            "A. Nhiễm lạnh",
+            "B. Trúng độc",
+            "C. Tổn thương cơ giới",
+            "D. Ký sinh trùng",
+          ],
+          correct: 3,
+          explanation:
+            "Đáp án đúng là: Ký Sinh trùng Vì: Do các nguyên nhân khác là nguyên nhân nguyên phát Tham khảo:",
+          reference: "mục 2.2",
+        },
+        {
+          id: 97,
+          text: "Khi gia súc bị viêm thanh quản thường kế phát viêm:",
+          answers: [
+            "A. Mũi thể cata",
+            "B. Hầu, họng",
+            "C. Phổi hoại thư",
+            "D. Khí quản",
+          ],
+          correct: 3,
+          explanation:
+            "Đáp án đúng là: Khí quản Vì: Thanh quản là một xoang ngắn, nằm giữa yết hầu và khí quản, dưới xương thiệt cốt. Được cấu tạo hoàn toàn bằng sụn. Khi viêm thanh quản thường kế phát viêm khí quản và ngược lại. Tham khảo:",
+          reference: "mục 1.1",
+        },
+        {
+          id: 98,
+          text: "Trong bệnh phế quản phế viêm gia súc không sốt trong thời gian:",
+          answers: [
+            "A. Dịch Viêm lan truyền",
+            "B. Tất cả đáp án đều đúng",
+            "C. Dịch viêm đọng lại",
+            "D. Bệnh tiến triển",
+          ],
+          correct: 2,
+          explanation:
+            "Quá trình hô hấp của gia súc làm cho dịch viêm ở phế quản và phế nang bị viêm lan sang phế quản và phế nang chưa bị viêm bên cạnh. Trong thời gian dịch viêm lan truyền thì cơ thể không sốt. Nhưng khi dịch viêm đọng lại gây viêm thì cơ thể lại sốt.",
+          reference: "Tham khảo mục 3.3 trong Bài 4",
+        },
+        {
+          id: 99,
+          text: "Giai đoạn gan hóa xám ở bệnh viêm phổi thuỳ thường kéo dài:",
+          answers: [
+            "A. 2 – 3 ngày",
+            "B. 0,5 đến 1 ngày",
+            "C. 3 – 4 ngày",
+            "D. 4 – 5 ngày",
+          ],
+          correct: 0,
+          explanation:
+            "Đáp án đúng là : 2 – 3 ngày Vì : 2 – 3 ngày Tham khảo :",
+          reference: "mục 1.3",
+        },
+        {
+          id: 100,
+          text: "Gia súc bị bệnh viêm phổi thuỳ thì nước mũi sẽ",
+          answers: [
+            "A. Màu rỉ sắt",
+            "B. Màu hồng",
+            "C. Màu h ồng hoặc Màu rỉ sắt",
+            "D. Nhầy và Màu xanh .",
+          ],
+          correct: 2,
+          explanation:
+            "Đáp án đúng là : Màu h ồng hoặc Màu rỉ sắt Vì : Nước mũi ít , màu hồng hay màu rỉ sắt Tham khảo :",
+          reference: "mục 1.4",
+        },
+        {
+          id: 101,
+          text: "Gia súc mắc bệnh viêm phổi thùy, giai đoạn gan hóa gõ vùng phổi thấy",
+          answers: [
+            "A. Âm phổi bình thường",
+            "B. Có âm trong",
+            "C. Có âm bùng hơi",
+            "D. Có âm đục tập trung",
+          ],
+          correct: 3,
+          explanation:
+            "Đáp án đúng là : Có âm đục tập trung Vì : Giai đoạn gan hoá : gõ vùng phổi có âm đục tập trung Tham khảo :",
+          reference: "mục 1",
+        },
+        {
+          id: 102,
+          text: "Giai đoạn gan hóa đỏ ở bệnh viêm phổi thuỳ thường kéo dài:",
+          answers: [
+            "A. 4 – 5 ngày",
+            "B. 1 – 2 ngày",
+            "C. 2 – 3 ngày",
+            "D. 0,5 đến 1 ngày",
+          ],
+          correct: 1,
+          explanation:
+            "Đáp án đúng là : 1 – 2 ngày Vì : Xảy ra 1 - 2 ngày đầu , trong phế nang chứa đầy fibrin , hồng cầu , tế bào thượng bì Tham khảo :",
+          reference: "mục 1.3",
+        },
+        {
+          id: 103,
+          text: "Gia súc bị viêm màng phổi , nếu viêm tích nước , chụp X Quang thấy :",
+          answers: [
+            "A. Rốn phổi đậm",
+            "B. Vùng mờ rải rác trên phổi và xù xì",
+            "C. Nhánh phế quản đậm",
+            "D. Vùng Mờ song song với mặt đất",
+          ],
+          correct: 3,
+          explanation:
+            "Đáp án đúng là : Vùng Mờ song song với mặt đất Vì : Có vùng mờ song song với mặt đất ( nếu viêm tích nước ). Tham khảo :",
+          reference: "mục 2",
+        },
+        {
+          id: 104,
+          text: "Gia súc mắc bệnh thùy phế viêm , khi sốt thường :",
+          answers: [
+            "A. Sốt lên xuống theo hình sin",
+            "B. Sốt không có quy luật",
+            "C. Sốt liên miên",
+            "D. Hơi sốt",
+          ],
+          correct: 2,
+          explanation:
+            "Đáp án đúng là : Sốt liên miên Vì : Bệnh xảy ra đột ngột (đột nhiên gia súc sốt cao 41 - 42 0 C, sốt kéo dài liên miên 6 - 9 ngày, sau đó nhiệt độ hạ dần) Tham khảo :",
+          reference: "mục 1.",
+        },
+        {
+          id: 105,
+          text: "Gia súc mắc bệnh viêm phổi thùy có thể dùng các thuốc sau để can thiệp",
+          answers: [
+            "A. Doxytyl , dexamethazol , anagin , vitamin c, B.complex",
+            "B. Levamysol , adrenalin , anagin , vitamin c, B.complex",
+            "C. Tylosin , adrenalin , anagin , vitamin c, B.complex",
+            "D. Albendazol, dexamethazol , anagin , vitamin c, B.complex",
+          ],
+          correct: 0,
+          explanation:
+            "Đáp án đúng là : Doxytyl , dexamethazol , anagin , vitamin c, B. complex Vì : Doxytyl , dexamethazol , anagin , vitamin c, B. complex Tham khảo :",
+          reference: "mục 2.7",
+        },
+        {
+          id: 106,
+          text: "Thuốc để tăng cường việc hấp thu dịch viêm ra khỏi xoang ngực trong bệnh viêm màng phổi là:",
+          answers: [
+            "A. Canxi clorua",
+            "B. Urotropin",
+            "C. Cả ba loại thuốc đã nêu",
+            "D. Natrisunfat",
+          ],
+          correct: 3,
+          explanation:
+            "Đáp án đúng là : Natrisunfat Vì : Natrisunfat Tham khảo :",
+          reference: "mục 2.",
+        },
+        {
+          id: 107,
+          text: "Gia súc mắc bệnh viêm phổi nghe phổi thấy",
+          answers: [
+            "A. Âm ran, âm phế nang tăng",
+            "B. Âm bơi, âm cọ phế mạc",
+            "C. Vùng âm phế nang mất, vùng âm phế nang tăng, âm ran",
+            "D. Âm phế nang giảm, âm vò tóc",
+          ],
+          correct: 2,
+          explanation:
+            "Đáp án đúng là : Vùng âm phế nang mất, vùng âm phế nang tăng, âm ran Vì : Có vùng âm phế nang mất , nhưng có vùng âm phế nang tăng , xuất hiện âm ran ( tuỳ theo giai đoạn bệnh ) Tham khảo :",
+          reference: "mục 1.6",
+        },
+        {
+          id: 108,
+          text: "Bệnh viêm màng phổi chọc dò xoang ngực có:",
+          answers: [
+            "A. Dịch thẩm lậu chảy ra có màu trắng hoặc màu vàng",
+            "B. Dịch thẩm xuất chảy ra có màu trắng hoặc màu vàng",
+            "C. Dịch thẩm xuất chảy ra màu vàng hay màu hồng",
+            "D. Dịch thẩm lậu chảy ra màu vàng hay màu hồng",
+          ],
+          correct: 2,
+          explanation:
+            "Đáp án đúng là : Dịch thẩm xuất chảy ra màu vàng hay màu hồng Vì : Dịch thẩm xuất chảy ra màu vàng hay màu hồng Tham khảo :",
+          reference: "mục 2.6",
+        },
+        {
+          id: 109,
+          text: "Gia súc mắc bệnh viêm phổi thùy, giai đoạn sung huyết gõ vùng phổi thấy",
+          answers: [
+            "A. Có âm đục tập trung",
+            "B. Âm phổi bình thường",
+            "C. Có âm bùng hơi",
+            "D. Có âm trong",
+          ],
+          correct: 3,
+          explanation:
+            "Đáp án đúng là : Có âm trong Vì : Giai đoạn xung huyết : gõ vùng phổi có âm trong. Tham khảo :",
+          reference: "mục 1.",
+        },
+        {
+          id: 110,
+          text: "Gia súc mắc bệnh viêm phổi thùy, gõ vùng phổi thấy:",
+          answers: [
+            "A. Vùng âm đục phân tán",
+            "B. Vùng âm đuc rộng và xung quanh có âm bùng hơi",
+            "C. Vùng âm đục song song với mặt đất",
+            "D. Không có gì đặc biệt",
+          ],
+          correct: 1,
+          explanation:
+            "Đáp án đúng là : Vùng âm đuc rộng và xung quanh có âm bùng hơi Vì : Vùng âm đục rộng và xung quanh có âm bùng hơi , âm đục xuất hiện có quy luật Tham khảo :",
+          reference: "mục 1.",
+        },
+        {
+          id: 111,
+          text: "Gia súc mắc bệnh viêm màng phổi thường:",
+          answers: [
+            "A. Thở sâu và thở thể bụng",
+            "B. Thở nông và thở thể bụng",
+            "C. Thở chậm và thở thể bụng",
+            "D. Thở nhanh,  sâu và thở thể bụng",
+          ],
+          correct: 1,
+          explanation:
+            "Đáp án đúng là : Thở nông và thở thể bụng Vì : Do hệ thống nội cảm thụ ở nơi viêm luôn bị kích thích, làm cho con vật đau đớn nên thở nông và thở thể bụng. Tham khảo :",
+          reference: "mục 2.3",
+        },
+        {
+          id: 112,
+          text: "Để thải chất hoại tử ở phổi ra ngoài trong bệnh viêm phổi thùy cho chó có thể sử dụng thuốc ……. với ……. .:",
+          answers: [
+            "A. Pilocarpin 0,1%, liều 10 ml",
+            "B. Pilocarpin 0,1%, liều 3 – 5 ml",
+            "C. Pilocarpin 0,1%, liều 3 ml",
+            "D. Pilocarpin 0,1%, liều 2 ml",
+          ],
+          correct: 3,
+          explanation:
+            "Đáp án đúng là : Pilocarpin 0,1%, liều 2 ml Vì : Pilocarpin 0,1%, liều 2 ml Tham khảo :",
+          reference: "mục 2",
+        },
+        {
+          id: 113,
+          text: "Gia súc mắc bệnh viêm phổi thùy nghe tim thấy",
+          answers: [
+            "A. Tiếng tim không rõ",
+            "B. Tim đập mạnh , âm thứ hai tăng",
+            "C. Lúc đầu nhanh , sau giảm",
+            "D. Tim đập nhanh",
+          ],
+          correct: 1,
+          explanation:
+            "Đáp án đúng là : Tim đập mạnh , âm thứ hai tăng Vì : tim đập mạnh , âm thứ hai tăng , đập nhanh (nhất là vào thời kỳ tiêu tan) Tham khảo :",
+          reference: "mục 1.",
+        },
+        {
+          id: 114,
+          text: "Gia súc mắc bệnh viêm phổi thùy, giai đoạn hồi phục gõ vùng phổi thấy",
+          answers: [
+            "A. Có âm bùng hơi",
+            "B. Có âm đục tập trung",
+            "C. Từ âm bùng hơi chuyển thành âm phổi bình thường",
+            "D. Có âm trong",
+          ],
+          correct: 2,
+          explanation:
+            "Đáp án đúng là : Từ âm bùng hơi chuyển thành âm phổi bình thường Vì : Giai đoạn tiêu tan: từ âm bùng hơi chuyển thành âm phổi bình thường. Tham khảo :",
+          reference: "mục 1",
+        },
+        {
+          id: 115,
+          text: "Khi gia súc bị viêm màng phổi ta phải cho gia súc uống nước theo chế độ:",
+          answers: [
+            "A. Uống bình thường",
+            "B. Uống ít nước",
+            "C. Không cho uống",
+            "D. Uống nhiều nước",
+          ],
+          correct: 1,
+          explanation:
+            "Đáp án đúng là : Uống ít nước Vì : Cho ăn thức ăn dễ tiêu , giàu dinh dưỡng , hạn chế uống nước . Tham khảo :",
+          reference: "mục 2.",
+        },
+        {
+          id: 116,
+          text: "Gia súc mắc bệnh viêm phổi thùy, giai đoạn hồi phục nghe vùng phổi thấy",
+          answers: [
+            "A. Âm phế nang thô và mạnh, âm ran ướt",
+            "B. Có vùng âm phế nang mất xen kẽ vùng âm phế nang tăng",
+            "C. Vùng âm ran, âm phế nang thô",
+            "D. Xuất hiện âm ran, âm phế nang dần dần xuất hiện và trở lại bình thường",
+          ],
+          correct: 3,
+          explanation:
+            "Đáp án đúng là : Xuất hiện âm ran , âm phế nang dần dần xuất hiện và trở lại bình thường Vì : Thời kỳ tiêu tan: xuất hiện âm ran, âm phế nang dần dần xuất hiện và trở lại bình thường. Tham khảo :",
+          reference: "mục 1",
+        },
+        {
+          id: 117,
+          text: "Thời kỳ hồi phục ở bệnh viêm phổi thuỳ thường kéo dài:",
+          answers: [
+            "A. 2 – 3 ngày",
+            "B. 4 – 5 ngày",
+            "C. 1 – 2 ngày",
+            "D. 0,5 đến 1 ngày",
+          ],
+          correct: 0,
+          explanation:
+            "Đáp án đúng là : 2 – 3 ngày Vì : Phế nang dần dần được hồi phục , lớp tế bào thượng bì ở vách phế nang tái sinh , phế nang dần dần chứa không khí , phổi dần dần trở lại bình thường . Thời kỳ này kéo dài 2 - 3 ngày . Tham khảo :",
+          reference: "mục 1.3",
+        },
+        {
+          id: 118,
+          text: "Trình tự chọc dò để lấy bớt dịch viêm trong bệnh viêm màng phổi là:",
+          answers: [
+            "A. Sát trùng vùng chọc à bơm dung dịch sát trùng vào xoang  ngực à hút hết dung dịch sát trùng à bơm dung dịch sát trùng vào xoang ngực à tiêm kháng sinh toàn thân.",
+            "B. Sát trùng vùng chọc à bơm dung dịch sát trùng vào xoang  ngực à hút hết dung dịch sát trùng à bơm dung dịch kháng sinh vào xoang ngực.",
+            "C. Sát trùng vùng chọc à bơm dung dịch sát trùng vào xoang  ngực à hút hết dung dịch sát trùng à tiêm kháng sinh toàn thân.",
+            "D. Sát trùng vùng chọc à bơm dung dịch kháng sinh vào xoang  ngực à tiêm kháng sinh toàn thân.",
+          ],
+          correct: 1,
+          explanation:
+            "Đáp án đúng là : Sát trùng vùng chọc à bơm dung dịch sát trùng vào xoang  ngực à hút hết dung dịch sát trùng à bơm dung dịch kháng sinh vào xoang ngực. Vì : trình tự thực hiện công tác chọc dò như sau : sát trùng vùng chọc à bơm dung dịch sát trùng vào xoang  ngực à hút hết dung dịch sát trùng à bơm dung dịch kháng sinh vào xoang ngực. Tham khảo :",
+          reference: "mục 2.6",
+        },
+        {
+          id: 119,
+          text: "Gia súc bị viêm màng phổi , xét nghiệm nước tiểu ở giai đoạn đầu thấy :",
+          answers: [
+            "A. Tỷ t rọng nước tiểu tăng , lượng clo trong nước tiểu giảm",
+            "B. Tỷ t rọng nước tiểu tăng , lượng clo trong nước tiểu tăng",
+            "C. Tỷ Trọng nước tiểu tăng , lượng clo trong nước tiểu giảm , Trụ niệu , Albumin",
+            "D. Trụ niệu , Albumin",
+          ],
+          correct: 0,
+          explanation:
+            "Đáp án đúng là : Tỷ t rọng nước tiểu tăng , lượng clo trong nước tiểu giảm Vì : Giai đoạn đầu của bệnh lượng nước tiểu giảm , tỷ trọng nước tiểu tăng , lượng clo trong nước tiểu giảm . Tham khảo :",
+          reference: "mục 2.4",
+        },
+        {
+          id: 120,
+          text: "Gia súc bị viêm màng phổi , nếu viêm dính , chụp X Quang thấy :",
+          answers: [
+            "A. Rốn phổi đậm",
+            "B. Vùng mờ song song với mặt đất",
+            "C. Vùng Mờ rải rác trên phổi và xù xì",
+            "D. Nhánh phế quản đậm",
+          ],
+          correct: 2,
+          explanation:
+            "Đáp án đúng là : Vùng Mờ rải rác trên phổi và xù xì Vì : Có vùng mờ rải rác trên phổi và xù xì ( nếu viêm dính ). Tham khảo :",
+          reference: "mục 2.4",
+        },
+        {
+          id: 121,
+          text: "Giai đoạn gan hóa ở bệnh viêm phổi thuỳ thường kéo dài:",
+          answers: [
+            "A. 2 – 3 ngày",
+            "B. 4 – 5 ngày",
+            "C. 1 – 2 ngày",
+            "D. 0,5 đến 1 ngày",
+          ],
+          correct: 1,
+          explanation:
+            "Đáp án đúng là : 4 – 5 ngày Vì : Thời kỳ này thường kéo dài (4 - 5 ngày ) Tham khảo :",
+          reference: "mục 1.3",
+        },
+        {
+          id: 122,
+          text: "Tiên lượng trong bệnh viêm màng phổi là:",
+          answers: [
+            "A. Nếu bệnh nhẹ, hoặc thể cấp tính, điều trị khoảng 2 - 3 tuần thì khỏi bệnh.",
+            "B. Nếu bệnh nhẹ, hoặc thể cấp tính, điều trị khoảng 2 - 3 tháng thì khỏi bệnh",
+            "C. Nếu bệnh nhẹ, hoặc thể cấp tính, điều trị khoảng 2 - 3 ngày thì khỏi bệnh",
+            "D. Nếu bệnh nhẹ, hoặc thể cấp tính, điều trị khoảng 5 - 7 ngày thì khỏi bệnh",
+          ],
+          correct: 0,
+          explanation:
+            "Đáp án đúng là : Nếu bệnh nhẹ , hoặc thể cấp tính, điều trị khoảng 2 - 3 tuần thì khỏi bệnh. Vì : Nếu bệnh nhẹ , hoặc thể cấp tính , điều trị khoảng 2 - 3 tuần thì khỏi bệnh . Tham khảo :",
+          reference: "mục 2.",
+        },
+        {
+          id: 123,
+          text: "Gia súc bị viêm màng phổi , xét nghiệm máu thấy :",
+          answers: [
+            "A. Bạch cầu trung tính non tăng",
+            "B. Tất cả các phương án đã nêu",
+            "C. Tốc độc lắng của hồng cầu tăng",
+            "D. Độ dự trữ kiềm giảm",
+          ],
+          correct: 1,
+          explanation:
+            "Đáp án đúng là : Tất cả các phương án đã nêu Vì : Tốc độc lắng của hồng cầu tăng , Độ dự trữ kiềm giảm , Bạch cầu trung tính non tăng Tham khảo :",
+          reference: "mục 2.4",
+        },
+        {
+          id: 124,
+          text: "Gia súc bị viêm màng phổi, nếu viêm tích nước, chụp X Quang thấy:",
+          answers: [
+            "A. Rốn phổi đậm",
+            "B. Vùng Mờ song song với mặt đất",
+            "C. Nhánh phế quản đậm",
+            "D. Vùng mờ rải rác trên phổi và xù xì",
+          ],
+          correct: 1,
+          explanation:
+            "Có vùng mờ song song với mặt đất (nếu viêm tích nước).",
+          reference: "Tham khảo mục 2.4 trong bài 5",
+        },
+      ];
+    </script>
+
+    <script>
+      (function () {
+        var LETTERS = "ABCDEFGHIJ";
+        var container = document.getElementById("questionContainer");
+        var noResults = document.getElementById("noResults");
+        var searchInput = document.getElementById("searchInput");
+        var searchClear = document.getElementById("searchClear");
+        var countEl = document.getElementById("searchCount");
+        var total = QUESTIONS.length;
+
+        /* ── Escape HTML ── */
+        function esc(s) {
+          return String(s)
+            .replace(/&/g, "&amp;")
+            .replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;")
+            .replace(/"/g, "&quot;");
+        }
+
+        /* ── Highlight từ khóa ── */
+        function highlight(text, term) {
+          if (!term) return esc(text);
+          var safe = term.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+          return esc(text).replace(
+            new RegExp("(" + safe.replace(/&amp;/g, "&amp;amp;") + ")", "gi"),
+            "<mark>$1</mark>",
+          );
+        }
+
+        /* ── Render 1 câu hỏi ── */
+        function renderQ(q, term) {
+          var answersHtml = q.answers
+            .map(function (ans, i) {
+              var isCorrect = i === q.correct;
+              var cls = "answer-item" + (isCorrect ? " correct" : "");
+              var check = isCorrect
+                ? '<span class="check-mark">&#10003;</span>'
+                : "";
+              return (
+                '<div class="' +
+                cls +
+                '">' +
+                '<span class="answer-letter">' +
+                (LETTERS[i] || i + 1) +
+                ".</span>" +
+                '<span class="answer-text">' +
+                highlight(ans, term) +
+                "</span>" +
+                check +
+                "</div>"
+              );
+            })
+            .join("");
+
+          var feedbackHtml = "";
+          if (q.explanation || q.reference) {
+            feedbackHtml =
+              '<div class="feedback-section">' +
+              (q.explanation
+                ? "<p><strong>Vì: </strong>" + esc(q.explanation) + "</p>"
+                : "") +
+              (q.reference
+                ? "<p><strong>Tham khảo: </strong>" + esc(q.reference) + "</p>"
+                : "") +
+              "</div>";
+          }
+
+          return (
+            '<div class="question-block" id="q' +
+            q.id +
+            '">' +
+            '<div class="question-header">' +
+            '<span class="q-badge">Câu ' +
+            q.id +
+            "</span>" +
+            "</div>" +
+            '<div class="question-text">' +
+            highlight(q.text, term) +
+            "</div>" +
+            '<div class="answers">' +
+            answersHtml +
+            "</div>" +
+            feedbackHtml +
+            "</div>"
+          );
+        }
+
+        /* ── Render danh sách câu hỏi ── */
+        function renderList(filtered, term) {
+          // Xóa các block cũ (giữ lại #noResults)
+          var old = container.querySelectorAll(".question-block");
+          old.forEach(function (el) {
+            el.remove();
+          });
+
+          if (filtered.length === 0) {
+            noResults.style.display = "block";
+          } else {
+            noResults.style.display = "none";
+            var frag = document.createDocumentFragment();
+            filtered.forEach(function (q) {
+              var div = document.createElement("div");
+              div.innerHTML = renderQ(q, term);
+              frag.appendChild(div.firstChild);
+            });
+            container.appendChild(frag);
+          }
+
+          countEl.innerHTML =
+            "<strong>" + filtered.length + "</strong> / " + total + " câu";
+        }
+
+        /* ── Lọc câu hỏi ── */
+        function doSearch(term) {
+          var t = term.trim().toLowerCase();
+          var filtered = t
+            ? QUESTIONS.filter(function (q) {
+                return (
+                  q.text.toLowerCase().includes(t) ||
+                  q.answers.some(function (a) {
+                    return a.toLowerCase().includes(t);
+                  })
+                );
+              })
+            : QUESTIONS;
+
+          searchClear.style.display = term ? "block" : "none";
+          renderList(filtered, term.trim());
+        }
+
+        /* ── Khởi tạo ── */
+        renderList(QUESTIONS, "");
+
+        searchInput.addEventListener("input", function () {
+          doSearch(this.value);
+        });
+        searchClear.addEventListener("click", function () {
+          searchInput.value = "";
+          doSearch("");
+          searchInput.focus();
+        });
+
+        /* ── Scroll to top ── */
+        var scrollBtn = document.getElementById("scrollTopBtn");
+        window.addEventListener(
+          "scroll",
+          function () {
+            scrollBtn.style.display = window.scrollY > 320 ? "flex" : "none";
+          },
+          { passive: true },
+        );
+        scrollBtn.addEventListener("click", function (e) {
+          e.preventDefault();
+          window.scrollTo({ top: 0, behavior: "smooth" });
+        });
+      })();
+    </script>
+  </body>
+</html>

@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ôn Tập - Bệnh ngoại khoa Thú y (129 câu)</title>
+<style>
+:root {
+  --blue:      #2563eb;
+  --blue-dark: #1e40af;
+  --blue-bg:   #eff6ff;
+  --green:     #16a34a;
+  --green-bg:  #f0fdf4;
+  --green-bd:  #86efac;
+  --yellow-bg: #fefce8;
+  --yellow-bd: #fde047;
+  --gray:      #6b7280;
+  --gray-lt:   #f3f4f6;
+  --border:    #e5e7eb;
+  --text:      #111827;
+  --radius:    12px;
+  --shadow:    0 1px 4px rgba(0,0,0,.08),0 4px 12px rgba(0,0,0,.06);
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+  background: #f1f5f9; color: var(--text);
+  line-height: 1.65; font-size: 15px;
+}
+
+/* ── HEADER ── */
+.page-header {
+  background: linear-gradient(135deg, var(--blue-dark) 0%, var(--blue) 100%);
+  color: #fff; padding: 28px 20px 22px; text-align: center;
+  position: relative;
+}
+.page-header h1 { font-size: clamp(1.1em, 4vw, 1.7em); font-weight: 700; margin-bottom: 5px; }
+.page-header p  { opacity: .85; font-size: .88em; }
+.back-btn {
+  position: absolute; left: 14px; top: 50%; transform: translateY(-50%);
+  background: rgba(255,255,255,.18); border: 1.5px solid rgba(255,255,255,.35);
+  color: #fff; padding: 6px 13px; border-radius: 7px;
+  text-decoration: none; font-size: .82em; font-weight: 600;
+  white-space: nowrap; transition: background .15s; line-height: 1.4;
+}
+.back-btn:hover { background: rgba(255,255,255,.3); }
+@media (max-width: 480px) {
+  .back-btn { position: static; transform: none; display: inline-block;
+              margin-bottom: 10px; font-size: .8em; }
+  .page-header { padding-top: 16px; }
+}
+
+/* ── SEARCH BAR ── */
+.search-wrap {
+  position: sticky; top: 0; z-index: 100;
+  background: #fff; border-bottom: 1px solid var(--border);
+  padding: 10px 16px;
+  box-shadow: 0 2px 8px rgba(0,0,0,.08);
+}
+.search-inner {
+  max-width: 860px; margin: 0 auto;
+  display: flex; align-items: center; gap: 10px;
+}
+.search-box { flex: 1; position: relative; }
+.search-box input {
+  width: 100%; padding: 9px 36px 9px 38px;
+  border: 1.5px solid var(--border); border-radius: 8px;
+  font-size: .95em; outline: none; background: var(--gray-lt);
+  transition: border-color .15s, background .15s;
+  -webkit-appearance: none;
+}
+.search-box input:focus { border-color: var(--blue); background: #fff; }
+.search-icon {
+  position: absolute; left: 11px; top: 50%;
+  transform: translateY(-50%); color: var(--gray);
+  pointer-events: none; font-size: 1em;
+}
+.search-clear {
+  position: absolute; right: 9px; top: 50%;
+  transform: translateY(-50%); background: none; border: none;
+  cursor: pointer; color: var(--gray); font-size: 1.1em;
+  padding: 2px 4px; display: none; line-height: 1; border-radius: 50%;
+}
+.search-clear:hover { color: #111; background: var(--gray-lt); }
+.search-count {
+  white-space: nowrap; font-size: .88em; color: var(--gray);
+  min-width: 90px; text-align: right;
+}
+.search-count strong { color: var(--blue-dark); }
+
+/* ── CONTAINER ── */
+.container {
+  max-width: 860px; margin: 18px auto;
+  padding: 0 14px 80px;
+}
+
+/* ── QUESTION CARD ── */
+.question-block {
+  background: #fff; border-radius: var(--radius);
+  box-shadow: var(--shadow); margin-bottom: 16px;
+  border-left: 4px solid var(--blue);
+  overflow: hidden;
+  transition: box-shadow .15s;
+}
+.question-block:hover {
+  box-shadow: 0 2px 8px rgba(0,0,0,.12), 0 6px 20px rgba(0,0,0,.08);
+}
+
+.question-header {
+  display: flex; align-items: center; gap: 8px;
+  background: var(--blue-bg); padding: 8px 14px;
+  border-bottom: 1px solid #dbeafe;
+}
+.q-badge {
+  background: var(--blue); color: #fff;
+  border-radius: 20px; padding: 1px 9px;
+  font-size: .78em; font-weight: 700; letter-spacing: .3px;
+}
+
+.question-text {
+  padding: 14px 16px 8px;
+  font-size: 1em; font-weight: 500; color: #1e293b;
+}
+.question-text mark {
+  background: #fef08a; color: inherit;
+  border-radius: 3px; padding: 0 2px;
+}
+
+/* ── ANSWERS ── */
+.answers {
+  padding: 4px 16px 12px;
+  display: flex; flex-direction: column; gap: 6px;
+}
+.answer-item {
+  display: flex; align-items: flex-start; gap: 10px;
+  padding: 8px 12px; border-radius: 8px;
+  border: 1.5px solid var(--border);
+  background: var(--gray-lt);
+}
+.answer-item.correct {
+  background: var(--green-bg);
+  border-color: var(--green-bd);
+  font-weight: 600;
+}
+.answer-letter {
+  font-weight: 700; font-size: .9em;
+  width: 22px; flex-shrink: 0; padding-top: 1px; color: var(--gray);
+}
+.answer-item.correct .answer-letter { color: var(--green); }
+.answer-text {
+  flex: 1; color: #374151; font-size: .95em;
+}
+.answer-item.correct .answer-text { color: #14532d; }
+.answer-text mark {
+  background: #bbf7d0; color: inherit;
+  border-radius: 3px; padding: 0 2px;
+}
+.check-mark {
+  flex-shrink: 0; margin-left: auto; padding-left: 6px;
+  color: var(--green); font-weight: 700;
+}
+
+/* ── FEEDBACK ── */
+.feedback-section {
+  background: var(--yellow-bg);
+  border-top: 1.5px solid var(--yellow-bd);
+  padding: 10px 16px; font-size: .875em; color: #44403c;
+}
+.feedback-section p { margin: 3px 0; }
+.feedback-section strong { color: #1c1917; }
+
+/* ── EMPTY STATE ── */
+#noResults {
+  display: none; text-align: center;
+  padding: 60px 20px; color: var(--gray);
+}
+#noResults .nr-icon { font-size: 2.5em; margin-bottom: 12px; }
+#noResults p { font-size: .95em; }
+
+/* ── SCROLL TOP ── */
+#scrollTopBtn {
+  position: fixed; bottom: 20px; right: 16px;
+  width: 44px; height: 44px; border-radius: 50%;
+  background: var(--blue); color: #fff; border: none;
+  font-size: 1.3em; cursor: pointer; display: none;
+  align-items: center; justify-content: center;
+  box-shadow: 0 3px 10px rgba(37,99,235,.4);
+  transition: background .15s, transform .15s;
+  z-index: 200; text-decoration: none;
+  line-height: 44px; text-align: center;
+}
+#scrollTopBtn:hover { background: var(--blue-dark); transform: translateY(-2px); }
+
+/* ── MOBILE ── */
+@media (max-width: 600px) {
+  body { font-size: 14px; }
+  .page-header { padding: 18px 14px 14px; }
+  .container { margin: 12px auto; padding: 0 10px 80px; }
+  .question-text { padding: 12px 12px 6px; }
+  .answers { padding: 4px 12px 10px; gap: 5px; }
+  .answer-item { padding: 7px 10px; }
+  .feedback-section { padding: 9px 12px; }
+  .search-count { display: none; }
+}
+</style>
+</head>
+<body>
+
+<div class="page-header">
+  <a href="index.html" class="back-btn">&#8592; Trang ch&#7911;</a>
+  <h1>Ôn Tập Bệnh ngoại khoa Thú y</h1>
+  <p>Câu hỏi trắc nghiệm có đáp án &mdash; Nguồn: LT_J01 – LT_J02 – LT_J03</p>
+</div>
+
+<div class="search-wrap">
+  <div class="search-inner">
+    <div class="search-box">
+      <span class="search-icon">&#128269;</span>
+      <input type="search" id="searchInput"
+             placeholder="Tìm câu hỏi hoặc đáp án..." autocomplete="off">
+      <button class="search-clear" id="searchClear" title="Xóa">&#10005;</button>
+    </div>
+    <div class="search-count" id="searchCount">
+      <strong>129</strong> / 129 câu
+    </div>
+  </div>
+</div>
+
+<div class="container" id="questionContainer">
+  <div id="noResults">
+    <div class="nr-icon">&#128269;</div>
+    <p>Không tìm thấy câu hỏi phù hợp.</p>
+  </div>
+</div>
+
+<a href="#" id="scrollTopBtn" title="Lên đầu trang">&#8679;</a>
+
+<script>
+const QUESTIONS = [{"id":1,"text":"Trong cố định mèo, tư thế nằm nghiêng thường dùng để làm gì?","answers":["A. Lấy máu tĩnh mạch mặt trong của chân sau hoặc cắt móng","B. Tiêm bắp","C. Nhỏ thuốc vào tai","D. Cho uống thuốc"],"correct":0,"explanation":"Đáp án đúng là: Lấy máu tĩnh mạch mặt trong của chân sau hoặc cắt móng Vì: Nằm nghiêng giúp lấy máu, tiêm bắp hoặc cắt móng dễ hơn.","reference":"Mục 2.5"},{"id":2,"text":"Trước khi cố định gia súc mang thai cần lưu ý gì?","answers":["A. Thận trọng, tránh vật ngã thô bạo","B. Kiểm tra dụng cụ cố định","C. Cho vật ăn no","D. Đặt vật nghiêng bên trái"],"correct":0,"explanation":"Đáp án đúng là: Thận trọng, tránh vật ngã thô bạo Vì: Gia súc mang thai dễ tổn thương, cần thao tác nhẹ nhàng.","reference":"Mục 1"},{"id":3,"text":"Mục đích chính của việc cố định gia súc là gì?","answers":["A. Giảm chi phí điều trị","B. An toàn trong phẫu thuật","C. Vật nuôi nhanh phục hồi","D. Đảm bảo an toàn cho người và rút ngắn thời gian phẫu thuật"],"correct":3,"explanation":"Đáp án đúng là: Đảm bảo an toàn cho người và rút ngắn thời gian phẫu thuật Vì: Giảm nguy cơ nhiễm trùng, mất máu, đảm bảo an toàn cho người và vật. Tham khảo: Nội dung Bài 1","reference":""},{"id":4,"text":"Phương pháp xoắn mũi áp dụng chủ yếu cho loài nào?","answers":["A. Lợn","B. Chó","C. Ngựa","D. Trâu, bò"],"correct":2,"explanation":"Đáp án đúng là: Ngựa Vì: Ngựa có môi trên với gương mũi dài và mỏng, tập trung nhiều đầu mút thần kinh, xoắn mũi gây đau vùng mũi không để ý đến xung quanh","reference":"Mục 2.2"},{"id":5,"text":"Tại sao không nên dùng rọ mõm lâu trên chó già hoặc chó hô hấp kém?","answers":["A. Tăng nguy cơ nhiễm trùng","B. Con vật mệt mỏi","C. Gây khó thở, ngạt","D. Chó không chịu ăn"],"correct":2,"explanation":"Đáp án đúng là: Gây khó thở, ngạt Vì: Rọ mõm có thể làm chó sợ hãi, gây khó thở với chó già hoặc hô hấp kém.","reference":"Mục 2.4"},{"id":6,"text":"Hàm thiếc ở ngựa dùng để làm gì?","answers":["A. Đè lưỡi, tránh cắn khi vận động","B. Giữ chặt miệng","C. Kẹp lưỡi","D. Giữ chặt hàm"],"correct":0,"explanation":"Đáp án đúng là: Đè lưỡi, tránh cắn khi vận động Vì: Dùng khi khám bệnh , tiêm hay cho uống thuốc… chỉ cần giữ dây cương con vật tạm thời đứng yên tại chỗ","reference":"Mục 2.2"},{"id":7,"text":"Vì sao cần đặt  cỏ khô hoặc đệm mềm dưới lưng trâu bò khi vật?","answers":["A. Giữ ấm cơ thể","B. Tránh tê chân","C. Giảm tổn thương khi ngã","D. Lưu thông máu"],"correct":2,"explanation":"Đáp án đúng là: Giảm tổn thương khi ngã Vì: Bó cỏ khô giảm chấn thương, tránh vết thương khi ngã.","reference":"Mục 2.1"},{"id":8,"text":"Trình tự buộc dây trong phương pháp vật lợn bằng dụng cụ tròng chân sau như sau?","answers":["A. Buộc cổ → buộc chân trước → kéo","B. Khớp mõm → tròng vào 2 chân sau → kéo ngã","C. Tròng chân trước → tròng chân sau → mõm","D. Buộc vòng bụng → kéo chân sau"],"correct":1,"explanation":"Đáp án đúng là: Khớp mõm → tròng vào 2 chân sau → kéo ngã Vì: Dụng cụ tròng chân sau, dây khớp mõm rồi kéo mạnh lợn ngã.","reference":"Mục 2.3"},{"id":9,"text":"Mô tả đúng nhất cách tiếp cận mèo hung dữ?","answers":["A. Dùng rọ mõm ngay lập tức","B. Tiếp cận một mình, ôm chặt","C. Đánh thức mèo trước khi tiếp cận","D. Hai người, một giữ, một thực hiện thao tác"],"correct":3,"explanation":"Đáp án đúng là: Hai người, một giữ, một thực hiện thao tác Vì: Mèo hung dữ cần hai người: người giữ, người thực hiện thao tác.","reference":"Mục 2.5"},{"id":10,"text":"Dụng cụ nào thường dùng để ngăn chó cắn khi cố định?","answers":["A. Dây buộc","B. Rọ mõm","C. Bàn cố đnh","D. Kẹp mũi"],"correct":1,"explanation":"Đáp án đúng là: Rọ mõm Vì: Rọ mõm giúp tránh bị chó cắn trong quá trình xử lý hoặc thăm khám.","reference":"Mục 2.4"},{"id":11,"text":"Cách cố định trâu, bò trong phương pháp Burley là gì?","answers":["A. Buộc vòng qua cổ","B. Buộc vòng qua chân","C. Buộc vòng quanh cổ và kéo mạnh","D. Vòng dây qua cổ trâu, bò và thắt lại cũng có thể buộc quanh gốc sừng. Một vòng qua bụng và một vòng qua ngực"],"correct":3,"explanation":"Đáp án đúng là: Vòng dây qua cổ trâu, bò và thắt lại cũng có thể buộc quanh gốc sừng. Một vòng qua bụng và một vòng qua ngực Vì: Khi kéo dây song song với cột sống của bò, từ đó bò nằm xuống 1 bên","reference":"Mục 2.1"},{"id":12,"text":"So sánh ưu - nhược điểm của cố định bằng xoắn mũi và cố định bằng dây cương hàm thiếc trên ngựa?","answers":["A. Xoắn mũi cho phép buộc chân","B. Xoắn mũi rẻ hơn, dây cương đắt hơn","C. Thao tác nhanh. Xoắn mũi con vật đau chỉ chú y vào vùng mũi. Dây cương hàm thiếc con vật đứng yên","D. Không có sự khác biệt"],"correct":2,"explanation":"Đáp án đúng là: Thao tác nhanh. Xoắn mũi con vật đau chỉ chú y vào vùng mũi. Dây cương hàm thiếc con vật đứng yên Vì: Xoắn mũi tập trung đau, phù hợp thủ thuật nhẹ; dây cương hãm lưỡi nhưng kém với ngựa hung hăng.","reference":"Mục 2.2"},{"id":13,"text":"Giá cố định bốn trụ thường dùng cho loài gia súc nào?","answers":["A. Mèo","B. Chó","C. Ngựa","D. Trâu, bò"],"correct":3,"explanation":"Đáp án đúng là: Trâu, bò Vì: Giữ trâu, bò đứng chắc để thực hiện các ca phẫu thuật phức tạp có thời gian kéo dài","reference":"Mục 2.1"},{"id":14,"text":"Trong phương pháp Rueff, vì sao phải buộc hai chân sau trước khi buộc hai chân trước?","answers":["A. Dễ thao tác hơn","B. Đỡ mỏi khi đứng lâu","C. Trâu bò thường đứng dậy bằng 2 chân sau trước","D. Giảm đau ở chân trước"],"correct":2,"explanation":"Đáp án đúng là: Trâu bò thường đứng dậy bằng 2 chân sau trước Vì: Sau khi ngã, trâu bò đứng dậy bằng chân sau trước, buộc 2 chân trước trước sẽ làm con vật khó đứng dậy","reference":"Mục 2.1"},{"id":15,"text":"Dụng cụ thường dùng để cố định mũi (đầu) trâu, bò là gì?","answers":["A. Kẹp mũi","B. Vòng cổ vải","C. Rọ mõm","D. Dây cương hàm thiếc"],"correct":0,"explanation":"Đáp án đúng là: Kẹp mũi Vì: Vách ngăn mũi nhiều thụ cảm thần kinh, dễ kiểm soát hoặc làm giảm sự chú ý của trâu, bò.","reference":"Mục 2.1"},{"id":16,"text":"Tại sao cần kiểm tra dụng cụ cố định trước khi sử dụng?","answers":["A. Làm đẹp dụng cụ","B. Đảm bảo không có vật cứng, sắc nhọn... gây tổn thương","C. Giảm chi phí sửa chữa","D. Tăng thời gian cố định"],"correct":1,"explanation":"Đáp án đúng là: Đảm bảo không có vật cứng, sắc nhọn... gây tổn thương Vì: Dụng cụ không an toàn có thể gây tổn thương cho vật.","reference":"Mục 1"},{"id":17,"text":"Khi cố định một chân trước của  ngựa bằng dây, điểm buộc đầu tiên nằm ở đâu?","answers":["A. Khớp gối","B. Đốt ngón chân","C. Cổ chân","D. Cổ ngựa"],"correct":2,"explanation":"Đáp án đúng là: Cổ chân Vì: Buộc vào cổ chân, sau đó vắt qua vai để kéo lên.","reference":"Mục 2.2"},{"id":18,"text":"Tại sao kẹp mũi trâu bò lại có hiệu quả trong kiểm soát phần đầu?","answers":["A. Vách ngăn mũi có nhiều thụ cảm thần kinh","B. Kẹp cứng vào xương hàm","C. Làm mất thị giác","D. Kẹp vào sừng"],"correct":0,"explanation":"Đáp án đúng là: Vách ngăn mũi có nhiều thụ cảm thần kinh Vì: Kẹp mũi giúp kiểm soát hoặc phan tán sự chú ý của trâu, bò","reference":"Mục 2.1"},{"id":19,"text":"Phương pháp cố định hai chân sau ngựa thường áp dụng trong phẫu thuật vùng nào?","answers":["A. Vùng lưng","B. Trực tràng hoặc âm đạo","C. Vùng bụng","D. Vùng Ngực"],"correct":1,"explanation":"Đáp án đúng là: Trực tràng hoặc âm đạo Vì: Ngăn ngựa đá khi khám bệnh hay phẫu thuật ở trực tràng, âm đạo.","reference":"Mục 2.2"},{"id":20,"text":"Khi cố định chó, nếu chủ nuôi có mặt, nên làm gì đầu tiên?","answers":["A. Tiếp cận làm quen chó","B. Nói chuyện với chủ nuôi và phớt lờ chó","C. Giơ tay vuốt ve chó","D. Cho chó ăn no"],"correct":1,"explanation":"Đáp án đúng là: Nói chuyện với chủ nuôi và phớt lờ chó Vì: Tạo sự tin cậy qua chủ, giúp chó bình tĩnh hơn.","reference":"Mục 2.4"},{"id":21,"text":"Biện pháp giảm sự hưng phấn ở ngựa trước khi cố định là gì?","answers":["A. Dùng rọ mõm","B. Xoắn mũi liên tục","C. Cho ăn trong chuồng ít nhất từ 15 - 30 phút hàng ngày","D. Buộc chặt hai chân sau"],"correct":2,"explanation":"Đáp án đúng là: Cho ăn trong chuồng ít nhất từ 15 - 30 phút hàng ngày Vì: Dễ dàng hơn trong việc cố định, chải chuốt hoặc kiểm tra sức khỏe","reference":"Mục 2.2"},{"id":22,"text":"Cố định lợn con để thiến thường dùng tư thế nào?","answers":["A. Quay hai chân sau vào trong","B. Kẹp hai chân vào đùi","C. Quay hai chân sau ra ngoài","D. Xách ngược hai chân sau lên"],"correct":3,"explanation":"Đáp án đúng là: Xách ngược hai chân sau lên Vì: Xách ngược hai chân sau, dùng đầu gối phần kẹp phần dưới của lợn để tiêm, thiến lợn.","reference":"Mục 2.3"},{"id":23,"text":"Kỹ thuật cố định một chân sau cho  ngựa bằng tay yêu cầu đặt chân con vật lên đâu?","answers":["A. Bàn tay người cố định","B. Đầu gối người cố định","C. Chân trái người cố định","D. Vai người cố định"],"correct":1,"explanation":"Đáp án đúng là: Đầu gối người cố định Vì: Sau khi nhấc chân, đặt lên đầu gối người để giữ chặt.","reference":"Mục 2.2"},{"id":24,"text":"Dụng cụ nào dùng để cố định lợn trên 20 kg khi khó bắt?","answers":["A. Dụng cụ tròng chân sai","B. Gậy khớp mõm lợn","C. Kẹp mũi","D. Cố định trên bàn"],"correct":1,"explanation":"Đáp án đúng là: Gậy khớp mõm lợn Vì: Thiết kế chuyên dụng cho lợn >20 kg, an toàn và nhanh chóng.","reference":"Mục 2.3"},{"id":25,"text":"Gọi tên hai phương pháp vật trâu, bò phổ biến?","answers":["A. Nhấc 1 chân trước","B. Vật bằng tay","C. Nhấc 2 chân","D. Rueff và Burley"],"correct":3,"explanation":"Đáp án đúng là: Rueff và Burley Vì: Cố định và giải thoát vật nuôi hơn","reference":"Mục 2.1"},{"id":26,"text":"Kỹ thuật cố định một chân sau cho ngựa bằng tay yêu cầu đặt chân con vật lên đâu?","answers":["A. Đầu gối người cố định","B. Vai người cố định","C. Chân trái người cố định","D. Bàn tay người cố định"],"correct":0,"explanation":"Sau khi nhấc chân, đặt lên đầu gối người để giữ chặt.","reference":"Mục 2.2 Bài 1"},{"id":27,"text":"Khi cố định một chân trước của ngựa bằng dây, điểm buộc đầu tiên nằm ở đâu?","answers":["A. Khớp gối","B. Cổ ngựa","C. Cổ chân","D. Đốt ngón chân"],"correct":2,"explanation":"Buộc vào cổ chân, sau đó vắt qua vai để kéo lên.","reference":"Mục 2.2 Bài 1"},{"id":28,"text":"Vì sao cần đặt cỏ khô hoặc đệm mềm dưới lưng trâu bò khi vật?","answers":["A. Giảm tổn thương khi ngã","B. Lưu thông máu","C. Tránh tê chân","D. Giữ ấm cơ thể"],"correct":0,"explanation":"Đặt cỏ khô hoặc đệm mềm dưới lưng trâu bò giúp giảm tổn thương khi ngã và tăng sự thoải mái cho vật nuôi.","reference":"Mục 2.2 Bài 1"},{"id":29,"text":"Nguyên nhân nội sinh gây nhiễm trùng là:","answers":["A. Vi khuẩn từ các ổ nhiễm có sẵn trong cơ thể","B. Không rửa tay","C. Gió, bụi ngoài môi trường","D. Thiếu ánh sáng"],"correct":0,"explanation":"Đáp án đúng là: Vi khuẩn từ các ổ nhiễm có sẵn trong cơ thể Vì: Nhiễm từ các ổ mủ, áp xe trong cơ thể vật nuôi.","reference":"Mục 2.2"},{"id":30,"text":"Tiệt trùng dụng cụ kim loại tốt nhất bằng:","answers":["A. Phương pháp luộc","B. Sấy khô trong 30 phút","C. Hấp cao áp","D. Dùng hóa chất"],"correct":0,"explanation":"Đáp án đúng là: Phương pháp luộc Vì: Luộc đạt hiệu quả và tiện lợi.","reference":"Mục 2.6.2"},{"id":31,"text":"Trước khi phẫu thuật, động vật phải được:","answers":["A. Con vật nghỉ ngơi","B. Giảm ăn","C. Kiểm tra sức khỏe toàn diện","D. Cho ăn thật no"],"correct":2,"explanation":"Đáp án đúng là: Kiểm tra sức khỏe toàn diện Vì: Đánh giá sức khỏe giúp tiên lượng ca mổ.","reference":"Mục 2.5.1"},{"id":32,"text":"Tác nhân chủ yếu gây nhiễm trùng là:","answers":["A. Nấm","B. Vi rút","C. Vi khuẩn","D. Vi khuẩn"],"correct":2,"explanation":"Đáp án đúng là: Vi khuẩn Vì: Tác nhân chủ yếu là vi khuẩn","reference":"Mục 2.2"},{"id":33,"text":"Găng tay vô trùng giúp:","answers":["A. Tránh tiếp xúc với máu","B. An toàn cho người phẫu thuật","C. Dễ thao tác","D. Đảm bảo tay hoàn toàn vô trùng"],"correct":3,"explanation":"Đáp án đúng là: Đảm bảo tay hoàn toàn vô trùng Vì: Găng tay là lớp bảo vệ cuối cùng ngăn nhiễm trùng từ tay.","reference":"Mục 2.3.3"},{"id":34,"text":"Phòng mổ phải được:","answers":["A. Vệ sinh sạch sẽ","B. Tiêu độ khử trùng","C. Có quạt thông gió","D. Tiệt trùng kỹ và chỉ dùng để phẫu thuật"],"correct":3,"explanation":"Đáp án đúng là: Tiệt trùng kỹ và chỉ dùng để phẫu thuật Vì: Phòng mổ cần vô trùng để hạn chế nhiễm trùng.","reference":"Mục 2.4.1"},{"id":35,"text":"Khi sát trùng vùng mô bệnh lý, hướng sát trùng là:","answers":["A. Xoay tròn liên tục","B. Từ trung tâm ra ngoài","C. Từ ngoài vào trong","D. Sát  trùng tại vùng bệnh lý"],"correct":2,"explanation":"Đáp án đúng là: Từ ngoài vào trong Vì: Ngăn lan mầm bệnh ra mô lành.","reference":"Mục 2.5.2"},{"id":36,"text":"Việc tắm rửa vật nuôi phẫu thuật là cần thiết vì:","answers":["A. Làm nhẹ cân vật nuôi","B. Giúp vật nuôi mát mẻ","C. Giảm nguy cơ nhiễm trùng từ cơ thể vật nuôi","D. Làm sạch lông để đẹp"],"correct":2,"explanation":"Đáp án đúng là: Giảm nguy cơ nhiễm trùng từ cơ thể vật nuôi Vì: Giảm vi sinh vật gây nhiễm trùng.","reference":"Mục 2.5.1"},{"id":37,"text":"Chất sát trùng dùng cho niêm mạc mắt là:","answers":["A. Rivanol 0,1%","B. Cồn Iod 5%","C. Cồn iod 5%","D. NaCl 0,9%"],"correct":0,"explanation":"Đáp án đúng là: Rivanol 0,1% Vì: Rivanol, không gây kích ứng.","reference":"Mục 2.5.3"},{"id":38,"text":"Phương pháp Pokotilo sử dụng:","answers":["A. Ngâm dụng cụ trong formalin 4% trong 72 giờ","B. Luộc với NaOH","C. Sấy khô trong 30 phút","D. Hấp cao áp ở 1,5 atm"],"correct":0,"explanation":"Đáp án đúng là: Ngâm dụng cụ trong formalin 4% trong 72 giờ Vì: Đây là phương pháp t đơn giản, nhanh nhất","reference":"Mục 2.6.2"},{"id":39,"text":"Nhiệm vụ của người phụ mổ thứ nhất là:","answers":["A. Hỗ trợ phẫu thuật, thay thế người chính khi cần","B. Vận hành đèn mổ","C. Vận hành thiết bị","D. Chuẩn bị dụng cụ, thuốc"],"correct":0,"explanation":"Đáp án đúng là: Hỗ trợ phẫu thuật, thay thế người chính khi cần Vì: Người phụ mổ trực tiếp tham gia cùng người mổ chính.","reference":"Mục 2.3.1"},{"id":40,"text":"Tiệt trùng dụng cụ cao su bằng:","answers":["A. Hơ lửa","B. Sấy khô","C. Luộc hoặc hấp ướt thường","D. Dùng hóa chất"],"correct":2,"explanation":"Đáp án đúng là: Luộc hoặc hấp ướt thường Vì: Cao su chịu nhiệt ẩm nhưng không chịu nhiệt khô.","reference":"Mục 2.6.2"},{"id":41,"text":"Người mổ chính cần:","answers":["A. Thành thạo kỹ năng và hiểu rõ tình cảnh bệnh","B. Sử dụng thành thạo thiết bị","C. Biết sử dụng các dụng cụ","D. Hiểu được tiến trình phẫu thuật"],"correct":0,"explanation":"Đáp án đúng là: Thành thạo kỹ năng và hiểu rõ tình cảnh bệnh Vì: Người mổ chính cần có chuyên môn vững vàng và hiểu rõ tình trạng bệnh.","reference":"Mục 2.3.1"},{"id":42,"text":"Xử lý da vùng phẫu thuật cần sát trùng:","answers":["A. Hai lần bằng cồn iod hoặc povidone iodine 5%","B. Sát trùng bằng nước muối sinh lý","C. Sát trùng 1 lần bằng cồn 70, 1 lần bằng  povidone iodine 5%","D. Một lần bằng nước sạch"],"correct":0,"explanation":"Đáp án đúng là: Hai lần bằng cồn iod hoặc povidone iodine 5% Vì: Đảm bảo vô trùng tối đa vùng mổ.","reference":"Mục 2.5.2"},{"id":43,"text":"Thuốc sát trùng phổ biến dùng trước mổ là:","answers":["A. Cồn iod 5%","B. Cồn 70","C. Nước muối sinh lý 0,9%","D. Cồn 90"],"correct":0,"explanation":"Đáp án đúng là: Cồn iod 5% Vì: Cồn iod có hiệu quả diệt khuẩn cao.","reference":"Mục 2.8"},{"id":44,"text":"Đối với vật nuôi mang thai cần lưu ý khi gây mê vì:","answers":["A. Gây mêm nhanh","B. Ảnh hưởng đến hệ thần kinh","C. Có thể gây sảy thai","D. Con vật không tỉnh lại"],"correct":2,"explanation":"Đáp án đúng là: Có thể gây sảy thai Vì: Gây mê và cố định dễ gây sảy thai.","reference":"Mục 2.5.1"},{"id":45,"text":"Dụng cụ nghi nhiễm vi khuẩn sinh nha bào cần:","answers":["A. Sấy khô","B. Dùng hóa chất","C. Luộc","D. Hấp ướt cao áp"],"correct":3,"explanation":"Đáp án đúng là: Hấp ướt cao áp Vì: Chỉ hấp cao áp mới diệt được nha bào.","reference":"Mục 2.6.2"},{"id":46,"text":"Bãi mổ không được đặt tại:","answers":["A. Nơi nghi nhiễm vi khuẩn sinh nha bào","B. Nền cỏ","C. Vị trí thấp","D. Nơi gia súc chết"],"correct":0,"explanation":"Đáp án đúng là: Nơi nghi nhiễm vi khuẩn sinh nha bào Vì: Vi khuẩn sinh nha bào rất nguy hiểm và tồn tại lâu.","reference":"Mục 2.4.2"},{"id":47,"text":"Để hạn chế cát bay lên tại bãi mổ có thể:","answers":["A. Phun nước","B. Che kín khu vực bãi mổ","C. Chải bạt","D. Phun formalin 4%"],"correct":3,"explanation":"Đáp án đúng là: Phun formalin 4% Vì: Formalin có tính sát trùng mạnh.","reference":"Mục 2.4.2"},{"id":48,"text":"Nhiễm trùng là gì?","answers":["A. Là sự xâm nhập và phát triển của vi sinh vật trong cơ thể vật nuôi","B. Là kết quả của việc chăm sóc kém","C. Là phản ứng miễn dịch tự nhiên của cơ thể","D. Là hiện tượng suy dinh dưỡng"],"correct":0,"explanation":"Đáp án đúng là: Là sự xâm nhập và phát triển của vi sinh vật trong cơ thể vật nuôi Vì: Nhiễm trùng là kết quả của sự tương tác giữa cơ thể và vi sinh vật xâm nhập.","reference":"Mục 2.1"},{"id":49,"text":"Phẫu thuật lớn, phức tạp nên tiến hành vào:","answers":["A. Buổi trưa","B. Buổi chiều","C. Cả ngày","D. Buổi sáng"],"correct":3,"explanation":"Đáp án đúng là: Buổi sáng Vì: Buổi sáng đảm bảo đủ thời gian xử lý các tình huống.","reference":"Mục 2.9"},{"id":50,"text":"Thời gian luộc dụng cụ tối thiểu:","answers":["A. Tối thiểu 25 - 30 phút","B. luộc 30 phút","C. 1 giờ","D. tối thiểu 30 phút"],"correct":3,"explanation":"Đáp án đúng là: tối thiểu 30 phút Vì: Tối thiểu 30 phút kể từ lúc nước sôi mới đảm bảo tiêu diệt vi khuẩn.","reference":"Mục 2.6.2"},{"id":51,"text":"Niệu đạo của gia súc đực nhai lại  không thể thông tiểu vì:","answers":["A. Niệu đạo ngắn","B. Có đoạn hình chữ “S” gây trở ngại","C. Niệu đạo quá nhỏ","D. Niệu đạo hẹp"],"correct":1,"explanation":"Đáp án đúng là: Có đoạn hình chữ “S” gây trở ngại Vì: Cấu trúc giải phẫu cản trở việc đặt ống.","reference":"Mục 2.5.1"},{"id":52,"text":"Khi phẫu thuật mô bệnh lý, lý do sát trùng từ ngoài vào là:","answers":["A. Tránh lây lan mầm bệnh","B. Tránh làm  mầm bệnh ra mô lành","C. Thực hiện nhanh","D. Thực hiện dễ"],"correct":1,"explanation":"Đáp án đúng là: Tránh làm  mầm bệnh ra mô lành Vì: Tạo mật độ sát trùng cao ở vòng ngoài.","reference":"Mục 2.5.2"},{"id":53,"text":"Dụng cụ băng bó bao gồm:","answers":["A. Băng dải","B. Bông, gạc","C. Dây buộc","D. Bông, băng, vải gạc"],"correct":3,"explanation":"Đáp án đúng là: Bông, băng, vải gạc Vì: Băng bó cần vật liệu mềm và vô trùng.","reference":"Mục 2.6.1"},{"id":54,"text":"Niệu đạo của gia súc đực nhai lại không thể thông tiểu vì:","answers":["A. Niệu đạo ngắn","B. Có đoạn hình chữ “S” gây trở ngại","C. Niệu đạo quá nhỏ","D. Niệu đạo hẹp"],"correct":1,"explanation":"Đáp án đúng là: Có đoạn hình chữ “S” gây trở ngại Vì: Cấu trúc giải phẫu cản trở việc đặt ống.","reference":"Mục 2.5.1"},{"id":55,"text":"Xylazine thuộc nhóm nào sau đây?","answers":["A. Alpha2-agonist","B. Barbiturates","C. Opiates","D. Benzodiazepine"],"correct":0,"explanation":"Đáp án đúng là: Alpha2-agonist Vì: Xylazine là thuốc an thần nhóm alpha2-agonist.","reference":"Mục 3.1.5."},{"id":56,"text":"Thuốc mê lý tưởng nên có đặc điểm nào sau đây?","answers":["A. Không gây mệt cho gia súc","B. Không có giai đoạn hưng phấn","C. Không gây kích thích hệ thần kinh","D. Có giai đoạn hưng phấn"],"correct":1,"explanation":"Đáp án đúng là: Không có giai đoạn hưng phấn Vì: Thuốc mê lý tưởng không có giai đoạn hưng phấn.","reference":"Mục 3.1.3."},{"id":57,"text":"Thuốc tiền mê được dùng trước khi gây mê nhằm:","answers":["A. Đơn giản hóa kỹ thuật và giảm phản xạ có hại","B. Tăng tiết dịch","C. Giảm đau","D. Gây nhanh ngay lập tức"],"correct":0,"explanation":"Đáp án đúng là: Đơn giản hóa kỹ thuật và giảm phản xạ có hại Vì: Tiền mê giúp giảm kích thích và phản xạ có hại.","reference":"Mục 3.1.5."},{"id":58,"text":"Phương pháp gây mê nào dùng thuốc dạng khí hoặc bay hơi?","answers":["A. Gây mê  đường tiêu hóa","B. Gây mê khí dung","C. Gây mê tiêm bắp","D. Gây mê trực tràng"],"correct":1,"explanation":"Đáp án đúng là: Gây mê khí dung Vì: Gây mê khí dung là dùng dạng bay hơi.","reference":"Mục 3.1.2.2."},{"id":59,"text":"Phương pháp gây tê nào tiêm sát với dây thần kinh?","answers":["A. Gây tê thấm","B. Gây tê dẫn truyền","C. Gây tê bề mặt","D. Gây tê sacralis"],"correct":1,"explanation":"Đáp án đúng là: Gây tê dẫn truyền Vì: Gây tê dẫn truyền tiêm sát với một hay một nhóm dây thần kinh.","reference":"Mục 3.2.2.3."},{"id":60,"text":"Loại thuốc nào sau đây thường dùng gây mê ở chó, mèo?","answers":["A. Lidocain","B. Diazepam","C. Morphin","D. Zoletil"],"correct":3,"explanation":"Đáp án đúng là: Zoletil Vì: Zoletil là thuốc mê thường dùng cho chó mèo.","reference":"Mục 3.1.8.4."},{"id":61,"text":"Gây mê bằng propofol với liều lượng là:","answers":["A. 4 -5 mg/kg thẻ trọng","B. 3 -5 mg/kg thẻ trọng","C. 3 -4 mg/kg thẻ trọng","D. 2 -5 mg/kg thẻ trọng"],"correct":0,"explanation":"Đáp án đúng là: 4 -5 mg/kg thẻ trọng Vì: Liều 4-5mg/kg thể trọng kết hợp với thuốc tiền mê an thần nhé","reference":"Mục 3.1.8."},{"id":62,"text":"Vì sao ether gây cơn mê không êm ái?","answers":["A. Làm tăng tiết nhầy, gây kích ứng","B. Không gây mất cảm giác","C. Gây mê quá nhanh","D. Gây giảm huyết áp tức thời"],"correct":0,"explanation":"Đáp án đúng là: Làm tăng tiết nhầy, gây kích ứng Vì: Ether làm tiết nhầy và kích ứng.","reference":"Mục 3.1.4.1."},{"id":63,"text":"Tác dụng chính của thuốc nhóm barbiturates là:","answers":["A. Làm tăng tiết dịch","B. Ức chế thần kinh trung ương","C. Kích thích hệ tiêu hóa","D. Gây kích thích hệ tim mạch"],"correct":1,"explanation":"Đáp án đúng là: Ức chế thần kinh trung ương Vì: Barbiturates ức chế thần kinh trung ương.","reference":"Mục 3.1.4.2."},{"id":64,"text":"Gây mê nông thường kéo dài trong bao lâu?","answers":["A. Khoảng 25 - 30 phút","B. Khoảng 30 - 45 phút","C. Khoảng 40 - 45 phút","D. Khoảng 30 - 40 phút"],"correct":1,"explanation":"Đáp án đúng là: Khoảng 30 - 45 phút Vì: Gây mê nông do dùng ít thuốc, thời gian ngắn.","reference":"Mục 3.1.2.1."},{"id":65,"text":"Atropin được sử dụng để làm gì trước khi gây mê cho vật nuôi?","answers":["A. Tăng tiết dịch hô hấp","B. Tăng tiết dịch","C. Giảm tiết dịch hô hấp","D. Giảm tiết dịch tiêu hóa"],"correct":2,"explanation":"Đáp án đúng là: Giảm tiết dịch hô hấp Vì: Atropin giảm tiết dịch khi gây mê.","reference":"Mục 3.1.5."},{"id":66,"text":"Giai đoạn hưng phấn trong quá trình mê có biểu hiện:","answers":["A. Vật nuôi giãy giụa, nôn, sợ hãi","B. Mê sâu, hô hấp chậm","C. Mất phản xạ hoàn toàn","D. Không có bất kỳ phản ứng nào"],"correct":0,"explanation":"Đáp án đúng là: Vật nuôi giãy giụa, nôn, sợ hãi Vì: Giai đoạn hưng phấn có phản ứng mạnh.","reference":"Mục 3.1.6.2."},{"id":67,"text":"Thuốc mê ether rất độc với loài nào?","answers":["A. Lợn","B. Chó","C. Trâu, bò","D. Mèo, cáo"],"correct":3,"explanation":"Đáp án đúng là: Mèo, cáo Vì: Ether rất độc với mèo, cáo.","reference":"Mục 3.1.4.1."},{"id":68,"text":"Giai đoạn mê được xác định bởi dấu hiệu nào?","answers":["A. Tăng tiết nước bọt","B. Hô hấp đều rồi thưa dần, cơ nhão","C. Mạch nhanh và đầy","D. Tim đập nhanh, hô hấp chậm"],"correct":1,"explanation":"Đáp án đúng là: Hô hấp đều rồi thưa dần, cơ nhão Vì: Giai đoạn mê có hô hấp yếu, cơ nhão.","reference":"Mục 3.1.6.3."},{"id":69,"text":"Một đặc điểm của chloroform là:","answers":["A. Gây mê mạnh nhưng độc gan thận","B. Gây mê nhanh","C. Gây hưng phấn thần kinh","D. Không tan trong dầu mỡ"],"correct":0,"explanation":"Đáp án đúng là: Gây mê mạnh nhưng độc gan thận Vì: Chloroform có độc tính với gan, thận.","reference":"Mục 3.1.4.1."},{"id":70,"text":"Novocain có thể kết hợp với chất nào để tăng tác dụng kéo dài gây tê?","answers":["A. Dầu thực vật, adrenalin, huyết thanh","B. Ethanol","C. Nước muối sinh lý 0,9%, vitamin C","D. Glyxeryl"],"correct":0,"explanation":"Đáp án đúng là: Dầu thực vật, adrenalin, huyết thanh Vì: Novocain kết hợp adrenalin, huyết thanh, dầu để tăng hiệu quả.","reference":"Mục 3.2.1."},{"id":71,"text":"Ether có nhược điểm lớn là gì?","answers":["A. Không độc với mèo","B. Rất an toàn","C. Gây tiết nhiều chất nhờn","D. Gây mê sâu dễ dàng"],"correct":2,"explanation":"Đáp án đúng là: Gây tiết nhiều chất nhờn Vì: Ether gây tiết nhiều chất nhờn, khó chịu.","reference":"Mục 3.1.4.1."},{"id":72,"text":"Tác dụng chính của nhóm opioid là:","answers":["A. Tăng tiết mồ hôi","B. Gây tê bề mặt","C. Gây hưng phấn","D. Giảm đau"],"correct":3,"explanation":"Đáp án đúng là: Giảm đau Vì: Opioid chủ yếu dùng giảm đau.","reference":"Mục 3.1.5."},{"id":73,"text":"Gây mê là trạng thái nào sau đây?","answers":["A. Kích thích hệ thần kinh trung ương","B. Ức chế toàn bộ cơ thể và không hồi phục","C. Ức chế sâu nhưng có phục hồi hệ thần kinh trung ương","D. Ức chế không phục hồi hệ thần kinh"],"correct":2,"explanation":"Đáp án đúng là: Ức chế sâu nhưng có phục hồi hệ thần kinh trung ương Vì: Gây mê là ức chế sâu nhưng có phục hồi.","reference":"Mục 3.1.1."},{"id":74,"text":"Ưu điểm khi phối hợp rompun và natri thiopental là:","answers":["A. Dùng được cho vật có thai","B. Kéo dài thời gian mê và mê êm ái","C. Giảm đau hoàn toàn","D. Không cần thuốc tiền mê"],"correct":1,"explanation":"Đáp án đúng là: Kéo dài thời gian mê và mê êm ái Vì: Phối hợp giúp thời gian mê dài hơn.","reference":"Mục 3.1.8.1."},{"id":75,"text":"Để gây tê ngoài màng cứng sacralis cao ở vật lớn cần:","answers":["A. Dùng lidocain 5%","B. Tiêm adrenalin","C. Tiêm vừa đủ novocain 2%","D. Tiêm lượng lớn novocain 2%"],"correct":3,"explanation":"Đáp án đúng là: Tiêm lượng lớn novocain 2% Vì: Sacralis cao cần nhiều novocain 2%.","reference":"Mục 3.2.2.4."},{"id":76,"text":"Gây mê đơn là gì?","answers":["A. Sử dụng thuốc gây tê kết hợp","B. Sử dụng hai thuốc an thần","C. Sử dụng thuốc gây mê bay hơi","D. Sử dụng một loại thuốc gây mê"],"correct":3,"explanation":"Đáp án đúng là: Sử dụng một loại thuốc gây mê Vì: Gây mê đơn là chỉ dùng một thuốc.","reference":"Mục 3.1.2.3."},{"id":77,"text":"Một trong những lưu ý sau khi mê cho vật nuôi là:","answers":["A. Tập vận động cho con vật","B. Để con vật ăn tự do","C. Theo dõi vật nuôi đến khi tỉnh","D. Cho ăn ngay lập tức"],"correct":2,"explanation":"Đáp án đúng là: Theo dõi vật nuôi đến khi tỉnh Vì: Vật cần được theo dõi đến khi tỉnh.","reference":"Mục 3.1.7.3."},{"id":78,"text":"Tại sao không nên dùng chloroform cho vật nuôi có thể giết mổ?","answers":["A. Không đủ mạnh","B. Gây tồn dư mùi thuốc trong thịt","C. Gây độc máu","D. Gây co giật"],"correct":1,"explanation":"Đáp án đúng là: Gây tồn dư mùi thuốc trong thịt Vì: Chloroform để lại mùi tồn dư.","reference":"Mục 3.1.7.1."},{"id":79,"text":"Trước khi gây mê, cần cho vật nuôi:","answers":["A. Nhịn ăn từ 6  -12 giờ, nhưng vẫn uống nước","B. Nhịn ăn từ 12  -24 giờ, nhưng vẫn uống nước","C. Nhịn ăn từ 6  giờ, nhưng vẫn uống nước","D. Nhịn ăn từ 6 -10  giờ, nhưng vẫn uống nước"],"correct":1,"explanation":"Đáp án đúng là: Nhịn ăn từ 12  -24 giờ, nhưng vẫn uống nước Vì: Nhịn ăn giảm nguy cơ trong mê.","reference":"Mục 3.1.7.1."},{"id":80,"text":"Khi cầm máu bằng panh với mạch lớn, cần:","answers":["A. Lưu panh 10 - 20 phút rồi xoắn nhẹ","B. Lưu panh 5 - 10 phút rồi xoắn nhẹ","C. Lưu panh 5 - 7 phút rồi xoắn nhẹ","D. Lưu panh 10 - 15 phút rồi xoắn nhẹ"],"correct":1,"explanation":"Đáp án đúng là: Lưu panh 5 - 10 phút rồi xoắn nhẹ Vì: Mạch lớn cần lưu panh 5 - 10 phút để máu đông trước khi tháo","reference":"Mục 4.1.3.2"},{"id":81,"text":"Biện pháp cầm máu triệt để nào hiệu quả với chảy máu mao mạch?","answers":["A. Xoắn vặn","B. Thấm ép bằng gạc","C. Dùng dao điện","D. Panh kẹp"],"correct":1,"explanation":"Đáp án đúng là: Thấm ép bằng gạc Vì: Ép gạc lên mao mạch giúp cầm máu hiệu quả","reference":"Mục 4.1.3.2"},{"id":82,"text":"Để kết nối gân chắc chắn, kỹ thuật nào hiệu quả nhất?","answers":["A. Khâu Lembert","B. Khâu ròng rọc ba vòng","C. Khâu nút đơn","D. Khâu liên tục"],"correct":1,"explanation":"Đáp án đúng là: Khâu ròng rọc ba vòng Vì: Ròng rọc 3 vòng có sức bền cơ học cao","reference":"Mục 4.2.4.1"},{"id":83,"text":"Adrenalin 0,1% không nên dùng trong trường hợp nào?","answers":["A. Cầm máu tĩnh mạch nhỏ","B. Chảy máu mao mạch","C. Chảy máu phổi","D. Chảy máu ngoài da"],"correct":2,"explanation":"Đáp án đúng là: Chảy máu phổi Vì: Adrenalin 0,2% gây co mạch, không dùng cho phổi","reference":"Mục 4.1.2.1"},{"id":84,"text":"Trong khâu dưới da, nút chỉ nằm ở đâu?","answers":["A. Cạnh vết mổ","B. Ngoài vết mổ","C. Trên bề mặt","D. Dưới lớp da"],"correct":3,"explanation":"Đáp án đúng là: Dưới lớp da Vì: Khâu dưới da giấu nút chỉ để giảm sẹo","reference":"Mục 4.2.3.2"},{"id":85,"text":"Đặc điểm của khâu đệm dọc là?","answers":["A. Tạo vết khâu thẩm mỹ","B. Dễ làm lộn mép lộn","C. Dùng khâu mô mềm","D. Chắc chắn, ít gây lộn mép đường khâu"],"correct":3,"explanation":"Đáp án đúng là: Chắc chắn, ít gây lộn mép đường khâu Vì: Khâu đệm dọc bền, mép vết thương giữ tốt","reference":"Mục 4.2.3.1"},{"id":86,"text":"Nguy cơ lớn nhất khi thắt chỉ quá chặt là gì?","answers":["A. Lâu cắ chỉ","B. Gây lộn mép","C. Hoại tử mô","D. Để lại seo"],"correct":2,"explanation":"Đáp án đúng là: Hoại tử mô Vì: Siết chỉ mạnh quá làm mô thiếu máu dẫn tới hoại tử","reference":"Mục 4.2.3.2"},{"id":87,"text":"Chảy máu động mạch có đặc điểm nào sau đây?","answers":["A. Máu phụt thành tia theo nhịp tim","B. Máu máu nhanh","C. Máu chảy đều, không có nhịp","D. Máu có màu đỏ thẫm"],"correct":0,"explanation":"Đáp án đúng là: Máu phụt thành tia theo nhịp tim Vì: Đặc trưng máu động mạch phụt theo nhịp tim, màu đỏ tươi","reference":"Mục 4.1.1.1"},{"id":88,"text":"Garo không nên thắt quá bao lâu vào mùa đông?","answers":["A. 1 - 2 giờ","B. 2 giờ","C. 1 giờ","D. 1- 1,5 giờ"],"correct":2,"explanation":"Đáp án đúng là: 1 giờ Vì: Mùa đông chỉ nên thắt garo tối đa 1 giờ","reference":"Mục 4.1.2.2"},{"id":89,"text":"Vật lạ còn sót trong vết thương sẽ gây?","answers":["A. Hình thành lỗ rò, tăng nguy cơ nhiễm trùng","B. Vết thương nhiễm trùng","C. Vết thương viêm","D. Vết thương lâu liền"],"correct":0,"explanation":"Đáp án đúng là: Hình thành lỗ rò, tăng nguy cơ nhiễm trùng Vì: Làm chậm quá trình  liền mô và nhiễm trùng","reference":"Mục 4.2.6"},{"id":90,"text":"Chỉ khâu đơn sợi có ưu điểm gì?","answers":["A. Ít gây ma sát lên mô bào,  có các khe hở","B. Ít gây ma sát lên mô bào, không có các khe hở","C. Chắc hơn","D. Gây phản ứng mô mạnh"],"correct":1,"explanation":"Đáp án đúng là: Ít gây ma sát lên mô bào, không có các khe hở Vì: Đơn sợi ít gây ma sát lên mô bào, không có khe hở","reference":"Mục 4.2.1.4"},{"id":91,"text":"Trong khâu Cushing, chỉ đi qua lớp nào?","answers":["A. Vào lòng ruột","B. Dưới niêm mạc","C. Qua biểu bì","D. xuyên qua da"],"correct":1,"explanation":"Đáp án đúng là: Dưới niêm mạc Vì: Khâu Cushing không khâu vào lòng mạch, chỉ đến dưới niêm mạc","reference":"Mục 4.2.3.2"},{"id":92,"text":"Chảy máu mao mạch có đặc điểm?","answers":["A. Máu chảy thành dòng","B. Rướm máu đều toàn vết thương","C. Máu chảy từng chỗ","D. Máu có bọt khí"],"correct":1,"explanation":"Đáp án đúng là: Rướm máu đều toàn vết thương Vì: Chảy máu mao mạch là chảy rướm, màu pha trộn","reference":"Mục 4.1.1.1"},{"id":93,"text":"Phương pháp kết xương nào phù hợp với gãy nát phức tạp?","answers":["A. Bó nẹp","B. Bó bột","C. Đóng đinh nội tủy","D. Bắt vít"],"correct":0,"explanation":"Đáp án đúng là: Bó nẹp Vì: Gãy phức tạp không thể đóng đinh nội tủy nên dùng bó nẹp","reference":"Mục 4.2.5"},{"id":94,"text":"Loại chảy máu nào thường khó phát hiện và xử lý nhất?","answers":["A. Chảy máu mao mạch","B. Chảy máu trong","C. Chảy máu tiên phát","D. Chảy máu ngoài"],"correct":1,"explanation":"Đáp án đúng là: Chảy máu trong Vì: Chảy máu trong xảy ra trong xoang kín, khó phát hiện","reference":"Mục 4.1.1.2"},{"id":95,"text":"Chỉ khâu tự tiêu có đặc điểm?","answers":["A. Chỉ có nguồn gốc từ sợi đay","B. Tiêu hóa chậm","C. Bị phân hủy bởi enzym hoặc thủy phân","D. Không bị tiêu hóa"],"correct":2,"explanation":"Đáp án đúng là: Bị phân hủy bởi enzym hoặc thủy phân Vì: Chỉ tự tiêu bị phân hủy sinh học","reference":"Mục 4.2.1.4"},{"id":96,"text":"Kiểu khâu nào giúp đường khâu kín, ổn định hơn khâu đơn?","answers":["A. Khâu liên tục có khóa","B. Khâu rời rạc","C. Khâu đệm ngang","D. Khâu nút đơn"],"correct":0,"explanation":"Đáp án đúng là: Khâu liên tục có khóa Vì: Khâu có khóa chắc chắn hơn khâu đơn","reference":"Mục 4.2.3.2"},{"id":97,"text":"Dụng cụ dùng để giữ kim là?","answers":["A. Panh và kéo","B. Nhíp và ,kéo","C. Nhíp","D. Kìm kẹp kim"],"correct":3,"explanation":"Đáp án đúng là: Kìm kẹp kim Vì: Kìm/panh kẹp kim giữ và điều khiển kim khâu","reference":"Mục 4.2.1.2"},{"id":98,"text":"Khi dùng garo, nếu thắt quá lâu có thể gây hậu quả gì?","answers":["A. Tổn thương phần phía dưới ga rô bị hoại từ","B. Hoại tử phần phía dưới ga rô bị hoại từ","C. Phù nề  phần phía dưới ga rô bị hoại từ","D. Tắc mạch  phần phía dưới ga rô bị hoại từ"],"correct":1,"explanation":"Đáp án đúng là: Hoại tử phần phía dưới ga rô bị hoại từ Vì: Garo lâu gây thiếu máu dẫn đến hoại tử","reference":"Mục 4.1.2.2"},{"id":99,"text":"Khi khâu xong da cần làm gì?","answers":["A. Để con vật yên tĩnh","B. Sát trùng bằng cồn iod, sửa mép chỉ","C. Không băng vết thương","D. Băng kín vết thương"],"correct":1,"explanation":"Đáp án đúng là: Sát trùng bằng cồn iod, sửa mép chỉ Vì: Vệ sinh đường khâu sau khi kết nối da","reference":"Mục 4.2.6"},{"id":100,"text":"Trong khi cầm máu tạm thời, có thể dùng phương pháp nào sau đây?","answers":["A. Thắt chỉ","B. Panh kẹp","C. Vặn xoắn","D. Dùng tay ấn"],"correct":3,"explanation":"Đáp án đúng là: Dùng tay ấn Vì: Dùng tay ấn là cầm máu tạm thời đơn giản","reference":"Mục 4.1.3.1"},{"id":101,"text":"Dạng chảy máu nguy hiểm nhất là?","answers":["A. Chảy máu kẽ mô","B. Chảy máu mao mạch","C. Chảy máu nhu mô","D. Chảy máu ngoài"],"correct":2,"explanation":"Đáp án đúng là: Chảy máu nhu mô Vì: Chảy máu nhu mô khó cầm máu, tốc độ nhanh","reference":"Mục 4.1.1.1"},{"id":102,"text":"Mục tiêu của việc kết nối mô bào là?","answers":["A. Khôi phục sự toàn vẹn mô bào và hỗ trợ lành vết thương","B. Không phải phãu thuật lại","C. Hạn chế tổn thương","D. Làm chảy máu"],"correct":0,"explanation":"Đáp án đúng là: Khôi phục sự toàn vẹn mô bào và hỗ trợ lành vết thương Vì: Kết nối mô bào giúp lành mô, ngăn nhiễm trùng","reference":"Mục 4.2"},{"id":103,"text":"Màu máu chảy ra từ tĩnh mạch là?","answers":["A. Đỏ hồng","B. Đỏ thẫm","C. Đỏ sẫm lẫn bọt khí","D. Đỏ tươi"],"correct":1,"explanation":"Đáp án đúng là: Đỏ thẫm Vì: Máu tĩnh mạch chảy tuôn dòng, màu đỏ thẫm","reference":"Mục 4.1.1.1"},{"id":104,"text":"Dựa vào đặc điểm nào để lựa chọn kim cong ?","answers":["A. Vào mô bào cần khâu","B. Tổ chức cần khâu","C. Tính chất của vùng tổn thương","D. Tổ chức vùng phẫu thuật"],"correct":0,"explanation":"Đáp án đúng là: Vào mô bào cần khâu Vì: Dựa vào mô bào cần khâu, vị trí, khả năng tiếp cận mô bào","reference":"Mục 4.2.1.1"},{"id":105,"text":"Ưu điểm của phương pháp bấm thừng dịch hoàn là?","answers":["A. Thời gian thực hiện ngắn","B. Không cần cố định","C. Nhanh lành hơn","D. Không tạo vết thương hở"],"correct":3,"explanation":"Đáp án đúng là: Không tạo vết thương hở Vì: Vì không mổ nên không có vết thương hở, giảm nguy cơ nhiễm trùng.","reference":"Mục 5.1.1.1"},{"id":106,"text":"Triệt sản chó mèo cái cần gây mê vì?","answers":["A. Thường xảy ra biến chứng","B. Thần kinh linh hoạt và chịu đau kém","C. Phẫu thuật lâu","D. Động vật hung dữ"],"correct":1,"explanation":"Đáp án đúng là: Thần kinh linh hoạt và chịu đau kém Vì: Chó mèo có hệ thần kinh linh hoạt, chịu đau kém.","reference":"Mục 5.1.2.2"},{"id":107,"text":"Sau khi lấy thai ở chó mèo cần làm gì với tử cung?","answers":["A. Dùng nước muối","B. Cắt bỏ","C. Gãi tử cung","D. Hút dịch, rửa sạch, cho kháng sinh vào và khâu"],"correct":3,"explanation":"Đáp án đúng là: Hút dịch, rửa sạch, cho kháng sinh vào và khâu Vì: Sau mổ phải hút dịch, sát trùng, cho kháng sinh vào và khâu kín tử cung.","reference":"Mục 5.2.2"},{"id":108,"text":"Phương pháp thiến nào áp dụng cho mọi loài và mọi lứa tuổi?","answers":["A. Bấm thừng dịch hoàn","B. Thiến bằng hóa chất","C. Thiến bằng phẫu thuật","D. Bấm thừng dịch hoàn"],"correct":2,"explanation":"Đáp án đúng là: Thiến bằng phẫu thuật Vì: Phẫu thuật là phương pháp phổ biến, dùng được cho mọi loài.","reference":"Mục 5.1.1.1"},{"id":109,"text":"Tại sao lại khâu phúc mạc vào cùng với cơ ở chó mèo?","answers":["A. Để lành vết mổ nhanh hơn","B. Không gây nhiễm trùng","C. Phúc mạc quá mỏng, khó tách riêng","D. Thao tác nhanh"],"correct":2,"explanation":"Đáp án đúng là: Phúc mạc quá mỏng, khó tách riêng Vì: Phúc mạc quá mỏng, dễ rách, nên khâu chung với cơ.","reference":"Mục 5.1.2.2"},{"id":110,"text":"Triệt sản lợn cái nội nên thực hiện vào độ tuổi?","answers":["A. 2 tháng","B. 2 - 2,5 tháng","C. 3 thâng","D. 2 - 3 tháng"],"correct":0,"explanation":"Đáp án đúng là: 2 tháng Vì: Lợn cái nội nên thiến vào khoảng 2 tháng tuổi.","reference":"Mục 5.1.2.1"},{"id":111,"text":"Tại sao không nên thiến bằng tiêm hóa chất cho gia súc lớn?","answers":["A. Hiệu quả cao","B. Phản ứng viêm quá mạnh","C. Không có tác dụng","D. Tốn thời gian"],"correct":1,"explanation":"Đáp án đúng là: Phản ứng viêm quá mạnh Vì: Gia súc lớn phản ứng viêm mạnh, dễ biến chứng.","reference":"Mục 5.1.1.1"},{"id":112,"text":"Phương pháp thiến hóa học sử dụng chất gì?","answers":["A. Cồn và formalin","B. NaCl và cồn","C. Ethanol","D. H 2 O 2 và NH 3"],"correct":0,"explanation":"Đáp án đúng là: Cồn và formalin Vì: Dùng hỗn hợp cồn 90 độ và formalin để gây viêm vô trùng.","reference":"Mục 5.1.1.1"},{"id":113,"text":"Sau mổ lấy thai ở trâu bò, cần dùng thuốc gì để giúp tử cung hồi phục?","answers":["A. Formalin","B. Oxytoxin hoặc PGF2α","C. Novocain","D. Adrenalin"],"correct":1,"explanation":"Đáp án đúng là: Oxytoxin hoặc PGF2α Vì: Hai loại thuốc này giúp co hồi tử cung hiệu quả.","reference":"Mục 5.2.1"},{"id":114,"text":"Dấu hiệu đặc trưng của lợn có dịch hoàn ẩn là gì?","answers":["A. Lông dầy","B. Đi đứng khó","C. Lông gáy dựng, mùi hôi, nhảy lên con khác","D. Ít vận động"],"correct":2,"explanation":"Đáp án đúng là: Lông gáy dựng, mùi hôi, nhảy lên con khác Vì: Lợn ẩn dịch hoàn có hành vi và mùi đực rõ rệt.","reference":"Mục 5.1.1.2"},{"id":115,"text":"Phương pháp thiến kín không áp dụng cho loài nào?","answers":["A. Lợn","B. Bê","C. Dê","D. Cừu"],"correct":0,"explanation":"Đáp án đúng là: Lợn Vì: Thiến kín chỉ áp dụng với nhai lại có thừng dịch hoàn dài.","reference":"Mục 5.1.1.1"},{"id":116,"text":"Mổ lấy thai cho trâu bò thường rạch vết mổ như thế nào?","answers":["A. Từ trên xuống dưới, từ trước ra sau","B. Theo đường ngang","C. Từ dưới lên","D. Dọc theo bụng"],"correct":0,"explanation":"Đáp án đúng là: Từ trên xuống dưới, từ trước ra sau Vì: Vết mổ chéo từ trên xuống dưới để dễ thao tác.","reference":"Mục 5.2.1"},{"id":117,"text":"Chỉ khâu dùng khâu tử cung sau mổ lấy thai là?","answers":["A. Chỉ thép","B. Chỉ tiêu","C. Chỉ cotton","D. Chỉ nilon"],"correct":1,"explanation":"Đáp án đúng là: Chỉ tiêu Vì: Để khâu tử cung cần dùng chỉ tiêu để không phải gỡ chỉ.","reference":"Mục 5.2.1"},{"id":118,"text":"Trong trường hợp thai chết lâu ngày cần thực hiện như thế nào trước khi đóng vết mổ","answers":["A. Vệ sinh vùng phẫu thuật","B. Sát trùng vùng phẫu thuật","C. Rửa, cho kháng sinh vào xoang bụng, khâu","D. Rửa bằng nước sạch, khâu cơ"],"correct":2,"explanation":"Đáp án đúng là: Rửa, cho kháng sinh vào xoang bụng, khâu Vì: Thai chết lâu dễ gây nhiễm trùng nặng trong ổ bụng. Rửa xoang bụng, cho kháng  sinh vào và khâu","reference":"Mục 5.2.1"},{"id":119,"text":"Vết mổ mổ bụng lấy thai ở chó mèo thực hiện ở đâu?","answers":["A. Đường trắng giữa bụng","B. Bẹn","C. bụng","D. Hông phải"],"correct":0,"explanation":"Đáp án đúng là: Đường trắng giữa bụng Vì: Vị trí mổ là đường trắng giữa bụng.","reference":"Mục 5.2.2"},{"id":120,"text":"Vị trí vết mổ khi triệt sản chó mèo là?","answers":["A. Vùng bụng","B. Giữa đường trắng, ở đôi vú thứ 2","C. Giữa đường trắng, gần đôi vú thứ 2","D. Giữa đường trắng, gần đôi vú cuối"],"correct":3,"explanation":"Đáp án đúng là: Giữa đường trắng, gần đôi vú cuối Vì: Vết mổ nằm ở bụng giữa theo đường trắng.","reference":"Mục 5.1.2.2"},{"id":121,"text":"Tác dụng chính của việc thiến gia súc đực là gì?","answers":["A. Làm cho con vật khỏe hơn","B. Giúp tăng cường miễn dịch","C. Giảm tính hăng và cải thiện chất lượng thịt","D. Làm cho vật nuôi ăn nhiều hơn"],"correct":2,"explanation":"Đáp án đúng là: Giảm tính hăng và cải thiện chất lượng thịt Vì: Thiến giúp giảm tính đực, mùi hôi và nâng cao giá trị thịt.","reference":"Mục 5.1.1"},{"id":122,"text":"Tại sao không dùng tay để chọc thủng phúc mạc chó mèo?","answers":["A. Khó tiếp cận","B. Để tránh nhiễm trùng","C. Phúc mạc mỏng, dễ rách khó khâu","D. Phúc mạc dầy"],"correct":2,"explanation":"Đáp án đúng là: Phúc mạc mỏng, dễ rách khó khâu Vì: Phúc mạc chó mèo mỏng, dễ hỏng gây khó khâu lại.","reference":"Mục 5.1.2.2"},{"id":123,"text":"Thiến hở yêu cầu điều kiện gì để đảm bảo an toàn?","answers":["A. Gây mê sâu","B. Gây tê","C. Vệ sinh, sát trùng nghiêm ngặt","D. Gây mê toàn thân"],"correct":2,"explanation":"Đáp án đúng là: Vệ sinh, sát trùng nghiêm ngặt Vì: Thiến hở tạo vết thương nên cần sát trùng kỹ.","reference":"Mục 5.1.1.1"},{"id":124,"text":"Thắt thừng dịch hoàn như thế nào để cầm máu tốt?","answers":["A. Thắt nút bổ sung","B. Thát bằng chỉ","C. Nút số 8","D. Nút đơn"],"correct":2,"explanation":"Đáp án đúng là: Nút số 8 Vì: Nút số 8 chắc chắn, chống tuột và kiểm soát máu tốt.","reference":"Mục 5.1.1.1"},{"id":125,"text":"Dịch hoàn ẩn thường gặp ở loài nào?","answers":["A. Dê và cừu","B. Chó và mèo","C. Lợn và ngựa","D. Trâu và bò"],"correct":2,"explanation":"Đáp án đúng là: Lợn và ngựa Vì: Lợn và ngựa là hai loài thường gặp dịch hoàn ẩn.","reference":"Mục 5.1.1.2"},{"id":126,"text":"Trong mổ bụng lấy thai ở trâu bò, vết mổ thường nằm ở đâu?","answers":["A. Hõm hông bên trái","B. Hông trái","C. Hõm hông bên phải","D. Giữa bụng"],"correct":2,"explanation":"Đáp án đúng là: Hõm hông bên phải Vì: Mổ bụng lấy thai ở trâu bò qua hõm hông bên phải.","reference":"Mục 5.2.1"},{"id":127,"text":"Phương pháp bấm thừng dịch hoàn dùng kìm gì?","answers":["A. Panh kẹp","B. Kìm Kelly","C. Kìm Budizzo","D. Kìm cắt chỉ"],"correct":2,"explanation":"Đáp án đúng là: Kìm Budizzo Vì: Phương pháp này dùng kìm Budizzo để bấm thừng dịch hoàn.","reference":"Mục 5.1.1.1"},{"id":128,"text":"Khi khâu tử cung sau khi lấy thai cần lưu ý gì?","answers":["A. Khâu liên tục","B. Khâu vắt","C. Khâu 3 lớp: niêm mạc, cơ, tương mạc","D. Khầu rời rạc"],"correct":2,"explanation":"Đáp án đúng là: Khâu 3 lớp: niêm mạc, cơ, tương mạc Vì: Khâu đúng lớp đảm bảo không chảy dịch từ tử cung ra ngoài","reference":"Mục 5.2.1"},{"id":129,"text":"Vì sao khi thiến lợn cái lớn không áp dụng mổ bụng?","answers":["A. Không tìm được buồng trứng","B. Tử cung quá dài","C. Vì khó cố định","D. Lớp mỡ bụng dày"],"correct":3,"explanation":"Đáp án đúng là: Lớp mỡ bụng dày Vì: Lợn lớn có lớp mỡ bụng dày, khó tiếp cận tử cung.","reference":"Mục 5.1.2.1"}];
+</script>
+
+<script>
+(function () {
+  var LETTERS = "ABCDEFGHIJ";
+  var container = document.getElementById("questionContainer");
+  var noResults = document.getElementById("noResults");
+  var searchInput = document.getElementById("searchInput");
+  var searchClear = document.getElementById("searchClear");
+  var countEl = document.getElementById("searchCount");
+  var total = QUESTIONS.length;
+
+  /* ── Escape HTML ── */
+  function esc(s) {
+    return String(s)
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;");
+  }
+
+  /* ── Highlight từ khóa ── */
+  function highlight(text, term) {
+    if (!term) return esc(text);
+    var safe = term.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+    return esc(text).replace(
+      new RegExp("(" + safe.replace(/&amp;/g, "&amp;amp;") + ")", "gi"),
+      "<mark>$1</mark>"
+    );
+  }
+
+  /* ── Render 1 câu hỏi ── */
+  function renderQ(q, term) {
+    var answersHtml = q.answers.map(function (ans, i) {
+      var isCorrect = i === q.correct;
+      var cls = "answer-item" + (isCorrect ? " correct" : "");
+      var check = isCorrect ? '<span class="check-mark">&#10003;</span>' : "";
+      return (
+        '<div class="' + cls + '">' +
+        '<span class="answer-letter">' + (LETTERS[i] || i + 1) + ".</span>" +
+        '<span class="answer-text">' + highlight(ans, term) + "</span>" +
+        check +
+        "</div>"
+      );
+    }).join("");
+
+    var feedbackHtml = "";
+    if (q.explanation || q.reference) {
+      feedbackHtml =
+        '<div class="feedback-section">' +
+        (q.explanation
+          ? "<p><strong>Vì: </strong>" + esc(q.explanation) + "</p>"
+          : "") +
+        (q.reference
+          ? "<p><strong>Tham khảo: </strong>" + esc(q.reference) + "</p>"
+          : "") +
+        "</div>";
+    }
+
+    return (
+      '<div class="question-block" id="q' + q.id + '">' +
+      '<div class="question-header">' +
+      '<span class="q-badge">Câu ' + q.id + "</span>" +
+      "</div>" +
+      '<div class="question-text">' + highlight(q.text, term) + "</div>" +
+      '<div class="answers">' + answersHtml + "</div>" +
+      feedbackHtml +
+      "</div>"
+    );
+  }
+
+  /* ── Render danh sách câu hỏi ── */
+  function renderList(filtered, term) {
+    // Xóa các block cũ (giữ lại #noResults)
+    var old = container.querySelectorAll(".question-block");
+    old.forEach(function (el) { el.remove(); });
+
+    if (filtered.length === 0) {
+      noResults.style.display = "block";
+    } else {
+      noResults.style.display = "none";
+      var frag = document.createDocumentFragment();
+      filtered.forEach(function (q) {
+        var div = document.createElement("div");
+        div.innerHTML = renderQ(q, term);
+        frag.appendChild(div.firstChild);
+      });
+      container.appendChild(frag);
+    }
+
+    countEl.innerHTML =
+      "<strong>" + filtered.length + "</strong> / " + total + " câu";
+  }
+
+  /* ── Lọc câu hỏi ── */
+  function doSearch(term) {
+    var t = term.trim().toLowerCase();
+    var filtered = t
+      ? QUESTIONS.filter(function (q) {
+          return (
+            q.text.toLowerCase().includes(t) ||
+            q.answers.some(function (a) { return a.toLowerCase().includes(t); })
+          );
+        })
+      : QUESTIONS;
+
+    searchClear.style.display = term ? "block" : "none";
+    renderList(filtered, term.trim());
+  }
+
+  /* ── Khởi tạo ── */
+  renderList(QUESTIONS, "");
+
+  searchInput.addEventListener("input", function () {
+    doSearch(this.value);
+  });
+  searchClear.addEventListener("click", function () {
+    searchInput.value = "";
+    doSearch("");
+    searchInput.focus();
+  });
+
+  /* ── Scroll to top ── */
+  var scrollBtn = document.getElementById("scrollTopBtn");
+  window.addEventListener("scroll", function () {
+    scrollBtn.style.display = window.scrollY > 320 ? "flex" : "none";
+  }, { passive: true });
+  scrollBtn.addEventListener("click", function (e) {
+    e.preventDefault();
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  });
+})();
+</script>
+</body>
+</html>
