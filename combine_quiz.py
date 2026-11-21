@@ -10,12 +10,18 @@ Cách dùng:
     python -X utf8 combine_quiz.py LT_A01.html LT_A02.html  # môn A → OnTap_A.html
     python -X utf8 combine_quiz.py -s "Dược Lý" -o Out.html LT_A01.html
 
+Ảnh trong đề (nếu có) được lưu vào thư mục images/ và gắn field tùy chọn
+"images" trong JSON — câu không có ảnh giữ nguyên schema/cách hiển thị cũ.
+Tài khoản eTUAF để tải ảnh: file .env (MOODLE_USER / MOODLE_PASS).
+
 Yêu cầu:
     pip install beautifulsoup4
 """
 
-import sys, re, os, glob, json, argparse
+import sys, re, os, glob, json, argparse, hashlib, shutil, base64
 from pathlib import Path
+from urllib.parse import unquote, urlencode, urlparse
+from urllib.request import Request, urlopen
 from bs4 import BeautifulSoup
 
 # Fix UTF-8 console trên Windows
@@ -28,6 +34,22 @@ if sys.stdout.encoding and sys.stdout.encoding.lower() != "utf-8":
 SCRIPT_DIR      = Path(__file__).parent
 DEFAULT_SUBJECT = "Kỹ Thuật Bào Chế Sinh Dược Học"
 DEFAULT_OUTPUT  = "OnTap_DayDu.html"
+
+
+def load_dotenv(path: Path | None = None) -> None:
+    """Đọc file .env cạnh script (không ghi đè biến môi trường đã có)."""
+    env_path = path or (SCRIPT_DIR / ".env")
+    if not env_path.is_file():
+        return
+    for raw in env_path.read_text(encoding="utf-8").splitlines():
+        line = raw.strip()
+        if not line or line.startswith("#") or "=" not in line:
+            continue
+        key, _, val = line.partition("=")
+        key = key.strip()
+        val = val.strip().strip("'").strip('"')
+        if key and key not in os.environ:
+            os.environ[key] = val
 
 _JS_STRING_ESCAPES = {
     "n": "\n", "t": "\t", "r": "\r", "b": "\b", "f": "\f",
@@ -94,12 +116,202 @@ def normalize(text: str) -> str:
     return re.sub(r"\s+", " ", text).strip().lower()
 
 
+# ── Ảnh trong đề Moodle (field JSON tùy chọn, không bắt buộc) ──
+_HTTP_OPENER = None  # gán sau khi đăng nhập Moodle (MOODLE_USER / MOODLE_PASS)
+_IMG_EXT = {".png", ".jpg", ".jpeg", ".gif", ".webp", ".svg", ".bmp"}
+_SKIP_IMG_RE = re.compile(
+    r"(theme/|/user/icon|favicon|i/loading|i/notifications|/t/message|/t/markasread)",
+    re.I,
+)
+
+
+def _normalize_src(src: str) -> str:
+    src = (src or "").strip()
+    if src.startswith("//"):
+        src = "https:" + src
+    return src
+
+
+def _is_ui_icon(src: str) -> bool:
+    return bool(_SKIP_IMG_RE.search(src or ""))
+
+
+def _extract_img_srcs(tag) -> list[str]:
+    if not tag:
+        return []
+    out = []
+    seen = set()
+    for img in tag.find_all("img"):
+        src = _normalize_src(img.get("src") or "")
+        if not src or _is_ui_icon(src) or src in seen:
+            continue
+        seen.add(src)
+        out.append(src)
+    return out
+
+
+def _is_image_bytes(data: bytes, content_type: str = "") -> bool:
+    if not data or len(data) < 24:
+        return False
+    ct = (content_type or "").lower()
+    if "text/html" in ct or "application/json" in ct:
+        return False
+    head = data.lstrip()[:16].lower()
+    if head.startswith(b"<!doctype") or head.startswith(b"<html"):
+        return False
+    if data.startswith(b"\x89PNG") or data.startswith(b"\xff\xd8\xff") or data.startswith(b"GIF8"):
+        return True
+    if data.startswith(b"RIFF") and b"WEBP" in data[8:16]:
+        return True
+    return "image/" in ct
+
+
+def _rel_image_path(src: str) -> str:
+    parsed = urlparse(src)
+    name = Path(unquote(parsed.path)).name or "image.png"
+    stem, ext = os.path.splitext(name)
+    if ext.lower() not in _IMG_EXT:
+        ext = ".png"
+    digest = hashlib.md5(src.encode("utf-8")).hexdigest()[:10]
+    return f"images/{stem}_{digest}{ext.lower()}"
+
+
+def _find_sidecar_image(html_path: Path, src: str) -> Path | None:
+    """Ảnh đi kèm khi lưu Moodle dạng Webpage, Complete (`LT_xx_files/`)."""
+    name = Path(unquote(urlparse(src).path)).name
+    candidates: list[Path] = []
+    if name:
+        files_dir = html_path.parent / f"{html_path.stem}_files"
+        if files_dir.is_dir():
+            candidates.append(files_dir / name)
+            candidates.extend(files_dir.rglob(name))
+    if src and not src.lower().startswith("http"):
+        candidates.append((html_path.parent / src).resolve())
+    for cand in candidates:
+        try:
+            if cand.is_file() and cand.stat().st_size > 50:
+                return cand
+        except OSError:
+            continue
+    return None
+
+
+def moodle_login(username: str, password: str, base: str = "https://tuaf.aum.edu.vn") -> bool:
+    """Đăng nhập eTUAF để tải ảnh pluginfile. Không ghi mật khẩu ra đĩa."""
+    global _HTTP_OPENER
+    import http.cookiejar
+    from html.parser import HTMLParser
+    from urllib.request import HTTPCookieProcessor, build_opener
+
+    class _TokenFinder(HTMLParser):
+        def __init__(self):
+            super().__init__()
+            self.token = ""
+
+        def handle_starttag(self, tag, attrs):
+            d = dict(attrs)
+            if tag == "input" and d.get("name") == "logintoken":
+                self.token = d.get("value") or ""
+
+    jar = http.cookiejar.CookieJar()
+    opener = build_opener(HTTPCookieProcessor(jar))
+    headers = {
+        "User-Agent": "Mozilla/5.0",
+        "Referer": f"{base}/login/index.php",
+    }
+    try:
+        login_html = opener.open(
+            Request(f"{base}/login/index.php", headers=headers), timeout=20
+        ).read().decode("utf-8", "replace")
+        finder = _TokenFinder()
+        finder.feed(login_html)
+        if not finder.token:
+            print("  [!] Không lấy được logintoken Moodle.")
+            return False
+        payload = urlencode({
+            "anchor": "",
+            "logintoken": finder.token,
+            "username": username,
+            "password": password,
+        }).encode()
+        resp = opener.open(
+            Request(f"{base}/login/index.php", data=payload, headers=headers),
+            timeout=20,
+        )
+        body = resp.read().decode("utf-8", "replace")
+        ok = "/login" not in resp.geturl() or "logintoken" not in body.lower()
+        if not ok:
+            print("  [!] Đăng nhập Moodle thất bại (sai tài khoản hoặc bị chặn).")
+            return False
+        _HTTP_OPENER = opener
+        print("  Đăng nhập Moodle thành công — sẽ tải ảnh đề nếu có.")
+        return True
+    except Exception as e:
+        print(f"  [!] Lỗi đăng nhập Moodle: {e}")
+        return False
+
+
+def materialize_image(src: str, html_path: Path) -> str | None:
+    """Lưu ảnh vào images/ nếu có file local hoặc tải được; trả về path tương đối."""
+    rel = _rel_image_path(src)
+    dest = SCRIPT_DIR / rel
+    if dest.is_file() and dest.stat().st_size > 50:
+        return rel.replace("\\", "/")
+
+    sidecar = _find_sidecar_image(html_path, src)
+    if sidecar:
+        dest.parent.mkdir(parents=True, exist_ok=True)
+        shutil.copy2(sidecar, dest)
+        return rel.replace("\\", "/")
+
+    if src.lower().startswith("http"):
+        try:
+            req = Request(
+                src,
+                headers={
+                    "User-Agent": "Mozilla/5.0",
+                    "Referer": "https://tuaf.aum.edu.vn/",
+                },
+            )
+            opener = _HTTP_OPENER or urlopen
+            with (opener.open(req, timeout=20) if _HTTP_OPENER else urlopen(req, timeout=15)) as resp:
+                data = resp.read()
+                ct = resp.headers.get("Content-Type", "")
+            if _is_image_bytes(data, ct):
+                dest.parent.mkdir(parents=True, exist_ok=True)
+                dest.write_bytes(data)
+                print(f"    tải ảnh: {rel} ({len(data)} bytes)")
+                return rel.replace("\\", "/")
+        except Exception as e:
+            print(f"    [!] Không tải được ảnh: {e}")
+    return None
+
+
+def html_image_src(src: str) -> str:
+    """Đổi file local thành data URI để HTML hiện ảnh dù mở file:// hay preview."""
+    if not src or src.startswith("data:"):
+        return src
+    p = SCRIPT_DIR / str(src).replace("\\", "/")
+    if not p.is_file() or p.stat().st_size < 50:
+        return src
+    mime = {
+        ".jpg": "image/jpeg",
+        ".jpeg": "image/jpeg",
+        ".gif": "image/gif",
+        ".webp": "image/webp",
+        ".svg": "image/svg+xml",
+    }.get(p.suffix.lower(), "image/png")
+    b64 = base64.b64encode(p.read_bytes()).decode("ascii")
+    return f"data:{mime};base64,{b64}"
+
+
 # ══════════════════════════════════════════════
 # 2. PARSE MOODLE HTML
 # ══════════════════════════════════════════════
 
 def parse_moodle_file(filepath: str) -> list[dict]:
     """Trích xuất câu hỏi từ file Moodle quiz review HTML."""
+    html_path = Path(filepath)
     with open(filepath, encoding="utf-8", errors="replace") as f:
         soup = BeautifulSoup(f, "html.parser")
 
@@ -111,6 +323,11 @@ def parse_moodle_file(filepath: str) -> list[dict]:
         question_text = get_text(qtext_tag)
         if not question_text:
             continue
+
+        images = []
+        for src in _extract_img_srcs(qtext_tag):
+            local = materialize_image(src, html_path)
+            images.append(local or src)
 
         answer_div = qblock.find("div", class_="answer")
         if not answer_div:
@@ -162,6 +379,7 @@ def parse_moodle_file(filepath: str) -> list[dict]:
             "right_answer":  right_answer,
             "feedback":      feedback,
             "reference":     ref,
+            "images":        images,
         })
 
     return questions
@@ -222,7 +440,7 @@ def read_existing_output(filepath: Path):
 # ══════════════════════════════════════════════
 
 def make_question_dict(q: dict, number: int) -> dict:
-    return {
+    d = {
         "id":          number,
         "text":        q["question_text"],
         "answers":     q["answers"],
@@ -230,6 +448,10 @@ def make_question_dict(q: dict, number: int) -> dict:
         "explanation": q["feedback"],
         "reference":   q["reference"],
     }
+    # Chỉ thêm khi có ảnh — câu cũ không có field này vẫn parse/hiển thị như trước
+    if q.get("images"):
+        d["images"] = [html_image_src(s) for s in q["images"]]
+    return d
 
 
 # ══════════════════════════════════════════════
@@ -376,6 +598,12 @@ body {
   background: #fef08a; color: inherit;
   border-radius: 3px; padding: 0 2px;
 }
+.q-images { padding: 6px 16px 12px; }
+.q-images img {
+  max-width: 100%; height: auto; display: block;
+  border-radius: 8px; border: 1.5px solid var(--border);
+  background: #fff; margin-top: 6px;
+}
 
 /* ── ANSWERS ── */
 .answers {
@@ -448,6 +676,7 @@ body {
   .page-header { padding: 18px 14px 14px; }
   .container { margin: 12px auto; padding: 0 10px 80px; }
   .question-text { padding: 12px 12px 6px; }
+  .q-images { padding: 4px 12px 10px; }
   .answers { padding: 4px 12px 10px; gap: 5px; }
   .answer-item { padding: 7px 10px; }
   .feedback-section { padding: 9px 12px; }
@@ -547,12 +776,26 @@ const QUESTIONS = __JSON__;
         "</div>";
     }
 
+    var imagesHtml = "";
+    if (q.images && q.images.length) {
+      imagesHtml =
+        '<div class="q-images">' +
+        q.images.map(function (src) {
+          return (
+            '<img src="' + esc(src) + '" alt="" loading="lazy" ' +
+            'onerror="this.style.display=\'none\'">'
+          );
+        }).join("") +
+        "</div>";
+    }
+
     return (
       '<div class="question-block" id="q' + q.id + '">' +
       '<div class="question-header">' +
       '<span class="q-badge">Câu ' + q.id + "</span>" +
       "</div>" +
       '<div class="question-text">' + highlight(q.text, term) + "</div>" +
+      imagesHtml +
       '<div class="answers">' + answersHtml + "</div>" +
       feedbackHtml +
       "</div>"
@@ -666,7 +909,20 @@ def main():
         help="File output HTML (mặc định: tự suy ra từ tên file input)")
     parser.add_argument("-s", "--subject", default=None,
         help=f'Tên môn học (mặc định: "{DEFAULT_SUBJECT}")')
+    parser.add_argument("--moodle-user", default=None,
+        help="Tài khoản eTUAF để tải ảnh (mật khẩu: .env hoặc MOODLE_PASS)")
     args = parser.parse_args()
+
+    load_dotenv()
+    moodle_user = args.moodle_user or os.environ.get("MOODLE_USER")
+    moodle_pass = os.environ.get("MOODLE_PASS")
+    if moodle_user and moodle_pass:
+        print(f"  .env: đăng nhập eTUAF bằng user {moodle_user}")
+        moodle_login(moodle_user, moodle_pass)
+    elif moodle_user and not moodle_pass:
+        print("  [!] Có user nhưng chưa có MOODLE_PASS trong .env — bỏ qua đăng nhập.")
+    else:
+        print("  [!] Chưa có .env (MOODLE_USER / MOODLE_PASS) — ảnh Moodle có thể không tải được.")
 
     # ── Resolve input files ──
     input_files = []
@@ -711,6 +967,8 @@ def main():
     # ── Trích câu hỏi mới ──
     new_qs     = []
     seen_in_new = set()
+    image_map  = {}   # normalize(text) -> [image paths]
+    img_ok = img_miss = 0
 
     for filepath in input_files:
         fname = os.path.basename(filepath)
@@ -723,6 +981,14 @@ def main():
         new_cnt = dup_exist = dup_new = 0
         for q in qs:
             norm = normalize(q["question_text"])
+            if q.get("images"):
+                image_map[norm] = q["images"]
+                for src in q["images"]:
+                    s = str(src)
+                    if s.startswith("images/") or s.startswith("data:"):
+                        img_ok += 1
+                    else:
+                        img_miss += 1
             if norm in existing_texts:
                 dup_exist += 1
             elif norm in seen_in_new:
@@ -735,8 +1001,41 @@ def main():
         print(f"  {fname}: {len(qs)} câu | mới: {new_cnt} | trùng output: {dup_exist} | trùng nhau: {dup_new}")
 
     print(f"\nTổng câu mới: {len(new_qs)}")
+    if image_map:
+        print(f"Ảnh đề: {len(image_map)} câu có hình | local: {img_ok} | chưa tải được: {img_miss}")
+        if img_miss:
+            print("  [!] Moodle chặn tải ảnh khi chưa đăng nhập.")
+            print("      Lưu lại trang dạng 'Webpage, Complete' (có thư mục *_files) rồi chạy lại.")
 
-    if not new_qs and existing_qs:
+    # Gắn ảnh vào câu đã có (không đổi id/text/đáp án)
+    images_updated = 0
+    for eq in existing_qs:
+        imgs = image_map.get(normalize(eq.get("text", "")))
+        if not imgs:
+            continue
+        imgs = [html_image_src(s) for s in imgs]
+        if eq.get("images") != imgs:
+            eq["images"] = imgs
+            images_updated += 1
+    if images_updated:
+        print(f"Đã bổ sung ảnh cho {images_updated} câu đã có.")
+
+    imaged_ids = [eq["id"] for eq in existing_qs if eq.get("images")]
+    if imaged_ids:
+        print("Câu có hình: " + ", ".join(f"q{i}" for i in imaged_ids))
+
+    # Không có câu mới: vẫn ghi lại nếu vừa gắn ảnh, hoặc nếu file chưa có renderer ảnh
+    need_rewrite = bool(new_qs) or bool(images_updated)
+    if not need_rewrite and existing_qs and image_map:
+        old_html = output_file.read_text(encoding="utf-8") if output_file.exists() else ""
+        if ".q-images" not in old_html or "q.images" not in old_html:
+            need_rewrite = True
+            print("File output thiếu phần hiện ảnh — sẽ ghi lại.")
+        else:
+            print("Không có câu mới. Ảnh đã có trong file — mở và kéo tới câu có hình.")
+            return
+
+    if not need_rewrite and existing_qs:
         print("Không có câu mới. File output giữ nguyên.")
         return
 

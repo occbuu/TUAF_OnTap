@@ -145,6 +145,9 @@ Lưu ý:
  - H : Kiểm nghiệm dược phẩm
  - I : Bệnh nội khoa Thú y
  - J : Bệnh ngoại khoa Thú y
+ - K : Chẩn đoán bệnh Thú Y
+ - L : 
+ - M : 
 
 Lệnh chạy:
 python -X utf8 combine_quiz.py LT_F01.html LT_F02.html LT_F03.html LT_F04.html
@@ -163,7 +166,9 @@ python -X utf8 combine_quiz.py -s "Kiểm nghiệm dược phẩm" LT_H01.html L
 
 python -X utf8 combine_quiz.py LT_H01.html LT_H02.html
 
-python -X utf8 combine_quiz.py -s "Bệnh nội khoa Thú y" LT_I01.html LT_I02.html
+python -X utf8 combine_quiz.py -s "Bệnh nội khoa Thú y" LT_I01.html LT_I02.html LT_I03.html
 python -X utf8 combine_quiz.py -s LT_I01.html LT_I02.html LT_I03.html
 
 python -X utf8 combine_quiz.py -s "Bệnh ngoại khoa Thú y" LT_J01.html LT_J02.html LT_J03.html
+
+python -X utf8 combine_quiz.py -s "Chẩn đoán bệnh Thú Y" LT_K01.html LT_K02.html LT_K03.html
