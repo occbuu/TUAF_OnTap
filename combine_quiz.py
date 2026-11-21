@@ -12,7 +12,7 @@ Cách dùng:
 
 Ảnh trong đề (nếu có) được lưu vào thư mục images/ và gắn field tùy chọn
 "images" trong JSON — câu không có ảnh giữ nguyên schema/cách hiển thị cũ.
-Tài khoản eTUAF để tải ảnh: file .env (MOODLE_USER / MOODLE_PASS).
+Tài khoản eTUAF (.env): chỉ đăng nhập khi đề có ảnh chưa có file local.
 
 Yêu cầu:
     pip install beautifulsoup4
@@ -117,7 +117,10 @@ def normalize(text: str) -> str:
 
 
 # ── Ảnh trong đề Moodle (field JSON tùy chọn, không bắt buộc) ──
-_HTTP_OPENER = None  # gán sau khi đăng nhập Moodle (MOODLE_USER / MOODLE_PASS)
+_HTTP_OPENER = None  # gán sau khi đăng nhập Moodle (chỉ khi có ảnh cần tải)
+_MOODLE_USER = None
+_MOODLE_PASS = None
+_LOGIN_TRIED = False
 _IMG_EXT = {".png", ".jpg", ".jpeg", ".gif", ".webp", ".svg", ".bmp"}
 _SKIP_IMG_RE = re.compile(
     r"(theme/|/user/icon|favicon|i/loading|i/notifications|/t/message|/t/markasread)",
@@ -196,6 +199,28 @@ def _find_sidecar_image(html_path: Path, src: str) -> Path | None:
     return None
 
 
+def configure_moodle_auth(username: str | None, password: str | None) -> None:
+    """Chỉ lưu tài khoản — chưa đăng nhập cho đến khi gặp ảnh cần tải."""
+    global _MOODLE_USER, _MOODLE_PASS
+    _MOODLE_USER = username or None
+    _MOODLE_PASS = password or None
+
+
+def ensure_moodle_login() -> bool:
+    """Đăng nhập Moodle một lần, chỉ gọi khi có ảnh HTTP chưa có file local."""
+    global _LOGIN_TRIED
+    if _HTTP_OPENER is not None:
+        return True
+    if _LOGIN_TRIED:
+        return False
+    _LOGIN_TRIED = True
+    if not _MOODLE_USER or not _MOODLE_PASS:
+        print("  [!] Có ảnh Moodle nhưng chưa có .env (MOODLE_USER / MOODLE_PASS).")
+        return False
+    print(f"  Có ảnh đề — đăng nhập eTUAF bằng user {_MOODLE_USER}")
+    return moodle_login(_MOODLE_USER, _MOODLE_PASS)
+
+
 def moodle_login(username: str, password: str, base: str = "https://tuaf.aum.edu.vn") -> bool:
     """Đăng nhập eTUAF để tải ảnh pluginfile. Không ghi mật khẩu ra đĩa."""
     global _HTTP_OPENER
@@ -265,6 +290,9 @@ def materialize_image(src: str, html_path: Path) -> str | None:
         return rel.replace("\\", "/")
 
     if src.lower().startswith("http"):
+        # Chỉ login khi thực sự phải tải ảnh từ Moodle
+        if "tuaf.aum.edu.vn" in src.lower() or "pluginfile.php" in src.lower():
+            ensure_moodle_login()
         try:
             req = Request(
                 src,
@@ -273,8 +301,11 @@ def materialize_image(src: str, html_path: Path) -> str | None:
                     "Referer": "https://tuaf.aum.edu.vn/",
                 },
             )
-            opener = _HTTP_OPENER or urlopen
-            with (opener.open(req, timeout=20) if _HTTP_OPENER else urlopen(req, timeout=15)) as resp:
+            if _HTTP_OPENER is not None:
+                resp = _HTTP_OPENER.open(req, timeout=20)
+            else:
+                resp = urlopen(req, timeout=15)
+            with resp:
                 data = resp.read()
                 ct = resp.headers.get("Content-Type", "")
             if _is_image_bytes(data, ct):
@@ -914,15 +945,10 @@ def main():
     args = parser.parse_args()
 
     load_dotenv()
-    moodle_user = args.moodle_user or os.environ.get("MOODLE_USER")
-    moodle_pass = os.environ.get("MOODLE_PASS")
-    if moodle_user and moodle_pass:
-        print(f"  .env: đăng nhập eTUAF bằng user {moodle_user}")
-        moodle_login(moodle_user, moodle_pass)
-    elif moodle_user and not moodle_pass:
-        print("  [!] Có user nhưng chưa có MOODLE_PASS trong .env — bỏ qua đăng nhập.")
-    else:
-        print("  [!] Chưa có .env (MOODLE_USER / MOODLE_PASS) — ảnh Moodle có thể không tải được.")
+    configure_moodle_auth(
+        args.moodle_user or os.environ.get("MOODLE_USER"),
+        os.environ.get("MOODLE_PASS"),
+    )
 
     # ── Resolve input files ──
     input_files = []

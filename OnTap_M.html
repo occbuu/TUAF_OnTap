@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ôn Tập - Vệ sinh gia súc (100 câu)</title>
+<style>
+:root {
+  --blue:      #2563eb;
+  --blue-dark: #1e40af;
+  --blue-bg:   #eff6ff;
+  --green:     #16a34a;
+  --green-bg:  #f0fdf4;
+  --green-bd:  #86efac;
+  --yellow-bg: #fefce8;
+  --yellow-bd: #fde047;
+  --gray:      #6b7280;
+  --gray-lt:   #f3f4f6;
+  --border:    #e5e7eb;
+  --text:      #111827;
+  --radius:    12px;
+  --shadow:    0 1px 4px rgba(0,0,0,.08),0 4px 12px rgba(0,0,0,.06);
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+  background: #f1f5f9; color: var(--text);
+  line-height: 1.65; font-size: 15px;
+}
+
+/* ── HEADER ── */
+.page-header {
+  background: linear-gradient(135deg, var(--blue-dark) 0%, var(--blue) 100%);
+  color: #fff; padding: 28px 20px 22px; text-align: center;
+  position: relative;
+}
+.page-header h1 { font-size: clamp(1.1em, 4vw, 1.7em); font-weight: 700; margin-bottom: 5px; }
+.page-header p  { opacity: .85; font-size: .88em; }
+.back-btn {
+  position: absolute; left: 14px; top: 50%; transform: translateY(-50%);
+  background: rgba(255,255,255,.18); border: 1.5px solid rgba(255,255,255,.35);
+  color: #fff; padding: 6px 13px; border-radius: 7px;
+  text-decoration: none; font-size: .82em; font-weight: 600;
+  white-space: nowrap; transition: background .15s; line-height: 1.4;
+}
+.back-btn:hover { background: rgba(255,255,255,.3); }
+@media (max-width: 480px) {
+  .back-btn { position: static; transform: none; display: inline-block;
+              margin-bottom: 10px; font-size: .8em; }
+  .page-header { padding-top: 16px; }
+}
+
+/* ── SEARCH BAR ── */
+.search-wrap {
+  position: sticky; top: 0; z-index: 100;
+  background: #fff; border-bottom: 1px solid var(--border);
+  padding: 10px 16px;
+  box-shadow: 0 2px 8px rgba(0,0,0,.08);
+}
+.search-inner {
+  max-width: 860px; margin: 0 auto;
+  display: flex; align-items: center; gap: 10px;
+}
+.search-box { flex: 1; position: relative; }
+.search-box input {
+  width: 100%; padding: 9px 36px 9px 38px;
+  border: 1.5px solid var(--border); border-radius: 8px;
+  font-size: .95em; outline: none; background: var(--gray-lt);
+  transition: border-color .15s, background .15s;
+  -webkit-appearance: none;
+}
+.search-box input:focus { border-color: var(--blue); background: #fff; }
+.search-icon {
+  position: absolute; left: 11px; top: 50%;
+  transform: translateY(-50%); color: var(--gray);
+  pointer-events: none; font-size: 1em;
+}
+.search-clear {
+  position: absolute; right: 9px; top: 50%;
+  transform: translateY(-50%); background: none; border: none;
+  cursor: pointer; color: var(--gray); font-size: 1.1em;
+  padding: 2px 4px; display: none; line-height: 1; border-radius: 50%;
+}
+.search-clear:hover { color: #111; background: var(--gray-lt); }
+.search-count {
+  white-space: nowrap; font-size: .88em; color: var(--gray);
+  min-width: 90px; text-align: right;
+}
+.search-count strong { color: var(--blue-dark); }
+
+/* ── CONTAINER ── */
+.container {
+  max-width: 860px; margin: 18px auto;
+  padding: 0 14px 80px;
+}
+
+/* ── QUESTION CARD ── */
+.question-block {
+  background: #fff; border-radius: var(--radius);
+  box-shadow: var(--shadow); margin-bottom: 16px;
+  border-left: 4px solid var(--blue);
+  overflow: hidden;
+  transition: box-shadow .15s;
+}
+.question-block:hover {
+  box-shadow: 0 2px 8px rgba(0,0,0,.12), 0 6px 20px rgba(0,0,0,.08);
+}
+
+.question-header {
+  display: flex; align-items: center; gap: 8px;
+  background: var(--blue-bg); padding: 8px 14px;
+  border-bottom: 1px solid #dbeafe;
+}
+.q-badge {
+  background: var(--blue); color: #fff;
+  border-radius: 20px; padding: 1px 9px;
+  font-size: .78em; font-weight: 700; letter-spacing: .3px;
+}
+
+.question-text {
+  padding: 14px 16px 8px;
+  font-size: 1em; font-weight: 500; color: #1e293b;
+}
+.question-text mark {
+  background: #fef08a; color: inherit;
+  border-radius: 3px; padding: 0 2px;
+}
+.q-images { padding: 6px 16px 12px; }
+.q-images img {
+  max-width: 100%; height: auto; display: block;
+  border-radius: 8px; border: 1.5px solid var(--border);
+  background: #fff; margin-top: 6px;
+}
+
+/* ── ANSWERS ── */
+.answers {
+  padding: 4px 16px 12px;
+  display: flex; flex-direction: column; gap: 6px;
+}
+.answer-item {
+  display: flex; align-items: flex-start; gap: 10px;
+  padding: 8px 12px; border-radius: 8px;
+  border: 1.5px solid var(--border);
+  background: var(--gray-lt);
+}
+.answer-item.correct {
+  background: var(--green-bg);
+  border-color: var(--green-bd);
+  font-weight: 600;
+}
+.answer-letter {
+  font-weight: 700; font-size: .9em;
+  width: 22px; flex-shrink: 0; padding-top: 1px; color: var(--gray);
+}
+.answer-item.correct .answer-letter { color: var(--green); }
+.answer-text {
+  flex: 1; color: #374151; font-size: .95em;
+}
+.answer-item.correct .answer-text { color: #14532d; }
+.answer-text mark {
+  background: #bbf7d0; color: inherit;
+  border-radius: 3px; padding: 0 2px;
+}
+.check-mark {
+  flex-shrink: 0; margin-left: auto; padding-left: 6px;
+  color: var(--green); font-weight: 700;
+}
+
+/* ── FEEDBACK ── */
+.feedback-section {
+  background: var(--yellow-bg);
+  border-top: 1.5px solid var(--yellow-bd);
+  padding: 10px 16px; font-size: .875em; color: #44403c;
+}
+.feedback-section p { margin: 3px 0; }
+.feedback-section strong { color: #1c1917; }
+
+/* ── EMPTY STATE ── */
+#noResults {
+  display: none; text-align: center;
+  padding: 60px 20px; color: var(--gray);
+}
+#noResults .nr-icon { font-size: 2.5em; margin-bottom: 12px; }
+#noResults p { font-size: .95em; }
+
+/* ── SCROLL TOP ── */
+#scrollTopBtn {
+  position: fixed; bottom: 20px; right: 16px;
+  width: 44px; height: 44px; border-radius: 50%;
+  background: var(--blue); color: #fff; border: none;
+  font-size: 1.3em; cursor: pointer; display: none;
+  align-items: center; justify-content: center;
+  box-shadow: 0 3px 10px rgba(37,99,235,.4);
+  transition: background .15s, transform .15s;
+  z-index: 200; text-decoration: none;
+  line-height: 44px; text-align: center;
+}
+#scrollTopBtn:hover { background: var(--blue-dark); transform: translateY(-2px); }
+
+/* ── MOBILE ── */
+@media (max-width: 600px) {
+  body { font-size: 14px; }
+  .page-header { padding: 18px 14px 14px; }
+  .container { margin: 12px auto; padding: 0 10px 80px; }
+  .question-text { padding: 12px 12px 6px; }
+  .q-images { padding: 4px 12px 10px; }
+  .answers { padding: 4px 12px 10px; gap: 5px; }
+  .answer-item { padding: 7px 10px; }
+  .feedback-section { padding: 9px 12px; }
+  .search-count { display: none; }
+}
+</style>
+</head>
+<body>
+
+<div class="page-header">
+  <a href="index.html" class="back-btn">&#8592; Trang ch&#7911;</a>
+  <h1>Ôn Tập Vệ sinh gia súc</h1>
+  <p>Câu hỏi trắc nghiệm có đáp án &mdash; Nguồn: LT_M01 – LT_M02</p>
+</div>
+
+<div class="search-wrap">
+  <div class="search-inner">
+    <div class="search-box">
+      <span class="search-icon">&#128269;</span>
+      <input type="search" id="searchInput"
+             placeholder="Tìm câu hỏi hoặc đáp án..." autocomplete="off">
+      <button class="search-clear" id="searchClear" title="Xóa">&#10005;</button>
+    </div>
+    <div class="search-count" id="searchCount">
+      <strong>100</strong> / 100 câu
+    </div>
+  </div>
+</div>
+
+<div class="container" id="questionContainer">
+  <div id="noResults">
+    <div class="nr-icon">&#128269;</div>
+    <p>Không tìm thấy câu hỏi phù hợp.</p>
+  </div>
+</div>
+
+<a href="#" id="scrollTopBtn" title="Lên đầu trang">&#8679;</a>
+
+<script>
+const QUESTIONS = [{"id":1,"text":"Độ ẩm thích hợp của hàng nông sản khi đem vào bảo quản, thích hợp nhất là","answers":["A. < 9%","B. 9 – 10%","C. 12 – 15%","D. 10 – 12%"],"correct":2,"explanation":"Đáp án đúng là: 12 – 15% Vì: Vì hàm lượng nước trong nông sản lớn, phải phơi (sấy) lâu để giảm độ ẩm (xuống đến 12-15%).","reference":"Mục 1.2.2.4."},{"id":2,"text":"Hàm lượng oxy giảm xuống đến bao nhiêu % mới gây ra phản ứng cơ thể gia súc có biểu hiện hô hấp sâu ?","answers":["A. 6%","B. 13%","C. 9%","D. 15%"],"correct":3,"explanation":"Đáp án đúng là: 15% Vì: Chỉ khi lượng oxy biến động giảm xuống 15% mới gây ra phản ứng cơ thể, gia súc biểu hiện hô hấp sâu, nhịp tim tăng, mạch nhanh, quá trình oxy hoá giảm","reference":"Mục 1.2.7.2"},{"id":3,"text":"Chế độ nhiệt có ảnh hưởng đến chu trình nước trong tự nhiên vì","answers":["A. Nhiệt độ cao hơn có thể làm tăng tốc độ bốc hơi nước ngầm, làm giảm mực nước ngầm.","B. Vì nó liên quan đến cơ chế bốc hơi, ngưng tụ nước, lượng mưa, tuyết và băng, dòng chảy, nước ngầm","C. Chế độ nhiệt ảnh hưởng đến sự phân bố và cường độ mưa.","D. Chế độ nhiệt ảnh hưởng đến dòng chảy sông và suối thông qua tác động đến lượng mưa và tan chảy băng tuyết."],"correct":1,"explanation":"Đáp án đúng là: Vì nó liên quan đến cơ chế bốc hơi, ngưng tụ nước, lượng mưa, tuyết và băng, dòng chảy, nước ngầm Vì: Vì nó liên quan đến cơ chế bốc hơi, ngưng tụ nước, lượng mưa, tuyết và băng, dòng chảy, nước ngầm","reference":"Mục 1.2.1."},{"id":4,"text":"Hàm lượng khí CO2 tăng đến bao nhiêu thì bắt đầu có ảnh hưởng đến cơ năng hô hấp của gia súc?","answers":["A. 3 – 5 %","B. 0,25 – 0,3%","C. 1%","D. 0,03%"],"correct":1,"explanation":"Đáp án đúng là: 0,25 – 0,3% Vì: Vì chỉ tiêu vệ sinh chất khí CO2 cho phép trong khu vực chuồng nuôi từ 0,25-0,3%","reference":"Mục 1.2.7.2"},{"id":5,"text":"Thức ăn thô xanh bảo quản tốt nhất trong điều kiện độ ẩm không khí","answers":["A. Từ 60 – 70%","B. Từ 75 – 85%","C. Từ 65 – 75%","D. Từ 80 – 90%"],"correct":3,"explanation":"Đáp án đúng là: Từ 80 – 90% Vì: Vì độ ẩm thấp sẽ làm cho thức ăn xanh bị mất nước do quá trình bốc hơi lớn, dẫn tới khô héo, vàng úa, giảm chất lượng","reference":"Mục 1.2.2.4."},{"id":6,"text":"Hàm lượng khí CO 2 tăng đến bao nhiêu thì gia súc rơi vào trạng thái trúng độc cấp tính ?","answers":["A. 14 – 16%","B. 3 – 5%","C. 5 – 8%","D. 15%"],"correct":2,"explanation":"Đáp án đúng là: 5 – 8% Vì: Vì CO 2 hòa tan trong máu tạo thành axit carbonic, làm tăng độ axit của máu. Gây sản sinh độc tố trong máu, làm cho gia súc trúng độc cấp tính","reference":"Mục 1.2.7.2."},{"id":7,"text":"Quá trình oxy hoá của cơ thể gia súc bị ngừng trệ khi hàm lượng khí CO là bao nhiêu?","answers":["A. 0,25 – 0,30%","B. 0,01%","C. 1%","D. 0,03%"],"correct":1,"explanation":"Đáp án đúng là: 0,01% Vì: Khi nồng độ CO 2 trong không khí tăng cao, nó sẽ làm giảm lượng oxy có sẵn cho gia súc hô hấp. O 2 dư thừa trong máu có thể làm thay đổi độ pH, dẫn đến tình trạng nhiễm toan. ồng độ CO 2 quá cao có thể gây ức chế hệ thần kinh trung ương, dẫn đến các triệu chứng như khó thở, co giật và thậm chí tử vong","reference":"Mục 1.2.7.2."},{"id":8,"text":"Nguồn gốc của bụi trong chuồng nuôi gia súc chủ yếu là","answers":["A. Từ gia súc, đệm lót, chất thải","B. Từ các chất hoá học sát trùngTừ dụng cụ chăn nuôi","C. Do vệ sinh không sạch sẽ","D. Từ đất"],"correct":0,"explanation":"Đáp án đúng là: Từ gia súc, đệm lót, chất thải Vì: Vì các hoạt động hàng ngày của con vật là nguyên nhân hình thành và phát sinh ra bụi","reference":"Mục 1.2.5.1."},{"id":9,"text":"Yếu tố nào là một trong những điều kiện quan trọng ảnh hưởng sâu sắc nhất đến sự tồn tại, sinh trưởng và phát triển của sinh vật?","answers":["A. Dinh dưỡng","B. Nước","C. Không khí","D. Oxi"],"correct":2,"explanation":"Đáp án đúng là: Không khí Vì: Vì thành phần của không khí là môi trường sống quan trọng đối với VSV. Đặc biệt là nhiệt độ và ẩm độ của không khí","reference":"Mục 1.2.5.2"},{"id":10,"text":"Độ ẩm thích hợp trong chuồng nuôi trâu bò là","answers":["A. 80 – 85%","B. 62 – 95%","C. 75 – 80%","D. 62 – 75%"],"correct":0,"explanation":"Đáp án đúng là: 80 – 85% Vì: Vì nếu ấm độ cao hơn 85% sẽ là môi trường thuận lợi cho VSV gây bệnh cho vật nuôi.","reference":"Mục 1.2.2.4"},{"id":11,"text":"Tiêu chuẩn vệ sinh của tiếng ồn ở mức cho phép đối với cơ thể gia súc tối đa là :","answers":["A. 50 – 70dB","B. 40 – 50dB","C. 30 – 40dB","D. 40 – 60 dB"],"correct":1,"explanation":"Đáp án đúng là: 40 – 50dB Vì: Nếu giới hạn tiếng ồn vượt quá ngưỡng giới hạn tối đa cho phép sẽ ảnh hưởng nghiêm trọng đến cơ thể vật nuôi","reference":"Mục 1.2.6"},{"id":12,"text":"Vùng nhiệt độ dễ chịu của động vật trưởng thành là bao nhiêu ?","answers":["A. Từ 10 – 30 o C","B. Từ 21 – 26 o C","C. Từ 18 – 24 o C","D. Từ 15 – 30 o C"],"correct":1,"explanation":"Đáp án đúng là: Từ 21 – 26 o C Vì: Ở khu nhiệt này động vật cảm thấy dễ chịu, khoẻ mạnh, sự sinh trưởng, phát triển, sản xuất đều đạt ở mức cao nhất.","reference":"Mục 1.2.1.3"},{"id":13,"text":"Thân nhiệt tăng cao một cách nhanh chóng kết hợp với loạn nhịp tuần hoàn, hô hấp là triệu chứng lâm sàng điển hình của hiện tượng ...","answers":["A. Cảm lạnh","B. Cảm nắng","C. Nhiễm ký sinh trùng","D. Cảm nóng"],"correct":3,"explanation":"Đáp án đúng là: Cảm nóng Vì: Hậu quả của sự tích luỹ nhiệt quá cao và phản ứng điều tiết nhiệt của cơ thể động vật đối với nóng","reference":"Mục 1.2.1.4."},{"id":14,"text":"Khi hơi nước chưa đạt độ bão hoà nhưng khi nhiệt độ tiếp tục xuống thấp tuy không có thêm hơi nước tăng cường nhưng hơi nước trong không khí sẽ chuyển sang trạng thái bão hoà, thời điểm đó được gọi là....","answers":["A. Độ ẩm chênh lệch","B. Độ ẩm bão hoà","C. Điểm sương","D. Độ ẩm tuyệt đối"],"correct":2,"explanation":"Đáp án đúng là: Điểm sương Vì: Điểm sương là nhiệt độ mà tại đó không khí chứa một lượng hơi nước nhất định trở nên bão hòa. Khi nhiệt độ giảm, khả năng chứa hơi nước của không khí giảm, dẫn đến tăng độ ẩm tương đối và đạt trạng thái bão hòa tại điểm sương.","reference":"Mục 1.2.2.1"},{"id":15,"text":"Quá trình toả nhiệt của cơ thể gia súc theo phương thức bốc hơi bị cản trở là do:","answers":["A. Nhiệt độ cao, ẩm độ thấp","B. Nhiệt độ cao, ẩm độ cao","C. Nhiệt độ thấp, ẩm độ cao","D. Nhiệt độ cao, ẩm độ thấp"],"correct":1,"explanation":"Đáp án đúng là: Nhiệt độ cao, ẩm độ cao Vì: Khi độ ẩm không khí cao, không khí đã chứa nhiều hơi nước, khiến cho quá trình bay hơi mồ hôi diễn ra chậm hơn.","reference":"Mục 1.2.2.3"},{"id":16,"text":"Nguồn nhiệt trong chuồng nuôi gia súc chịu ảnh hưởng của:","answers":["A. Nhiệt độ không khí","B. Bức xạ mặt trời","C. Nhiệt độ bề mặt đất","D. Nhiệt độ không khí và thân nhiệt gia súc"],"correct":3,"explanation":"Đáp án đúng là: Nhiệt độ không khí và thân nhiệt gia súc Vì: Vì nhiệt độ của không khí chịu tác động của bức xạ mặt trời chiếu thẳng xuống trái đất. Nên khi nhiệt độ không khí tăn lên hay giám đi sẽ ảnh hưởng đến nhiệt độ của chuồng nuôi, nhiệt của cơ thể gia súc","reference":"Mục 1.2.1.3."},{"id":17,"text":"Trong chuồng nuôi gia súc hơi nước được sản sinh ra nhiều nhất từ","answers":["A. Hơi nước không khí từ ngoài đưa vào","B. Chất thải của gia súc","C. Từ cơ thể gia súc","D. Thức ăn, nước uống"],"correct":2,"explanation":"Đáp án đúng là: Từ cơ thể gia súc Vì: Hơi nước trong chuồng nuôi, chiếm khoảng 75% được sản sinh từ cơ thể gia súc","reference":"Mục 1.2.2.4."},{"id":18,"text":"Khu nhiệt điều hoà sẽ tăng nếu gia súc ăn khẩu phần","answers":["A. Duy trì","B. Duy trì và sản xuất","C. Sản xuất","D. Khẩu phần không ảnh hưởng"],"correct":0,"explanation":"Đáp án đúng là: Duy trì Vì: Vì quá trình tiêu hóa và chuyển hóa thức ăn tạo ra nhiệt lượng. Ngay cả với khẩu phần duy trì, các phản ứng sinh hóa vẫn diễn ra, dẫn đến tăng sinh nhiệt.","reference":"Mục 1.2.1.3."},{"id":19,"text":"Địa hình cứ lên cao thêm 1000m thì nhiệt độ sẽ giảm....","answers":["A. 3 – 4 o C","B. 2 – 3 o C","C. 5 – 6 o C","D. 4 – 5 o C"],"correct":2,"explanation":"Đáp án đúng là: 5 – 6 o C Vì: Độ cao càng tăng thì nhiệt độ giảm đi rõ rệt","reference":"Mục 1.1.2"},{"id":20,"text":"Độ ẩm tương đối trong chuồng ngựa khoảng......","answers":["A. 70%","B. 60%","C. 80%","D. 65 – 70%"],"correct":2,"explanation":"Đáp án đúng là: 80% Vì: Độ ẩm tương đối trong chuồng ngựa khoảng 80% là một mức lý tưởng, bởi vì nó mang lại sự cân bằng giữa việc duy trì sức khỏe của ngựa và ngăn ngừa các vấn đề liên quan đến độ ẩm.","reference":"Mục 1.2.2.4."},{"id":21,"text":"Sự thay đổi áp suất không khí dẫn đến sự thay đổi:","answers":["A. Hàm lượng khí Nitơ","B. Hàm lượng khí CO","C. Hàm lượng khí O 2","D. Hàm lượng khí CO 2"],"correct":2,"explanation":"Đáp án đúng là: Hàm lượng khí O 2 Vì: Áp suất không khí là sức nén của trọng lực không khí trên một đơn vị diện tích bề mặt tiếp xúc. Ở nơi cao thì áp suất không khí thấp, ở chỗ thấp thì có khí áp cao. Trên cùng một mặt phẳng, áp suất không khí cũng luôn thay đổi do hàm lượng hơi nước và sự chuyển động của không khí.","reference":"Mục 1.2.3.2."},{"id":22,"text":".............là chất khí không màu, rất độc với cơ quan hô hấp và thị giác","answers":["A. Oxit cacbon (CO)","B. Cácbonic (CO 2 )","C. NH 3","D. H 2 S"],"correct":2,"explanation":"Đáp án đúng là: NH 3 Vì: Vì NH 3 có tính ăn mòn mạnh, đặc biệt khi ở nồng độ cao. Khi tiếp xúc với các mô ẩm ướt như mắt, mũi, họng và phổi, NH 3 sẽ phản ứng với nước tạo thành amoni hydroxit (NH 4 OH), một chất kiềm mạnh.","reference":"Mục 1.2.7.1."},{"id":23,"text":"Khi nhiệt độ của gió thấp hơn nhiệt độ của da sẽ dẫn tới","answers":["A. Thúc đẩy quá trình toả nhiệt của cơ thể qua bức xạ nhiệt","B. Cả 3 phương án trên","C. Thúc đẩy quá trình toả nhiệt của cơ thể qua truyền dẫn đối lưu","D. Thúc đẩy quá trình toả nhiệt của cơ thể qua bốc hơi"],"correct":2,"explanation":"Đáp án đúng là: Thúc đẩy quá trình toả nhiệt của cơ thể qua truyền dẫn đối lưu Vì: Vì gió làm tăng tốc độ quá trình truyền nhiệt từ cơ thể ra môi trường. Cơ thể sẽ mất nhiệt nhanh hơn do sự chênh lệch nhiệt độ giữa da và không khí. Quá trình này diễn ra thông qua dẫn truyền và đối lưu nhiệt.","reference":"Mục 1.2.1.5"},{"id":24,"text":"Hậu quả của nhiệt độ quá cao đối với cơ thể gia súc:","answers":["A. Tăng sản nhiệt, tăng hô hấp, huyết áp tăng","B. Tăng sản nhiệt, hô hấp giảm, tăng hoạt động tiết niệu, huyết áp tăng","C. Giảm sản nhiệt, giảm hô hấp, giảm tiêu hoá hấp thu","D. Giảm sản nhiệt, hô hấp tăng, khả năng tiêu hoá hấp thu kém, cử động chậm chạp"],"correct":3,"explanation":"Đáp án đúng là: Giảm sản nhiệt, hô hấp tăng, khả năng tiêu hoá hấp thu kém, cử động chậm chạp Vì: Vì Khi nhiệt độ môi trường quá cao, cơ thể động vật sẽ trải qua một loạt các thay đổi sinh lý để cố gắng duy trì nhiệt độ cơ thể ổn định.","reference":"Mục 1.2.1.4."},{"id":25,"text":"Khi nhiệt độ không khí giảm đi 1oC tác dụng trao đổi chất sẽ tăng","answers":["A. 3 - 4%","B. 2 – 5%","C. 1 - 2%","D. 5 – 6%"],"correct":1,"explanation":"Đáp án đúng là: 2 – 5% Vì: Vì khi nhiệt độ môi trường giảm xuống, cơ thể cũng có thể tăng cường quá trình đốt cháy chất béo, đặc biệt là mỡ nâu, để tạo ra nhiệt.","reference":"Mục 1.2.1.3."},{"id":26,"text":"Loài vật nào lấy gián tiếp các nguyên tố hoá học trong đất qua cây cỏ?","answers":["A. Gia súc nhai lại","B. Lợn","C. Gà","D. Cả 3 loài trên"],"correct":0,"explanation":"Đáp án đúng là: Gia súc nhai lại Vì: Vì gia súc nhai lại mới ăn cỏ Tham khảo:","reference":"Mục 2.3.1."},{"id":27,"text":"Quá trình tự rửa sạch của đất chính là quá trình","answers":["A. Oxy hoá các hợp chất hữu cơ","B. Vô cơ hoá các hợp chất hữu cơ","C. Phân giải hiếu khí các chất hữu cơ","D. Phân giải yếm khí các chất hữu cơ"],"correct":1,"explanation":"Đáp án đúng là: Vô cơ hoá các hợp chất hữu cơ Vì: Vì Quá trình tự làm sạch của đất chủ yếu dựa vào hoạt động của vi sinh vật. Vi sinh vật trong đất phân hủy các chất hữu cơ phức tạp thành các chất vô cơ đơn giản hơn như CO 2 , H 2 O, NO 3 - , NH 4 + , và các khoáng chất. Quá trình này được gọi là vô cơ hóa, và nó loại bỏ các chất ô nhiễm hữu cơ khỏi đất. Tham khảo:","reference":"Mục 2.4.3."},{"id":28,"text":"Sản phẩm cuối cùng của quá trình phân giải các hợp chất hữu cơ chứa nitơ là:","answers":["A. NH 3","B. H 2 S","C. Cl 2","D. NO 3"],"correct":3,"explanation":"Đáp án đúng là: NO 3 Vì: Vì NO 3 - (nitrat) là sản phẩm cuối cùng của quá trình phân giải các hợp chất hữu cơ chứa nitơ thông qua một loạt các phản ứng sinh hóa phức tạp. Quá trình này được gọi là chu trình nitơ, Tham khảo:","reference":"Mục 2.3.3."},{"id":29,"text":"Độ oxy hoá của đất là chỉ tiêu gián tiếp để xác định","answers":["A. Hàm lượng vi sinh vật có trong đất","B. Hàm lượng chất hữu cơ có trong đất","C. Hàm lượng oxy có trong đất","D. Cả 3 ý đều đúng"],"correct":1,"explanation":"Đáp án đúng là: Hàm lượng chất hữu cơ có trong đất Vì: Vì: Chất hữu cơ trong đất chứa nhiều carbon và hydro, là những nguyên tố có khả năng cung cấp electron trong các phản ứng oxy hóa khử, Khi chất hữu cơ bị phân hủy bởi vi sinh vật, electron được giải phóng, làm tăng độ oxy hóa của đất. Tham khảo:","reference":"Mục 2.3.3."},{"id":30,"text":"Dạng nước mà cây trồng có thể sử dụng trực tiếp là:","answers":["A. Nước liên kết","B. Cả 3 dạng đều đúng","C. Nước mao dẫn","D. Nước trọng lực"],"correct":2,"explanation":"Đáp án đúng là: Nước mao dẫn Vì: Nước mao dẫn di chuyển trong đất thông qua các lỗ rỗng nhỏ (mao quản) giữa các hạt đất. Sự di chuyển này diễn ra nhờ lực mao dẫn, cho phép nước di chuyển ngược chiều trọng lực, từ vùng ẩm ướt đến vùng khô ráo. Điều này giúp nước phân phối đều trong đất, cung cấp nước cho rễ cây ở mọi vị trí. Tham khảo:","reference":"Mục 2.2.1"},{"id":31,"text":"Về cấu tạo cơ học, đất do những viên đất hoặc những hạt đất lớn nhỏ khác nhau hợp thành. Chúng là thành phần rắn của đất, được coi là bộ xương của đất, quyết định.............","answers":["A. Trạng thái không khí của đất","B. Trạng thái nước trong đất và những tính chất khác","C. Nhiệt độ của đất","D. Độ màu mỡ của đất"],"correct":1,"explanation":"Đáp án đúng là: Trạng thái nước trong đất và những tính chất khác Vì: nó ảnh hưởng trực tiếp đến khả năng giữ nước, thoát nước, lưu thông không khí và các quá trình hóa học, sinh học diễn ra trong đất. Tham khảo:","reference":"Mục 2.2."},{"id":32,"text":"Hạt đất càng lớn, càng có nhiều...","answers":["A. SiO 2","B. Fe","C. O 2","D. Ca"],"correct":0,"explanation":"Đáp án đúng là: SiO 2 Vì: Vì Các hạt lớn hơn, như cát, ít bị ảnh hưởng bởi quá trình phong hóa hóa học hơn so với các hạt nhỏ hơn. Do đó, chúng giữ lại thành phần khoáng vật ban đầu của chúng, bao gồm hàm lượng SiO 2 cao. Tham khảo:","reference":"Mục 2.3"},{"id":33,"text":"Hoá chất bảo vệ thực vật phun trên cây trồng sẽ rơi xuống đất khoảng","answers":["A. 30%","B. 50%","C. 40%","D. 60%"],"correct":1,"explanation":"Đáp án đúng là: 50% Vì: Do sự bay hơi, rửa trôi của hóa chất hoặc sự phân hủy của hóa chất  bởi ánh sáng mặt trời, nhiệt độ, độ ẩm và các yếu tố môi trường khác. Tham khảo:","reference":"Mục 2.3.3."},{"id":34,"text":"Cấu tạo cơ học của đất quyết định đến tính thấm nước và …. trong đất.","answers":["A. Oxi","B. Độ thông thông thoáng","C. Độ liên kết","D. Không khí"],"correct":1,"explanation":"Đáp án đúng là: Độ thông thông thoáng Vì: Vì thông qua kích thước và sự phân bố của các hạt đất sẽ quyết định đến tính thấm nước và độ thông thoáng trong đất Tham khảo:","reference":"Mục 2.2.1."},{"id":35,"text":"Loại chất nào có ở độ sâu 1m, chứng tỏ đất đã nhiễm bẩn từ lâu?","answers":["A. NO 2","B. Cl 2","C. H 2 S","D. NO 3"],"correct":1,"explanation":"Đáp án đúng là: Cl 2 Vì: Vì Clo là một nguyên tố tương đối ít di động trong đất, Do đó, khi clo xâm nhập vào đất, nó có xu hướng tích tụ tại vị trí xâm nhập hoặc di chuyển chậm theo chiều sâu. Việc phát hiện clo ở độ sâu 1m cho thấy clo đã có thời gian đủ dài để di chuyển đến độ sâu đó. Tham khảo:","reference":"Mục 2.3.3."},{"id":36,"text":"Hạt đất................càng có nhiều chất dinh dưỡng cho cây trồng","answers":["A. Càng nhỏ","B. Tơi xốp","C. Càng thoáng khí","D. Trung bình"],"correct":0,"explanation":"Đáp án đúng là: Càng nhỏ Vì: Vì: Hạt đất nhỏ, đặc biệt là hạt sét, có diện tích bề mặt lớn hơn nhiều so với hạt đất lớn như cát. Diện tích bề mặt lớn này tạo điều kiện cho các ion dinh dưỡng (như kali, canxi, magie, amoni) bám vào bề mặt hạt đất. Tham khảo:","reference":"Mục 2.2."},{"id":37,"text":"Hàm lượng chất nào tăng cao trong đất, chứng tỏ đất bị ô nhiễm các hợp chất hữu cơ nguồn gốc động vật ?","answers":["A. H 2 S","B. NH 3","C. NO 2","D. NO 3"],"correct":1,"explanation":"Đáp án đúng là: NH 3 Vì: Vì Các hợp chất hữu cơ động vật thường chứa hàm lượng nitơ cao. Khi các hợp chất này phân hủy, nitơ được giải phóng vào đất dưới dạng amoniac. Sự tích tụ amoniac trong đất là dấu hiệu cho thấy sự dư thừa nitơ từ nguồn gốc động vật. Tham khảo:","reference":"Mục 2.3.3."},{"id":38,"text":"Tại sao hạt đất nhỏ thì lượng nước trong đất lớn","answers":["A. Hạt đất càng nhỏ, hợp chất keo và mùn nhiều thì lượng chứa nước lớn.","B. Do độ liên kết của đất tốt","C. Vì khe hở đất nhỏ","D. Vì khả năng thấm hút tốt"],"correct":0,"explanation":"Đáp án đúng là: Hạt đất càng nhỏ, hợp chất keo và mùn nhiều thì lượng chứa nước lớn. Vì: Hạt đất càng nhỏ, hợp chất keo và mùn nhiều thì lượng chứa nước lớn. Tham khảo:","reference":"Mục 2.2.1."},{"id":39,"text":"Tại sao lớp đất sâu không khí có ít O 2 và nhiều CO 2","answers":["A. Ở lớp đất sâu, do ít tiếp xúc với không khí hơn, sự trao đổi khí diễn ra chậm, dẫn đến sự tích tụ CO 2 và giảm lượng O 2 .","B. Ở lớp đất sâu sự trao đổi khí diễn ra chậm, dẫn đến sự tích tụ CO 2 và giảm lượng O 2 .","C. Quá trình phân hủy chất hữu cơ bởi vi sinh vật cũng tiêu thụ O 2","D. Ở lớp đất sâu, do độ ẩm thấp, sự trao đổi khí diễn ra chậm, dẫn đến sự tích tụ CO 2 và giảm lượng O 2 ."],"correct":0,"explanation":"Đáp án đúng là: Ở lớp đất sâu, do ít tiếp xúc với không khí hơn, sự trao đổi khí diễn ra chậm, dẫn đến sự tích tụ CO 2 và giảm lượng O 2 . Vì: Ở lớp đất sâu, do ít tiếp xúc với không khí hơn, sự trao đổi khí diễn ra chậm, dẫn đến sự tích tụ CO2 và giảm lượng O 2 . Tham khảo:","reference":"Mục 2.2.2."},{"id":40,"text":"Những điều kiện bất lợi cho sự sinh trưởng phát triển của vi sinh vật?","answers":["A. Đất ở độ sâu 2 – 3 m","B. Đất có nhiều chất hữu cơ","C. Đất ẩm ướt","D. Đất khô"],"correct":0,"explanation":"Đáp án đúng là: Đất ở độ sâu 2 – 3 m Vì: Càng xuống sâu, lượng oxy trong đất càng giảm. Nhiều vi sinh vật đất là vi sinh vật hiếu khí, cần oxy để hoạt động. Ở độ sâu 2-3 mét, lượng chất hữu cơ giảm đáng kể, làm giảm nguồn thức ăn cho vi sinh vật. ự thiếu ánh sáng ở độ sâu này làm hạn chế sự phát triển của chúng. Tham khảo:","reference":"Mục 2.4.1.2."},{"id":41,"text":"Thành phần gây ô nhiễm đất do chất phế thải sinh hoạt thường ở những dạng nào ?","answers":["A. Chất rắn và chất khí","B. Chất rắn và chất lỏng","C. Chất rắn và vi sinh vật","D. Chất  lỏng và chất khí"],"correct":1,"explanation":"Đáp án đúng là: Chất rắn và chất lỏng Vì: Vì chất thải rắn khó phân hủy, chứa nhiều chất độc hại; chất thải lỏng dễ dàng thấm sâu vào lòng đất, lan rộng và gây ô nhiễm trên diện rộng và chứa nhiều chất độc hại gây ô nhiễm môi trường và ảnh hưởng đến môi trường và sức khỏe con người, động vật Tham khảo:","reference":"Mục 2.5.1."},{"id":42,"text":"Nguồn gốc hữu cơ của muối Clo","answers":["A. Từ các chất thải của nhà máy hoá chất","B. Từ các hợp chất Clo trong đất","C. Từ phân, nước tiểu gia súc và chất phế thải sinh hoạt","D. Tất cả các yếu tố"],"correct":2,"explanation":"Đáp án đúng là: Từ phân, nước tiểu gia súc và chất phế thải sinh hoạt Vì: Từ phân, nước tiểu gia súc và chất phế thải sinh hoạt, khi phân hủy các chất thải này có thể giải phóng clo hữu cơ vào môi trường. Tham khảo:","reference":"Mục 2.5.1."},{"id":43,"text":"Nhóm vi sinh vật nào thường xuyên có mặt trong đất ?","answers":["A. Nhóm vi sinh vật gây bệnh","B. Nhóm vi sinh vật hiếu khí","C. Nhóm vi sinh vật yếm khí","D. Nhóm vi sinh vật cố định đạm"],"correct":3,"explanation":"Đáp án đúng là: Nhóm vi sinh vật cố định đạm Vì: Vì để duy trì độ phì nhiêu của đất, cung cấp nitơ cho cây trồng và đảm bảo sự cân bằng của chu trình nitơ. Tham khảo:","reference":"Mục 2.3.3."},{"id":44,"text":"Quá trình tự rửa sạch Clo trong đất ở độ sâu 1m phải cần đến","answers":["A. 1 năm","B. 3 năm","C. 4 năm","D. 5 năm"],"correct":1,"explanation":"Đáp án đúng là: 3 năm Vì: Vì Clo là một nguyên tố tương đối ít di động trong đất, đặc biệt là khi nó liên kết với các chất hữu cơ hoặc khoáng chất. Do đó, khi clo xâm nhập vào đất, nó có xu hướng tích tụ tại vị trí xâm nhập hoặc di chuyển chậm theo chiều sâu. Tham khảo:","reference":"Mục 2.3.3."},{"id":45,"text":"Chỉ tiêu nào chứng tỏ đất đã ở giai đoạn cuối cùng của quá trình nhiễm bẩn?","answers":["A. H 2 S","B. Cl 2","C. NO 3","D. NO 2"],"correct":2,"explanation":"Đáp án đúng là: NO 3 Vì: Nitrat là một ion hòa tan cao, dễ dàng bị rửa trôi khỏi đất bởi nước mưa hoặc nước tưới. Do đó, sự hiện diện của nitrat trong đất có thể cho thấy rằng quá trình phân giải các hợp chất hữu cơ chứa nitơ đã diễn ra từ lâu, và nitrat đã có thời gian để tích tụ. Tham khảo:","reference":"Mục 2.3.3."},{"id":46,"text":"Loại đất nào bất lợi cho vi sinh sinh vật phát triển","answers":["A. Đất nhiều mùn và chất hữu cơ","B. Đất thoáng khí","C. Đất khô hoặc ngập nước","D. Đất có độ ẩm vừa phải"],"correct":2,"explanation":"Đáp án đúng là: Đất khô hoặc ngập nước Vì: Đất khô hạn làm giảm độ ẩm cần thiết cho các hoạt động sinh lý của vi sinh vật, bao gồm cả sự phân hủy chất hữu cơ và chu trình dinh dưỡng. Đất ngập nước thiếu oxy, tạo ra môi trường kỵ khí. Trong điều kiện thiếu oxy, hoạt động của vi sinh vật hiếu khí bị ức chế, và các quá trình sinh học quan trọng như nitrat hóa bị chậm lại. Tham khảo:","reference":"Mục 2.4.1.2"},{"id":47,"text":"Hàm lượng chất nào tăng cao trong đất chứng tỏ đất bị nhiễm bẩn vô cơ hoặc hữu cơ.","answers":["A. NO 3","B. Cl 2","C. NO 2","D. H 2 S"],"correct":1,"explanation":"Đáp án đúng là: Cl 2 Vì: Cl 2 có nguồn gốc vô cơ: Nước thải công nghiệp, Muối khoáng, Các hóa chất chứa clo, như thuốc tẩy hoặc chất khử trùng. Cl 2 có nguồn gốc hữu cơ bao gồm: Thuốc trừ sâu và thuốc diệt cỏ. Một số chất thải hữu cơ, như chất thải từ ngành công nghiệp nhựa hoặc dược phẩm, có thể chứa clo. Tham khảo:","reference":"Mục 2.3.3."},{"id":48,"text":"Sự phân giải các chất hữu cơ trong điểu kiện........sẽ sản sinh nhiều CH 4 , NH 3 , H 2 S","answers":["A. Hiếu khí tuỳ tiện","B. Yếm khí","C. Hiếu khí","D. Yếm khí tuỳ tiện"],"correct":1,"explanation":"Đáp án đúng là: Yếm khí Vì: Vì khi không có oxy, vi sinh vật yếm khí (kỵ khí) phải sử dụng các chất khác thay thế oxy để phân giải chất hữu cơ. Quá trình này tạo ra các sản phẩm phụ khác nhau, bao gồm CH 4 , NH 3 , và H 2 S. Tham khảo:","reference":"Mục 2.2.2."},{"id":49,"text":"Đất có mối liên quan chặt chẽ đến khí hậu, nguồn nước, chuồng trại, bãi chăn thả, cây thức ăn  v.v... Đất cũng là môi trường ......... nên ảnh hưởng lớn đến  dịch bệnh và sức khoẻ vật nuôi","answers":["A. Chứa nhiều chất độc","B. Chứa nhiều trứng giun sán","C. Chứa nhiều mầm bệnh","D. Chứa nhiều vi khuẩn"],"correct":2,"explanation":"Đáp án đúng là: Chứa nhiều mầm bệnh Vì: Vì đất là môi trường sống của nhiều loại VSV trong đó có VSV gây bệnh, bao gồm vi khuẩn, nấm, virus, và ký sinh trùng. Tham khảo:","reference":"Mục 2.1."},{"id":50,"text":"Sự biến đổi của nhiệt độ của đất sẽ ảnh hưởng đến.....","answers":["A. Quá trình điều tiết nhiệt của cơ thể gia súc","B. Quá trình tự rửa sạch của đất","C. Quá trình hoạt động của vi sinh vật","D. Quá trình oxy hoá các chất hữu cơ"],"correct":0,"explanation":"Đáp án đúng là: Quá trình điều tiết nhiệt của cơ thể gia súc Vì: Vì Nhiệt độ không khí là một yếu tố quan trọng ảnh hưởng đến quá trình điều tiết nhiệt của cơ thể gia súc. Tham khảo:","reference":"Mục 2.2.3."},{"id":51,"text":"Nước nhiễm hợp chất vô cơ Mn, Fe cặn sẽ có màu :","answers":["A. Xanh lục","B. Hơi xám","C. Trắng","D. Vàng nâu"],"correct":3,"explanation":"Đáp án đúng là: Vàng nâu Vì: Vì do các phản ứng hóa học xảy ra khi chúng tiếp xúc với oxy trong không khí. Tham khảo:","reference":"Mục 3.3.2."},{"id":52,"text":"Những vùng đất có nhiều quặng sắt và muối lưu huỳnh thì nước ngầm có đặc điểm:","answers":["A. Màu vàng, mùi hôi","B. Màu vàng, mùi tanh","C. Màu đen, mùi hôi","D. Màu đen, mùi tanh"],"correct":1,"explanation":"Đáp án đúng là: Màu vàng, mùi tanh Vì: Do sự hòa tan sắt, sự hình thành khí H 2 S và các phản ứng hóa học giữa sắt và lưu huỳnh. Tham khảo:","reference":"Mục 3.2.2."},{"id":53,"text":"Tổng số vi khuẩn hiếu khí cho phép trong nước giếng :","answers":["A. 200 – 300 vi khuẩn/ml","B. 300 – 400 vi khuẩn/ml","C. 100 – 200 vi khuẩn/ml","D. 100 – 1000 vi khuẩn/ml"],"correct":3,"explanation":"Đáp án đúng là: 100 – 1000 vi khuẩn/ml Vì: Vì Nước giếng bị ô nhiễm vi khuẩn có thể gây ra các bệnh đường ruột và các vấn đề sức khỏe khác. Tham khảo:","reference":"Mục 3.5."},{"id":54,"text":"Nhiệt độ nước uống thích hợp đối với gia súc non là :","answers":["A. Từ 30 – 35 o C","B. Từ 22 – 28 o C","C. Từ 28 – 30 o C","D. Từ 20 – 25 o C"],"correct":0,"explanation":"Đáp án đúng là: Từ 30 – 35 o C Vì: Vì đối với gia súc non trong những ngày đầu đời, khi chúng chưa có khả năng điều chỉnh nhiệt độ cơ thể tốt, dẫn đến dễ mắc bệnh Tham khảo:","reference":"Mục 2.2.3."},{"id":55,"text":"Độ cứng vĩnh cửu của nước........","answers":["A. Do các muối Ca++, Mg++ quyết định","B. Chủ yếu do các muối sulfat hoà tan","C. Do các loại muối trên","D. Chủ yếu do các muối bicacbonat hoà tan"],"correct":1,"explanation":"Đáp án đúng là: Chủ yếu do các muối sulfat hoà tan Vì: Do các muối sunfat, clorua và nitrat của canxi và magie gây ra. Không thể loại bỏ bằng cách đun sôi Tham khảo:","reference":"Mục 3.4.7."},{"id":56,"text":"Nước có nhiều Fe(HCO 3 ) 2 có vị:","answers":["A. Chua","B. Đắng","C. Tanh","D. Chát"],"correct":3,"explanation":"Đáp án đúng là: Chát Vì: Vì vị chát trong nước có nhiều Fe(HCO 3 ) 2 là do sự kết hợp của các phản ứng hóa học, bao gồm thủy phân, oxy hóa sắt và sự hiện diện của các ion kim loại khác. Tham khảo:","reference":"Mục 3.3.4."},{"id":57,"text":"Nước có vai trò","answers":["A. Tham gia vào quá trình trao đổi chất, chuyển hoá các chất","B. Cả 3 ý đều đúng","C. Điều hoà thân nhiệt","D. Cân bằng chất điện giải, thải chất độc ra ngoài"],"correct":1,"explanation":"Đáp án đúng là: Cả 3 ý đều đúng Vì: Tham gia vào quá trình trao đổi chất, chuyển hoá các chất; Cân bằng chất điện giải, thải chất độc ra ngoài và điều hòa thân nhiệt Tham khảo:","reference":"Mục 3.1."},{"id":58,"text":"Chọn đáp án sai trong câu sau: Quá trình tự rửa sạch của nước:","answers":["A. Phải có khoảng thời gian nhất định","B. Phải có nhiệt độ nhất định","C. Phải có quãng đường nhất định","D. Chất hữu cơ bị chuyển thành những chất vô cơ đơn giản"],"correct":1,"explanation":"Đáp án đúng là: Phải có nhiệt độ nhất định Vì: Nhiệt độ không liên quan đến quá trình tự rửa sạch của nước Tham khảo:","reference":"Mục 3.9.2."},{"id":59,"text":"Nước có nhiều Fe(HCO 3 ) 2 có màu:","answers":["A. Đỏ gạch","B. Hồng nhạt","C. Vàng nâu","D. Xanh lục"],"correct":2,"explanation":"Đáp án đúng là: Vàng nâu Vì: Vì do quá trình oxy hóa sắt trong nước tạo ra một chất kết tủa có màu vàng nâu. Mặt khác Fe(OH) 3 là một chất keo, tạo thành các hạt nhỏ lơ lửng trong nước. Các hạt này tán xạ ánh sáng, khiến nước có màu vàng nâu. Tham khảo:","reference":"Mục 3.3.2."},{"id":60,"text":"Độ oxy hoá của nước là","answers":["A. Nhu cầu tiêu thu oxy để oxy hoá các chất vô cơ","B. Lượng oxy hoà tan trong nước","C. Lượng oxy tiêu hao dùng để oxy hoá các chất hữu cơ trong nước","D. Nhu cầu tiêu thụ oxy sinh học"],"correct":2,"explanation":"Đáp án đúng là: Lượng oxy tiêu hao dùng để oxy hoá các chất hữu cơ trong nước Vì: Vì Độ oxy hóa của nước là lượng oxy cần thiết để oxy hóa các chất hữu cơ và một số chất vô cơ có trong nước. Đây cũng là  một chỉ số quan trọng để đánh giá mức độ ô nhiễm của nước, đặc biệt là ô nhiễm hữu cơ. Tham khảo:","reference":"Mục 3.4.8."},{"id":61,"text":"Mỗi năm nước mưa cung cấp lượng N vô cơ cho 1 ha đất là :","answers":["A. 10,35 kg N","B. 15 kg N","C. 10,5 kg N","D. 10 kg N"],"correct":0,"explanation":"Đáp án đúng là: 10,35 kg N Vì: Vì trong cơn giông có sấm, sét, nước mưa thường có chứa một tỷ lệ khá cao gốc NO 3 phân ly Tham khảo:","reference":"Mục 3.2.1."},{"id":62,"text":"Màu thật của nước là do","answers":["A. Các hợp chất nhiễm bẩn còn đang lơ lửng","B. Các hợp chất vô cơ, hữu cơ hoà tan","C. Cả 3 loại hợp chất đều đúng","D. Các hợp chất ô nhiễm hoà tan"],"correct":1,"explanation":"Đáp án đúng là: Các hợp chất vô cơ, hữu cơ hoà tan Vì: Trong nước có các hợp chất hòa tan như các ion kim loại như sắt, mangan có thể tạo ra màu vàng, đỏ hoặc nâu trong nước. Các chất hữu cơ tự nhiên như tanin, lignin, axit humic từ thực vật phân hủy có thể tạo ra màu vàng, nâu hoặc đen. Các hợp chất hòa tan này hấp thụ và phản xạ ánh sáng ở các bước sóng khác nhau, từ đó tạo ra màu sắc cho nước. Tham khảo:","reference":"Mục 3.3.2."},{"id":63,"text":"Độ cứng tạm thời của nước....","answers":["A. Chủ yếu do các muối bicacbonat hoà tan","B. Chủ yếu do các muối sulfat hoà tan","C. Do các loại muối trên","D. Do các muối Ca++, Mg++ quyết định"],"correct":0,"explanation":"Đáp án đúng là: Chủ yếu do các muối bicacbonat hoà tan Vì: Độ cứng tạm thời của nước chủ yếu là do các muối bicacbonat hòa tan, cụ thể là canxi bicacbonat (Ca(HCO 3 ) 2 ) và magie bicacbonat (Mg(HCO 3 ) 2 ). Tham khảo:","reference":"Mục 3.4.7."},{"id":64,"text":"Trong nước ngầm lượng oxy hoà tan","answers":["A. Nhiều hơn lượng CO 2","B. Rất thấp","C. Rất cao","D. Ít hơn lượng CO 2"],"correct":1,"explanation":"Đáp án đúng là: Rất thấp Vì: Vì nước ngầm nằm sâu trong lòng đất, hạn chế tiếp xúc trực tiếp với không khí. Điều này làm giảm khả năng oxy từ không khí hòa tan vào nước. Tham khảo:","reference":"Mục 3.2.2."},{"id":65,"text":"Tại sao nước có nhiều phù sa sẽ làm cho nước đục","answers":["A. Vì đất phù xa gồm các hạt đất, cát sét và các chất hữu cơ bị xói mòn từ đất đá và được dòng nước cuốn trôi","B. Vì đất phù xa có nhiều chất hữu cơ","C. Vì đất phù xa có nhiều chất hữu cơ và vô cơ","D. Vì đất phù xa gồm các hạt đất, cát sét"],"correct":0,"explanation":"Đáp án đúng là: Vì đất phù xa gồm các hạt đất, cát sét và các chất hữu cơ bị xói mòn từ đất đá và được dòng nước cuốn trôi Vì: Phù sa bao gồm các hạt đất, cát, sét và các chất hữu cơ nhỏ bé bị xói mòn từ đất đá và được dòng nước cuốn trôi. Khi các hạt này lơ lửng trong nước, chúng làm tán xạ ánh sáng, khiến nước không còn trong suốt mà trở nên đục Tham khảo:","reference":"Mục 3.2.3.1"},{"id":66,"text":"Số lượng vi khuẩn yếm khí Clostridium perfrigens cho phép trong 100 ml nước giếng :","answers":["A. 10 VK","B. 20VK","C. 30 VK","D. 0 VK"],"correct":0,"explanation":"Đáp án đúng là: 0 VK Vì: Vì sự hiện diện của nó trong nước uống cho thấy sự ô nhiễm phân và có thể gây nguy hiểm cho sức khỏe con người. Tham khảo:","reference":"Mục 3.5."},{"id":67,"text":"Nước sạch có độ pH:","answers":["A. 6,5 – 8","B. 7 – 8","C. < 7","D. 5 – 8,5"],"correct":0,"explanation":"Đáp án đúng là: 6,5 – 8 Vì: Vì Khoảng pH này đảm bảo rằng nước không quá axit hoặc quá kiềm, giúp bảo vệ sức khỏe và tránh gây ăn mòn đường ống dẫn nước. Tham khảo:","reference":"Mục 3.4.1."},{"id":68,"text":"Có mấy biện pháp tiêu độc khử trùng nước :","answers":["A. 7","B. 4","C. 5","D. 6"],"correct":2,"explanation":"Đáp án đúng là: 5 Vì: (1) Dùng Clo (Cl 2 ) hoặc Hypochlorit canxi Ca(OCl) 2 ; (2) Khử trùng nước bằng ozon (O 3 ); (3) Dùng tia tử ngoại; Dùng nhiệt độ; Phương pháp lọc nước cơ học Tham khảo:","reference":"Mục 3.7.7."},{"id":69,"text":"Tính chất của nước mưa","answers":["A. Phụ thuộc vào tính chất của không khí","B. Tất cả các yếu tố đều đúng","C. Chứa nhiều hợp chất kim loại","D. Là nguồn nước sạch nhất có thể sử dụng trực tiếp"],"correct":0,"explanation":"Đáp án đúng là: Phụ thuộc vào tính chất của không khí Vì: Nước mưa trong quá trình di chuyển qua không khí sẽ hòa tan các chất trong không khí, vì thế tính chất không khí sẽ quyết định đến tính chất của nước mưa Tham khảo:","reference":"Mục 3.2.1"},{"id":70,"text":"Nồng độ cần thiết để đảm bảo tiêu độc, khử trùng có hiệu quả bằng nước Ozon (O 3 ) là:","answers":["A. Từ 1 – 5 mg/l nước","B. Từ 1 – 3 mg/l nước","C. Từ 1 – 2 mg/l nước","D. Từ 5 – 8 mg/l nước"],"correct":0,"explanation":"Đáp án đúng là: Từ 1 – 5 mg/l nước Vì: Vì Ở nồng độ 1-5 mg/l, Ozon có thể tiêu diệt hầu hết các loại vi sinh vật gây bệnh, bao gồm vi khuẩn, virus, nấm và bào tử. Nó cũng có khả năng loại bỏ các chất hữu cơ gây mùi và màu trong nước. Tham khảo:","reference":"Mục 3.7.7."},{"id":71,"text":"Số lượng vi khuẩn E.coli cho phép trong 100 ml nước giếng:","answers":["A. 40 – 60 VK","B. 80 – 100 VK","C. < 20 VK","D. 20 – 40 VK"],"correct":2,"explanation":"Đáp án đúng là: < 20 VK Vì: Vì E.coli là một loại vi khuẩn đường ruột, sự hiện diện của nó trong nước giếng cho thấy sự ô nhiễm phân và có thể gây ra các bệnh đường ruột nguy hiểm. Tham khảo:","reference":"Mục 3.5."},{"id":72,"text":"nước ở trạng thái tĩnh (không chảy)","answers":["A. Thường có hàm lượng chất hữu cơ cao hơn so với nước cháy","B. Thường có hàm lượng chất vô cơ cao hơn so với nước cháy","C. Thường có hàm lượng chất hữu cơ thấp hơn so với nước cháy","D. Thường có hàm lượng chất vô cơ thấp hơn so với nước cháy"],"correct":0,"explanation":"Đáp án đúng là: Thường có hàm lượng chất hữu cơ cao hơn so với nước cháy Vì: Trong nước tĩnh, các chất hữu cơ từ lá cây rụng, xác động vật, chất thải sinh hoạt... dễ dàng lắng đọng và tích tụ lại. Do không có dòng chảy để cuốn trôi, các chất này sẽ phân hủy tại chỗ. Tham khảo:","reference":"Mục 3.5."},{"id":73,"text":"Nước có màu vàng nâu là do:","answers":["A. Có nhiều vi sinh vật","B. Nhiễm Fe(HCO 3 ) 2","C. Đất sét, phù sa với nồng độ cao","D. Tất cả các yếu tố đều đúng"],"correct":1,"explanation":"Đáp án đúng là: Nhiễm Fe(HCO 3 ) 2 Vì: Vì do quá trình oxy hóa sắt trong nước tạo ra một chất kết tủa có màu vàng nâu. Mặt khác Fe(OH) 3 là một chất keo, tạo thành các hạt nhỏ lơ lửng trong nước. Các hạt này tán xạ ánh sáng, khiến nước có màu vàng nâu. Tham khảo:","reference":"Mục 3.3.2."},{"id":74,"text":"Loại nước nào có hàm lượng Ca++, Mg++ ít nhất","answers":["A. Nước mưa","B. Cả 3 loại đều sai","C. Nước ngầm","D. Nước bề mặt"],"correct":0,"explanation":"Đáp án đúng là: Nước mưa Vì: Vì nước mưa là nước mềm do hàm lượng  Ca++, Mg++ ít nhất Tham khảo:","reference":"Mục 3.2.1."},{"id":75,"text":"Nước mưa còn được gọi là nước mềm vì trong nước mưa có:","answers":["A. Nồng độ Ca++, Mg++  ít, các muối hoà tan nhiều","B. Nồng độ Ca++, Mg++  nhiều, các muối hoà tan ít","C. Nồng độ Ca++, Mg++  và các muối hoà tan nhiều","D. Nồng độ Ca++, Mg++  và các muối hoà tan ít"],"correct":3,"explanation":"Đáp án đúng là: Nồng độ Ca++, Mg++  và các muối hoà tan ít Vì: Nó có hàm lượng khoáng chất hòa tan thấp, đặc biệt là canxi và magiê. Tham khảo:","reference":"Mục 3.2.1."},{"id":76,"text":"Chọn đáp án sai trong câu sau: Nguyên tắc quản lý vệ sinh chuồng trại:","answers":["A. Xây dựng nội quy vệ sinh trong chuồng nuôi","B. Vệ sinh thú y đối với môi trường chăn nuôi","C. Gần đường quốc lộ để đi lại thuận tiện","D. Xây dựng nhà cách ly và phòng kỹ thuật thú y"],"correct":2,"explanation":"Đáp án đúng là: Gần đường quốc lộ để đi lại thuận tiện Vì: Chuồng trại xây dựng gần đường quốc lộ sẽ là nguy cơ tiếp xúc với dịch bệnh cho vật nuôi Tham khảo:","reference":"Mục 4.1."},{"id":77,"text":"Kích thước trung bình của hố huỷ xác gia cầm:","answers":["A. Kích thước mỗi chiều 1 m, độ sâu 2 – 3 m","B. Kích thước mỗi chiều 2 m, độ sâu 1,0 – 1,5 m","C. Kích thước mỗi chiều 1 m, độ sâu 1,5 – 2m","D. Kích thước mỗi chiều 2 m, độ sâu 1,5 – 2m"],"correct":3,"explanation":"Đáp án đúng là: Kích thước mỗi chiều 2 m, độ sâu 1,5 – 2m Vì: Vì với kích thước này mới đảm bảo mầm bệnh không thể phát sinh gây bệnh cho vật nuôi khác Tham khảo:","reference":"Mục 4.7.1"},{"id":78,"text":"Kiểu rãnh chìm có nắp kín gọn gàng, ít gây ô nhiễm, thiết kế phải khoa học, và hạn chế lớn là","answers":["A. Không diệt được trứng giun sán","B. Xử lý vệ sinh phức tạp trong trường hợp bị tắc","C. Chi phí xây dựng tốn kém","D. Không có ánh sáng mặt trời để diệt khuẩn"],"correct":1,"explanation":"Đáp án đúng là: Xử lý vệ sinh phức tạp trong trường hợp bị tắc Vì: Vì rãnh chìm nằm ngầm bên dưới Tham khảo:","reference":"Mục 4.5.2.5."},{"id":79,"text":"Những ngày đầu sau khi sinh trong ổ đẻ cho lợn nái phải có chụp sưởi để đảm bảo nhiêt độ thích hợp là:","answers":["A. 35 – 37 o C","B. 28 – 33 o C","C. 27 – 28 o C","D. 33 – 35 o C"],"correct":1,"explanation":"Đáp án đúng là: 28 – 33 o C Vì: Vì lợn con mới từ trong bụng mẹ ra ngoài môi trường nên khả năng điều tiết thân nhiệt còn kém. Nên nhiệt độ phải duy trì từ 28 – 33 o C Tham khảo:","reference":"Mục 4.7.4."},{"id":80,"text":"Địa điểm xây dựng chuồng trại phải được cấp có thẩm quyền cho phép và theo...","answers":["A. Địa hình khu vực","B. Hướng Đông – Nam hoặc chính Nam","C. Quy hoạch của Nhà nước","D. Quy hoạch của chính quyền địa phương"],"correct":3,"explanation":"Đáp án đúng là: Quy hoạch của chính quyền địa phương Vì: Theo Luật chăn nuôi 2018 quy định Tham khảo:","reference":"Mục 4.1."},{"id":81,"text":"Kích thước chỗ nằm của trâu, bò trên 6 tháng tuổi:","answers":["A. Chiều dài 160 – 170 cm; chiều rộng 115 – 125 cm","B. Chiều dài 170 – 190 cm; Chiều rộng 110 – 125 cm","C. Chiều dài 140 – 150 cm; chiều rộng 80 – 100 cm","D. Chiều dài 160 – 170 cm; chiều rộng 105 – 115 cm"],"correct":2,"explanation":"Đáp án đúng là: Chiều dài 140 – 150 cm; chiều rộng 80 – 100 cm Vì: Theo quy chuẩn về chuồng nuôi Tham khảo:","reference":"Mục 4.7.1"},{"id":82,"text":"Loại vật liệu nào tương đối lạnh trong mùa đông, nóng trong mùa hè ?","answers":["A. Gỗ","B. Gạch đỏ","C. Tre","D. Đá"],"correct":3,"explanation":"Đáp án đúng là: Đá Vì: Vì Đá là vật liệu có tính dẫn nhiệt cao Tham khảo:","reference":"Mục 4.5.2.2."},{"id":83,"text":"Kích thước chỗ nằm của trâu, bò trưởng thành, bò sữa:","answers":["A. Chiều dài 160 – 170 cm; chiều rộng 115 – 125 cm","B. Chiều dài 170 – 190 cm; Chiều rộng 110 – 125 cm","C. Chiều dài 140 – 150 cm; chiều rộng 80 – 100 cm","D. Chiều dài 160 – 170 cm; chiều rộng 105 – 115 cm"],"correct":3,"explanation":"Đáp án đúng là: Chiều dài 160 – 170 cm; chiều rộng 105 – 115 cm Vì: Theo quy chuẩn về chuồng nuôi Tham khảo:","reference":"Mục 4.7.1"},{"id":84,"text":"Nền chuồng bằng xi măng: Đã khắc phục được một số hạn chế của nền chuồng bằng đá, nhưng không phải loại nền chuồng ưu việt với sức khoẻ gia súc, để chống ẩm và lạnh phải ...","answers":["A. Cả 3 biện pháp trên","B. Lót chuồng bằng rơm hay cỏ khô và thường xuyên thay đổi","C. Sưởi ấm cho gia súc vào mùa đông","D. Vệ sinh, tiêu độc khử trùng nền chuồng thường xuyên"],"correct":1,"explanation":"Đáp án đúng là: Lót chuồng bằng rơm hay cỏ khô và thường xuyên thay đổi Vì: Nền chuồng bằng xi măng vào mùa Đông vẫn làm cho gia súc dễ bị mất nhiệt do lạnh. Tham khảo:","reference":"Mục 4.5.2.2."},{"id":85,"text":"Diện tích nền chuồng nuôi nhốt với quy mô đàn trung bình (100 con) là bao nhiêu ?","answers":["A. 0,40 m 2 /gà","B. 0,45 m 2 /gà","C. 0,25 m 2 /gà","D. 0,35 m 2 /gà"],"correct":3,"explanation":"Đáp án đúng là: 0,35 m 2 /gà Vì: Ở mật độ này mới đảm bảo cho gà sinh trưởng, phát triển tốt. Tham khảo:","reference":"Mục 3.4.7."},{"id":86,"text":"Đối với gà sinh sản nuôi trên sàn gỗ, mật độ trung bình","answers":["A. 0,165 m 2 sàn/gà","B. 0,175 m 2 sàn/gà","C. 0,155 m 2 sàn/gà","D. 0,185 m 2 sàn/gà"],"correct":3,"explanation":"Đáp án đúng là: 0,185 m 2 sàn/gà Vì: Vì ở mật độ này sẽ đảm bảo cho gà có thể sinh trưởng tốt, không ảnh hưởng đến sức sản xuất của vật nuôi Tham khảo:","reference":"Mục 4.7.4.1"},{"id":87,"text":"Chọn đáp án sai trong câu sau: Vật liệu kiến trúc phải có điều kiện...","answers":["A. Có sự dẫn nhiệt thấp","B. Vững chắc, có thể sử dụng được lâu dài","C. Có tính hút ẩm","D. Có tính thông thoáng khí"],"correct":2,"explanation":"Đáp án đúng là: Có tính hút ẩm Vì: Vật liệu kiến trúc có tính hút ẩm sẽ làm cho ẩm độ chuồng nuôi tăng, khó vệ sinh, là điều kiện thuận lợi cho mầm bệnh phát triển Tham khảo:","reference":"Mục 4.5.1."},{"id":88,"text":"Nền chuồng bằng gỗ thường dùng cho loại vật nuôi nào ?","answers":["A. Trâu, bò, ngựa","B. Ngựa, lợn, dê","C. Trâu, bò, lợn","D. Ngựa, dê, gà"],"correct":3,"explanation":"Đáp án đúng là: Ngựa, dê, gà Vì: Những động vật trên có khối lượng cơ thể nhẹ, đặc điểm phân của động vật khác với những động vật còn lại (phân dạng khô) Tham khảo:","reference":"Mục 4.5.2.2."},{"id":89,"text":"Hướng Đông – Nam hoặc chính Nam có nhiều ưu điểm về ánh nắng mặt trời buổi sáng, nhiệt độ không khí và...","answers":["A. Tránh nóng trong mùa hè","B. Giảm bệnh ký sinh trùng cho vật nuôi","C. Độ thông thoáng tự nhiên","D. Tránh rét trong mùa đông"],"correct":2,"explanation":"Đáp án đúng là: Độ thông thoáng tự nhiên Vì: Tận dụng được gió Đông-Nam để thông gió tự nhiên, giúp không gian luôn thoáng đãng. Hướng Nam cũng đón được gió từ nhiều hướng khác nhau, giúp không gian thông thoáng. Tham khảo:","reference":"Mục 4.2.2."},{"id":90,"text":"Hướng chuồng có ảnh hưởng lớn tới...","answers":["A. Độ ẩm trong chuồng nuôi","B. Nhiệt độ chuồng nuôi","C. Ánh sáng trong chuồng nuôi","D. Tiểu khí hậu chuồng nuôi"],"correct":3,"explanation":"Đáp án đúng là: Tiểu khí hậu chuồng nuôi Vì: Vì tiểu khí hậu chuồng nuôi bao gồm cả nhiệt độ, ẩm độ và ánh sáng của chuồng nuồi. Tham khảo:","reference":"Mục 4.2.2."},{"id":91,"text":"Nếu địa thế bắt buộc, có thể hướng chuồng lệch sang phía Đông Bắc một góc nhưng không vượt quá...","answers":["A. 0 0 C","B. 30 0 C","C. 35 0 C","D. 15 0 C"],"correct":1,"explanation":"Đáp án đúng là: 30 0 C Vì: Nếu vượt quá một góc 30 độ C sẽ là điều kiện bất lợi cho vật nuôi do có gió mùa đông bắc Tham khảo:","reference":"Mục 4.2.2."},{"id":92,"text":"Nền chuồng phải cao hơn rãnh nước thải ở bên ngoài tối thiểu...","answers":["A. 35 cm","B. 15 cm","C. 30 cm","D. 20 cm"],"correct":3,"explanation":"Đáp án đúng là: 20 cm Vì: Nếu nền chuồng độ dốc nhỏ hơn 20cm sẽ làm cho việc vệ sinh chuồng trại, thoát nước trong chuồng nuôi khó Tham khảo:","reference":"Mục 4.5.2.2."},{"id":93,"text":"Khoảng cách giữa các dãy chuồng so với chiều cao của chuồng tối thiểu","answers":["A. Bằng 1,5 – 2 lần","B. Bằng 1 – 1,5 lần","C. Bằng 2,5 – 3 lần","D. Bằng 2 – 2,5 lần"],"correct":3,"explanation":"Đáp án đúng là: Bằng 2 – 2,5 lần Vì: Ở khoảng cách này mới đảm bảo phòng chống dịch bệnh Tham khảo:","reference":"Mục 4.1.2."},{"id":94,"text":"Chọn đáp án sai: Tác dụng của ánh nắng mặt trời buổi sáng ...","answers":["A. Giúp hệ vi sinh vật phát triển","B. Giúp gia súc tăng cường hoạt động trao đổi chất","C. Tổng hợp vitamin D","D. Hạn chế, tiêu diệt mầm bệnh"],"correct":0,"explanation":"Đáp án đúng là: Giúp hệ vi sinh vật phát triển Vì: Ánh nắng có tác dụng diệt khuẩn, diệt các mầm bệnh Tham khảo:","reference":"Mục 4.2.2."},{"id":95,"text":"Chất liệu và kiến trúc tường phải đảm bảo chắc chắn, hợp lý để...","answers":["A. Dễ dàng vệ sinh, tiêu độc khử trùng","B. Giảm chi phí xây dựng và sửa chữa","C. Hạn chế sự xâm nhập của động vật truyền bệnh","D. Bảo vệ gia súc khi thời tiết bất thường"],"correct":0,"explanation":"Đáp án đúng là: Dễ dàng vệ sinh, tiêu độc khử trùng Vì: Nếu sử dụng các vật liệu không phù hợp sẽ ảnh hưởng đến quá trình vệ sinh, tiêu độc khử trùng, là nguyên nhân làm phát sinh mầm bệnh trong chuồng nuôi Tham khảo:","reference":"Mục 4.5.1."},{"id":96,"text":"Kiểu rãnh nổi dễ bảo quản vệ sinh, thuận tiện khi thông tắc, lợi dụng được ánh sáng mặt trời để diệt khuẩn nhưng có hạn chế lớn là:","answers":["A. Mất nhiều diện tích vận động","B. Mùi hôi thối gây ô nhiễm môi trường","C. Gia súc vận động dễ bị vướng ngã","D. Mất cảnh quan trong khu vực chăn nuôi"],"correct":1,"explanation":"Đáp án đúng là: Mùi hôi thối gây ô nhiễm môi trường Vì: Do rãnh nổi lộ thiên trên mặt đất. Tham khảo:","reference":"Mục 4.5.2.5."},{"id":97,"text":"Nền chuồng và chỗ nằm của gia súc phải khô ráo, bằng phẳng, chắc chắn và không được trơn, thuận tiện cho","answers":["A. Vệ sinh, tiêu độc khử trùng","B. Xây dựng và sửa chữa","C. Gia súc ra vào và người chăn nuôi thao tác","D. Tất cả các ý đều sai"],"correct":0,"explanation":"Đáp án đúng là: Vệ sinh, tiêu độc khử trùng Vì: Nền chuồng làm bằng các vật liệu khó vệ sinh sẽ ảnh hưởng đến quá trình vệ sinh, tiêu độc khử trùng chuồng trại, là nguyên nhân phát sinh dịch bệnh","reference":"Mục 4.5.2.2."},{"id":98,"text":"Hố ủ hặc hầm biogas phải bố trí cách chuồng nuôi ít nhất:","answers":["A. 40 m","B. 60 m","C. 30 m","D. 50 m"],"correct":3,"explanation":"Đáp án đúng là: 50 m Vì: Vì hố ủ hoặc hầm biogas là nơi có nhiều mầm bệnh, đề phòng bệnh thì phải đảm bảo khoảng cách tối thiểu. Tham khảo:","reference":"Mục 4.5.2.6."},{"id":99,"text":"Hố ủ hặc hầm biogas phải bố trí cách nguồn nước sinh hoạt ít nhất","answers":["A. 80m","B. 90m","C. 70m","D. 100m"],"correct":3,"explanation":"Đáp án đúng là: 100m Vì: 100m là khoảng cách tối thiểu để đảm bảo không gây ô nhiễm nguồn nước do hố ủ hoặc hầm Biogas gây ra Tham khảo:","reference":"Mục 4.5.2.6."},{"id":100,"text":"Chỉ tiêu góc thấu quang cho ta biết khả năng thực tế...","answers":["A. Ánh sáng chiếu vào giữa chuồng nuôi","B. Ánh sáng làm thông thoáng chuồng nuôi","C. Ánh sáng chiếu thẳng vào chuồng nuôi","D. Ánh sáng tự nhiên chiếu vào trong chuồng nuôi"],"correct":3,"explanation":"Đáp án đúng là: Ánh sáng tự nhiên chiếu vào trong chuồng nuôi Vì: Nó có ý nghĩa trong xây dựng chuồng trại: Góc thấu quang của vật liệu lợp mái, cửa sổ,... cho biết lượng ánh sáng tự nhiên có thể chiếu vào bên trong công trình. Tham khảo:","reference":"Mục 4.3.3."}];
+</script>
+
+<script>
+(function () {
+  var LETTERS = "ABCDEFGHIJ";
+  var container = document.getElementById("questionContainer");
+  var noResults = document.getElementById("noResults");
+  var searchInput = document.getElementById("searchInput");
+  var searchClear = document.getElementById("searchClear");
+  var countEl = document.getElementById("searchCount");
+  var total = QUESTIONS.length;
+
+  /* ── Escape HTML ── */
+  function esc(s) {
+    return String(s)
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;");
+  }
+
+  /* ── Highlight từ khóa ── */
+  function highlight(text, term) {
+    if (!term) return esc(text);
+    var safe = term.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+    return esc(text).replace(
+      new RegExp("(" + safe.replace(/&amp;/g, "&amp;amp;") + ")", "gi"),
+      "<mark>$1</mark>"
+    );
+  }
+
+  /* ── Render 1 câu hỏi ── */
+  function renderQ(q, term) {
+    var answersHtml = q.answers.map(function (ans, i) {
+      var isCorrect = i === q.correct;
+      var cls = "answer-item" + (isCorrect ? " correct" : "");
+      var check = isCorrect ? '<span class="check-mark">&#10003;</span>' : "";
+      return (
+        '<div class="' + cls + '">' +
+        '<span class="answer-letter">' + (LETTERS[i] || i + 1) + ".</span>" +
+        '<span class="answer-text">' + highlight(ans, term) + "</span>" +
+        check +
+        "</div>"
+      );
+    }).join("");
+
+    var feedbackHtml = "";
+    if (q.explanation || q.reference) {
+      feedbackHtml =
+        '<div class="feedback-section">' +
+        (q.explanation
+          ? "<p><strong>Vì: </strong>" + esc(q.explanation) + "</p>"
+          : "") +
+        (q.reference
+          ? "<p><strong>Tham khảo: </strong>" + esc(q.reference) + "</p>"
+          : "") +
+        "</div>";
+    }
+
+    var imagesHtml = "";
+    if (q.images && q.images.length) {
+      imagesHtml =
+        '<div class="q-images">' +
+        q.images.map(function (src) {
+          return (
+            '<img src="' + esc(src) + '" alt="" loading="lazy" ' +
+            'onerror="this.style.display=\'none\'">'
+          );
+        }).join("") +
+        "</div>";
+    }
+
+    return (
+      '<div class="question-block" id="q' + q.id + '">' +
+      '<div class="question-header">' +
+      '<span class="q-badge">Câu ' + q.id + "</span>" +
+      "</div>" +
+      '<div class="question-text">' + highlight(q.text, term) + "</div>" +
+      imagesHtml +
+      '<div class="answers">' + answersHtml + "</div>" +
+      feedbackHtml +
+      "</div>"
+    );
+  }
+
+  /* ── Render danh sách câu hỏi ── */
+  function renderList(filtered, term) {
+    // Xóa các block cũ (giữ lại #noResults)
+    var old = container.querySelectorAll(".question-block");
+    old.forEach(function (el) { el.remove(); });
+
+    if (filtered.length === 0) {
+      noResults.style.display = "block";
+    } else {
+      noResults.style.display = "none";
+      var frag = document.createDocumentFragment();
+      filtered.forEach(function (q) {
+        var div = document.createElement("div");
+        div.innerHTML = renderQ(q, term);
+        frag.appendChild(div.firstChild);
+      });
+      container.appendChild(frag);
+    }
+
+    countEl.innerHTML =
+      "<strong>" + filtered.length + "</strong> / " + total + " câu";
+  }
+
+  /* ── Lọc câu hỏi ── */
+  function doSearch(term) {
+    var t = term.trim().toLowerCase();
+    var filtered = t
+      ? QUESTIONS.filter(function (q) {
+          return (
+            q.text.toLowerCase().includes(t) ||
+            q.answers.some(function (a) { return a.toLowerCase().includes(t); })
+          );
+        })
+      : QUESTIONS;
+
+    searchClear.style.display = term ? "block" : "none";
+    renderList(filtered, term.trim());
+  }
+
+  /* ── Khởi tạo ── */
+  renderList(QUESTIONS, "");
+
+  searchInput.addEventListener("input", function () {
+    doSearch(this.value);
+  });
+  searchClear.addEventListener("click", function () {
+    searchInput.value = "";
+    doSearch("");
+    searchInput.focus();
+  });
+
+  /* ── Scroll to top ── */
+  var scrollBtn = document.getElementById("scrollTopBtn");
+  window.addEventListener("scroll", function () {
+    scrollBtn.style.display = window.scrollY > 320 ? "flex" : "none";
+  }, { passive: true });
+  scrollBtn.addEventListener("click", function (e) {
+    e.preventDefault();
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  });
+})();
+</script>
+</body>
+</html>
